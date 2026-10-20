@@ -1,0 +1,7 @@
+.venv
+data
+out
+fixtures
+fixtures_*
+tests
+**/__pycache__

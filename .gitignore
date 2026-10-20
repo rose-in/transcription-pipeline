@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+data/
+out/
+fixtures/
+fixtures_*/
+
+# form answers, not part of the project
+ANSWERS.md

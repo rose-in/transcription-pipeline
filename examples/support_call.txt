@@ -1,0 +1,15 @@
+[00:00:00] channel_0: Thank you for calling ACME support. This is Sarah. How can I help you today?
+
+[00:00:05] channel_1: Hi Sarah, my internet has been dropping every evening for about a week.
+
+[00:00:10] channel_0: I'm sorry to hear that. Can I get the phone number on the account?
+
+[00:00:15] channel_1: Sure. It's [PHONE].
+
+[00:00:21] channel_0: Thanks, and the email address?
+
+[00:00:23] channel_1: It's [EMAIL]
+
+[00:00:28] channel_0: Perfect. I can see some line errors. I'll schedule a technician for Thursday morning.
+
+[00:00:34] channel_1: That works. Thank you so much.

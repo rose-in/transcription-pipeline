@@ -1,0 +1,4 @@
+2026-10-20 15:53:02,926 INFO stt_pipeline.engines.faster_whisper_engine: loading small on cpu (int8)
+2026-10-20 15:53:03,585 INFO httpx2: HTTP Request: GET https://huggingface.co/api/models/Systran/faster-whisper-small/revision/main "HTTP/1.1 200 OK"
+
+error [unsupported_media]: Unrecognised file type (content sniffing; extension and MIME type are ignored). Supported containers: wav, w64, mp3, aac, flac, ogg, mov, matroska, aiff, amr, asf, caf, au, wv.

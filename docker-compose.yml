@@ -1,0 +1,50 @@
+# Single-box topology: API and GPU workers are separate processes sharing the job DB + blob volume.
+#
+# Every setting that changes the transcript (engine, model, revision, device, compute type, beam,
+# chunking) is part of the engine key. API and workers MUST agree on it, or workers never claim
+# the API's jobs (/readyz says so). Hence one shared anchor, merged into every service.
+x-stt-env: &stt-env
+  STT_ENGINE: faster-whisper
+  STT_DEVICE: cuda
+  STT_COMPUTE_TYPE: float16
+  STT_BEAM_SIZE: "5"
+  STT_CHUNK_SECONDS: "600"
+  # STT_MODEL / STT_MODEL_REVISION come from the image (pinned at build time)
+
+x-worker: &worker
+  build: .
+  command: ["stt", "worker"]
+  volumes: ["stt-data:/data"]
+  restart: unless-stopped
+  stop_grace_period: 30s     # SIGTERM releases the job immediately; another worker resumes it
+  environment:
+    <<: *stt-env
+    STT_BATCH_SIZE: "16"     # throughput-only knob: not part of the engine key
+
+services:
+  api:
+    build: .
+    command: ["stt", "serve", "--host", "0.0.0.0", "--port", "8000"]
+    ports: ["8000:8000"]
+    restart: unless-stopped
+    environment:
+      <<: *stt-env
+      STT_SYNC_MAX_DURATION_SECONDS: "300"
+      STT_MAX_UPLOAD_MB: "1024"
+    volumes: ["stt-data:/data"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/healthz')"]
+
+  # One service per GPU: `--scale` would place every replica on the same device.
+  worker-0:
+    <<: *worker
+    deploy:
+      resources:
+        reservations:
+          devices: [{driver: nvidia, device_ids: ["0"], capabilities: [gpu]}]
+  # worker-1:
+  #   <<: *worker
+  #   deploy: {resources: {reservations: {devices: [{driver: nvidia, device_ids: ["1"], capabilities: [gpu]}]}}}
+
+volumes:
+  stt-data:

@@ -1,0 +1,775 @@
+{
+ "schema_version": "1.0",
+ "language": "en",
+ "language_probability": 0.9963913559913635,
+ "duration_s": 38.024,
+ "text": "Good morning everyone. Let's start with the quarterly review. Revenue grew 12% compared to last quarter, mostly driven by the new subscription tier. Thanks. On the engineering side, we shipped the mobile release on Tuesday, and crash rates dropped below half a percent. Great. What are the main risks for next month? The data migration is the biggest one. We need two more weeks of testing before we can switch over the production database. I can help with that. My team has capacity starting Monday, so we could take over the load testing.",
+ "segments": [
+  {
+   "id": 0,
+   "start": 0.63,
+   "end": 1.67,
+   "text": "Good morning everyone.",
+   "speaker": null,
+   "avg_logprob": -0.09959895767663654,
+   "no_speech_prob": 0.020464887842535973,
+   "compression_ratio": 1.0114942528735633,
+   "flags": [],
+   "words": [
+    {
+     "start": 0.63,
+     "end": 0.93,
+     "word": " Good",
+     "probability": 0.8727155923843384
+    },
+    {
+     "start": 0.93,
+     "end": 1.23,
+     "word": " morning",
+     "probability": 0.9217792749404907
+    },
+    {
+     "start": 1.23,
+     "end": 1.67,
+     "word": " everyone.",
+     "probability": 0.8547031283378601
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "start": 2.25,
+   "end": 3.91,
+   "text": "Let's start with the quarterly review.",
+   "speaker": null,
+   "avg_logprob": -0.09959895767663654,
+   "no_speech_prob": 0.020464887842535973,
+   "compression_ratio": 1.0114942528735633,
+   "flags": [],
+   "words": [
+    {
+     "start": 2.25,
+     "end": 2.51,
+     "word": " Let's",
+     "probability": 0.9861625730991364
+    },
+    {
+     "start": 2.51,
+     "end": 2.73,
+     "word": " start",
+     "probability": 0.9967542290687561
+    },
+    {
+     "start": 2.73,
+     "end": 2.93,
+     "word": " with",
+     "probability": 0.9992966651916504
+    },
+    {
+     "start": 2.93,
+     "end": 3.09,
+     "word": " the",
+     "probability": 0.9946787357330322
+    },
+    {
+     "start": 3.09,
+     "end": 3.45,
+     "word": " quarterly",
+     "probability": 0.9815791845321655
+    },
+    {
+     "start": 3.45,
+     "end": 3.91,
+     "word": " review.",
+     "probability": 0.9977095127105713
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "start": 4.31,
+   "end": 9.49,
+   "text": "Revenue grew 12% compared to last quarter, mostly driven by the new subscription tier.",
+   "speaker": null,
+   "avg_logprob": -0.09959895767663654,
+   "no_speech_prob": 0.020464887842535973,
+   "compression_ratio": 1.0114942528735633,
+   "flags": [],
+   "words": [
+    {
+     "start": 4.31,
+     "end": 4.63,
+     "word": " Revenue",
+     "probability": 0.9912400543689728
+    },
+    {
+     "start": 4.63,
+     "end": 4.85,
+     "word": " grew",
+     "probability": 0.9968020915985107
+    },
+    {
+     "start": 4.85,
+     "end": 5.27,
+     "word": " 12",
+     "probability": 0.9880703687667847
+    },
+    {
+     "start": 5.27,
+     "end": 5.69,
+     "word": "%",
+     "probability": 0.8862346410751343
+    },
+    {
+     "start": 5.69,
+     "end": 6.09,
+     "word": " compared",
+     "probability": 0.9969369173049927
+    },
+    {
+     "start": 6.09,
+     "end": 6.33,
+     "word": " to",
+     "probability": 0.9997840523719788
+    },
+    {
+     "start": 6.33,
+     "end": 6.57,
+     "word": " last",
+     "probability": 0.9961084723472595
+    },
+    {
+     "start": 6.57,
+     "end": 6.97,
+     "word": " quarter,",
+     "probability": 0.9971801042556763
+    },
+    {
+     "start": 7.27,
+     "end": 7.61,
+     "word": " mostly",
+     "probability": 0.992996871471405
+    },
+    {
+     "start": 7.61,
+     "end": 7.97,
+     "word": " driven",
+     "probability": 0.9986931681632996
+    },
+    {
+     "start": 7.97,
+     "end": 8.21,
+     "word": " by",
+     "probability": 0.9996501207351685
+    },
+    {
+     "start": 8.21,
+     "end": 8.35,
+     "word": " the",
+     "probability": 0.9984355568885803
+    },
+    {
+     "start": 8.35,
+     "end": 8.53,
+     "word": " new",
+     "probability": 0.9912137389183044
+    },
+    {
+     "start": 8.53,
+     "end": 9.07,
+     "word": " subscription",
+     "probability": 0.9955108165740967
+    },
+    {
+     "start": 9.07,
+     "end": 9.49,
+     "word": " tier.",
+     "probability": 0.9983489513397217
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "start": 10.41,
+   "end": 11.01,
+   "text": "Thanks.",
+   "speaker": null,
+   "avg_logprob": -0.09959895767663654,
+   "no_speech_prob": 0.020464887842535973,
+   "compression_ratio": 1.0135135135135136,
+   "flags": [],
+   "words": [
+    {
+     "start": 10.41,
+     "end": 11.01,
+     "word": " Thanks.",
+     "probability": 0.9587896466255188
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "start": 11.55,
+   "end": 17.89,
+   "text": "On the engineering side, we shipped the mobile release on Tuesday, and crash rates dropped below half a percent.",
+   "speaker": null,
+   "avg_logprob": -0.09959895767663654,
+   "no_speech_prob": 0.020464887842535973,
+   "compression_ratio": 1.0135135135135136,
+   "flags": [],
+   "words": [
+    {
+     "start": 11.55,
+     "end": 11.71,
+     "word": " On",
+     "probability": 0.9872236251831055
+    },
+    {
+     "start": 11.71,
+     "end": 11.85,
+     "word": " the",
+     "probability": 0.9988387227058411
+    },
+    {
+     "start": 11.85,
+     "end": 12.25,
+     "word": " engineering",
+     "probability": 0.9676780104637146
+    },
+    {
+     "start": 12.25,
+     "end": 12.83,
+     "word": " side,",
+     "probability": 0.9937762022018433
+    },
+    {
+     "start": 13.17,
+     "end": 13.31,
+     "word": " we",
+     "probability": 0.9874342083930969
+    },
+    {
+     "start": 13.31,
+     "end": 13.55,
+     "word": " shipped",
+     "probability": 0.8174628019332886
+    },
+    {
+     "start": 13.55,
+     "end": 13.71,
+     "word": " the",
+     "probability": 0.9980534315109253
+    },
+    {
+     "start": 13.71,
+     "end": 13.93,
+     "word": " mobile",
+     "probability": 0.9566593170166016
+    },
+    {
+     "start": 13.93,
+     "end": 14.49,
+     "word": " release",
+     "probability": 0.995184600353241
+    },
+    {
+     "start": 14.49,
+     "end": 14.67,
+     "word": " on",
+     "probability": 0.9990770816802979
+    },
+    {
+     "start": 14.67,
+     "end": 14.97,
+     "word": " Tuesday,",
+     "probability": 0.9858971238136292
+    },
+    {
+     "start": 15.51,
+     "end": 15.69,
+     "word": " and",
+     "probability": 0.9948624968528748
+    },
+    {
+     "start": 15.69,
+     "end": 16.01,
+     "word": " crash",
+     "probability": 0.9707096815109253
+    },
+    {
+     "start": 16.01,
+     "end": 16.31,
+     "word": " rates",
+     "probability": 0.994520902633667
+    },
+    {
+     "start": 16.31,
+     "end": 16.65,
+     "word": " dropped",
+     "probability": 0.9970184564590454
+    },
+    {
+     "start": 16.65,
+     "end": 16.95,
+     "word": " below",
+     "probability": 0.9997633099555969
+    },
+    {
+     "start": 16.95,
+     "end": 17.33,
+     "word": " half",
+     "probability": 0.7213103771209717
+    },
+    {
+     "start": 17.33,
+     "end": 17.47,
+     "word": " a",
+     "probability": 0.9884926676750183
+    },
+    {
+     "start": 17.47,
+     "end": 17.89,
+     "word": " percent.",
+     "probability": 0.9656696319580078
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "start": 18.67,
+   "end": 19.13,
+   "text": "Great.",
+   "speaker": null,
+   "avg_logprob": -0.09959895767663654,
+   "no_speech_prob": 0.020464887842535973,
+   "compression_ratio": 0.8545454545454545,
+   "flags": [],
+   "words": [
+    {
+     "start": 18.67,
+     "end": 19.13,
+     "word": " Great.",
+     "probability": 0.9940019249916077
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "start": 19.45,
+   "end": 21.27,
+   "text": "What are the main risks for next month?",
+   "speaker": null,
+   "avg_logprob": -0.09959895767663654,
+   "no_speech_prob": 0.020464887842535973,
+   "compression_ratio": 0.8545454545454545,
+   "flags": [],
+   "words": [
+    {
+     "start": 19.45,
+     "end": 19.61,
+     "word": " What",
+     "probability": 0.9943251013755798
+    },
+    {
+     "start": 19.61,
+     "end": 19.75,
+     "word": " are",
+     "probability": 0.9985089898109436
+    },
+    {
+     "start": 19.75,
+     "end": 19.87,
+     "word": " the",
+     "probability": 0.9992786049842834
+    },
+    {
+     "start": 19.87,
+     "end": 20.07,
+     "word": " main",
+     "probability": 0.9974737763404846
+    },
+    {
+     "start": 20.07,
+     "end": 20.39,
+     "word": " risks",
+     "probability": 0.9967635869979858
+    },
+    {
+     "start": 20.39,
+     "end": 20.61,
+     "word": " for",
+     "probability": 0.999250590801239
+    },
+    {
+     "start": 20.61,
+     "end": 20.85,
+     "word": " next",
+     "probability": 0.9986475110054016
+    },
+    {
+     "start": 20.85,
+     "end": 21.27,
+     "word": " month?",
+     "probability": 0.9986405968666077
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "start": 22.59,
+   "end": 25.07,
+   "text": "The data migration is the biggest one.",
+   "speaker": null,
+   "avg_logprob": -0.15260952711105347,
+   "no_speech_prob": 0.008798201568424702,
+   "compression_ratio": 1.2551020408163265,
+   "flags": [
+    "fallback_decode"
+   ],
+   "words": [
+    {
+     "start": 22.59,
+     "end": 23.17,
+     "word": " The",
+     "probability": 0.8973250985145569
+    },
+    {
+     "start": 23.17,
+     "end": 23.43,
+     "word": " data",
+     "probability": 0.9691838622093201
+    },
+    {
+     "start": 23.43,
+     "end": 23.95,
+     "word": " migration",
+     "probability": 0.9986490607261658
+    },
+    {
+     "start": 23.95,
+     "end": 24.25,
+     "word": " is",
+     "probability": 0.9990956783294678
+    },
+    {
+     "start": 24.25,
+     "end": 24.39,
+     "word": " the",
+     "probability": 0.9991301894187927
+    },
+    {
+     "start": 24.39,
+     "end": 24.67,
+     "word": " biggest",
+     "probability": 0.998108983039856
+    },
+    {
+     "start": 24.67,
+     "end": 25.07,
+     "word": " one.",
+     "probability": 0.9969016313552856
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "start": 25.45,
+   "end": 29.61,
+   "text": "We need two more weeks of testing before we can switch over the production database.",
+   "speaker": null,
+   "avg_logprob": -0.15260952711105347,
+   "no_speech_prob": 0.008798201568424702,
+   "compression_ratio": 1.2551020408163265,
+   "flags": [
+    "fallback_decode"
+   ],
+   "words": [
+    {
+     "start": 25.45,
+     "end": 25.55,
+     "word": " We",
+     "probability": 0.9847921133041382
+    },
+    {
+     "start": 25.55,
+     "end": 25.79,
+     "word": " need",
+     "probability": 0.9994148015975952
+    },
+    {
+     "start": 25.79,
+     "end": 25.99,
+     "word": " two",
+     "probability": 0.796876847743988
+    },
+    {
+     "start": 25.99,
+     "end": 26.21,
+     "word": " more",
+     "probability": 0.9991569519042969
+    },
+    {
+     "start": 26.21,
+     "end": 26.49,
+     "word": " weeks",
+     "probability": 0.9989655017852783
+    },
+    {
+     "start": 26.49,
+     "end": 26.67,
+     "word": " of",
+     "probability": 0.9985737800598145
+    },
+    {
+     "start": 26.67,
+     "end": 27.05,
+     "word": " testing",
+     "probability": 0.9994235038757324
+    },
+    {
+     "start": 27.05,
+     "end": 27.41,
+     "word": " before",
+     "probability": 0.9901458621025085
+    },
+    {
+     "start": 27.41,
+     "end": 27.65,
+     "word": " we",
+     "probability": 0.9989587068557739
+    },
+    {
+     "start": 27.65,
+     "end": 27.89,
+     "word": " can",
+     "probability": 0.9995504021644592
+    },
+    {
+     "start": 27.89,
+     "end": 28.15,
+     "word": " switch",
+     "probability": 0.9990614056587219
+    },
+    {
+     "start": 28.15,
+     "end": 28.45,
+     "word": " over",
+     "probability": 0.9982671737670898
+    },
+    {
+     "start": 28.45,
+     "end": 28.63,
+     "word": " the",
+     "probability": 0.9976242184638977
+    },
+    {
+     "start": 28.63,
+     "end": 29.07,
+     "word": " production",
+     "probability": 0.9933746457099915
+    },
+    {
+     "start": 29.07,
+     "end": 29.61,
+     "word": " database.",
+     "probability": 0.9810106158256531
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "start": 30.45,
+   "end": 31.61,
+   "text": "I can help with that.",
+   "speaker": null,
+   "avg_logprob": -0.18138720989227294,
+   "no_speech_prob": 0.002509535290300846,
+   "compression_ratio": 1.1363636363636365,
+   "flags": [],
+   "words": [
+    {
+     "start": 30.45,
+     "end": 30.75,
+     "word": " I",
+     "probability": 0.957612931728363
+    },
+    {
+     "start": 30.75,
+     "end": 30.93,
+     "word": " can",
+     "probability": 0.9988542795181274
+    },
+    {
+     "start": 30.93,
+     "end": 31.15,
+     "word": " help",
+     "probability": 0.9980962872505188
+    },
+    {
+     "start": 31.15,
+     "end": 31.37,
+     "word": " with",
+     "probability": 0.9985337257385254
+    },
+    {
+     "start": 31.37,
+     "end": 31.61,
+     "word": " that.",
+     "probability": 0.9994547963142395
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "start": 31.99,
+   "end": 36.37,
+   "text": "My team has capacity starting Monday, so we could take over the load testing.",
+   "speaker": null,
+   "avg_logprob": -0.18138720989227294,
+   "no_speech_prob": 0.002509535290300846,
+   "compression_ratio": 1.1363636363636365,
+   "flags": [],
+   "words": [
+    {
+     "start": 31.99,
+     "end": 32.13,
+     "word": " My",
+     "probability": 0.9851498603820801
+    },
+    {
+     "start": 32.13,
+     "end": 32.39,
+     "word": " team",
+     "probability": 0.9974992871284485
+    },
+    {
+     "start": 32.39,
+     "end": 32.61,
+     "word": " has",
+     "probability": 0.998367965221405
+    },
+    {
+     "start": 32.61,
+     "end": 33.15,
+     "word": " capacity",
+     "probability": 0.9724038243293762
+    },
+    {
+     "start": 33.15,
+     "end": 33.65,
+     "word": " starting",
+     "probability": 0.996484637260437
+    },
+    {
+     "start": 33.65,
+     "end": 34.05,
+     "word": " Monday,",
+     "probability": 0.9778016209602356
+    },
+    {
+     "start": 34.47,
+     "end": 34.77,
+     "word": " so",
+     "probability": 0.9781934022903442
+    },
+    {
+     "start": 34.77,
+     "end": 34.93,
+     "word": " we",
+     "probability": 0.9978066086769104
+    },
+    {
+     "start": 34.93,
+     "end": 35.09,
+     "word": " could",
+     "probability": 0.9986037611961365
+    },
+    {
+     "start": 35.09,
+     "end": 35.33,
+     "word": " take",
+     "probability": 0.9991880059242249
+    },
+    {
+     "start": 35.33,
+     "end": 35.55,
+     "word": " over",
+     "probability": 0.9833594560623169
+    },
+    {
+     "start": 35.55,
+     "end": 35.69,
+     "word": " the",
+     "probability": 0.9985103011131287
+    },
+    {
+     "start": 35.69,
+     "end": 35.89,
+     "word": " load",
+     "probability": 0.9936741590499878
+    },
+    {
+     "start": 35.89,
+     "end": 36.37,
+     "word": " testing.",
+     "probability": 0.9799899458885193
+    }
+   ]
+  }
+ ],
+ "audio": {
+  "filename": "meeting_short.mp3",
+  "sha256": null,
+  "size_bytes": 609427,
+  "container": "mp3",
+  "codec": "mp3float",
+  "sample_rate": 44100,
+  "channels": 2,
+  "container_duration_s": 38.024,
+  "start_offset_s": 0.025,
+  "decoded_duration_s": 38.024
+ },
+ "model": {
+  "engine": "faster-whisper",
+  "model": "small",
+  "device": "cpu",
+  "compute_type": "int8",
+  "revision": null,
+  "params": {
+   "batch_size": 8,
+   "beam_size": 5,
+   "without_timestamps": false,
+   "vad_max_gap_s": 1.5,
+   "vad_max_clip_s": 30.0
+  },
+  "versions": {
+   "faster_whisper": "1.2.1",
+   "ctranslate2": "4.8.3"
+  }
+ },
+ "options": {
+  "language": null,
+  "word_timestamps": true,
+  "channel_mode": "mix",
+  "redact_pii": false,
+  "prompt": null
+ },
+ "chunks": [
+  {
+   "index": 0,
+   "channel": null,
+   "offset_s": 0.0,
+   "duration_s": 38.024,
+   "segments": 7,
+   "cached": false
+  }
+ ],
+ "dropped": [],
+ "warnings": [],
+ "timing": {
+  "decode_s": 0.076,
+  "inference_s": 12.808,
+  "total_s": 12.889,
+  "rtf": 0.339
+ }
+}
