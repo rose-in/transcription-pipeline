@@ -7,8 +7,10 @@ service with a durable job queue for long files.
 
 The brief asked for engineering decisions rather than a model. So this README is mostly the
 *why*: what each choice solves that the alternatives don't, and what measurements back it.
-Research notes with sources are in [docs/RESEARCH.md](docs/RESEARCH.md). Raw benchmark output
-is in [docs/evaluation_raw.md](docs/evaluation_raw.md).
+Research notes with sources are in [docs/RESEARCH.md](docs/RESEARCH.md). Results on real speech
+(LibriSpeech and three Earnings-22 earnings calls) are in
+[docs/eval_real_data.md](docs/eval_real_data.md); the synthetic-audio benchmarks used for
+regression testing are in [docs/evaluation_raw.md](docs/evaluation_raw.md).
 
 ```bash
 uv sync                                                   # Python 3.12, no system ffmpeg needed
@@ -33,7 +35,8 @@ curl -F file=@meeting.mp3 localhost:8000/v1/transcriptions
                 │   ─▶ silence-aware ~10 min chunks (cut mid-pause; bounded memory; checkpoint unit)          │
                 │        per chunk: Silero VAD ─▶ clips ≤30 s, never spanning a long pause                    │
                 │                   ─▶ batched Whisper with timestamp tokens (fast path)                      │
-                │                   ─▶ coverage + loop check ─▶ sequential fallback only where needed         │
+                │                   ─▶ continue clips Whisper stopped early, in more batched passes           │
+                │                   ─▶ coverage + loop check ─▶ re-decode only where needed                   │
                 │                   ─▶ (word timings on) sentence re-segmentation                             │
                 │                   ─▶ checkpoint                                                             │
                 │   ─▶ shift by chunk offsets ─▶ post-processing chain ─▶ result.json                         │
@@ -124,7 +127,8 @@ That path is FFmpeg's libraries via PyAV.
 
 ### Tested format matrix
 
-Every one of these transcribes to the same text (0.0% WER with `tiny.en`, see §6):
+Every one of these transcribes to the same text (0.0% WER with `tiny.en`, see §3; the slow test
+enforces < 15%):
 
 - WAV: s16 44.1 kHz stereo, s24 96 kHz, f32 48 kHz, 8 kHz µ-law
 - MP3, M4A/AAC, Ogg/Opus, WebM/Opus, FLAC, AIFF
@@ -148,8 +152,8 @@ the options compare (ablation numbers in §6):
 
 | Strategy | Problem |
 |---|---|
-| Reference sequential decoding (openai-whisper style) | Slow, and can't batch. Errors propagate through the text prompt. **Hallucinated 64 words** in our 90 s silence + 20 s hold-music stretch. Loads the whole file. |
-| faster-whisper `BatchedInferencePipeline` defaults | Fast, but returns **one "segment" per 30 s VAD chunk** (median start error 6.9 s). Batching also silently disables all of Whisper's anti-hallucination fallbacks, and it loads the whole file. |
+| Reference sequential decoding (openai-whisper style) | Slow, and can't batch. Errors propagate through the text prompt. In our synthetic 90 s silence + 20 s hold-music stretch it **invented 42 words** (one sentence looped three times) and stretched real sentences into the gap. Loads the whole file. |
+| faster-whisper `BatchedInferencePipeline` defaults | Fast, but returns **one "segment" per 30 s VAD chunk**: on real earnings calls the median segment was about 30 s and a sentence start was typically ~8 s from the nearest segment start. Batching also silently disables Whisper's anti-hallucination fallbacks, and it loads the whole file. |
 | HF chunk-with-overlap + stitch | "Experimental" for seq2seq; worse WER; loads the whole file. |
 | Single-pass long-context model (Parakeet, ≤3 h) | Can't checkpoint; needs a large GPU; English/EU only. Still better to shard. |
 
@@ -178,29 +182,64 @@ the options compare (ablation numbers in §6):
    - No speech in a chunk means no Whisper call at all. That's the strongest hallucination
      defence.
 
-3. **Narrow sequential fallback.** Batched decoding has no temperature fallback and no
-   "seek and continue". After the batched pass, two checks run:
-   - **coverage:** no VAD speech region may have ≥1.5 s outside every segment (measured on the
-     union of segment intervals), or be under half covered;
+3. **Continue clips that Whisper stopped early.** This is the bug real calls exposed.
+   - Whisper sometimes ends a window with two timestamps and no more text
+     (`…dismay upon<|5.92|><|5.92|>`). That means "I stopped here; start the next window at
+     5.92 s". Reference Whisper does exactly that.
+   - With timestamps turned on, which segment times need, faster-whisper's batched pipeline
+     computes that seek position and then throws it away. The rest of the clip is never decoded,
+     and whole sentences go missing without any error. (Its defaults turn timestamps off, so
+     the defaults don't hit this; they get 30 s segments instead.)
+   - The engine wraps the model so it records where each clip stopped, then decodes just those
+     leftover pieces in further batched passes (up to 3 after the first). Anything still left
+     after that goes to the coverage check below.
+   - Measured by switching it off on the three Earnings-22 calls, so that the coverage fallback
+     below has to catch early stops instead: WER 14.92% → 14.62% with `small` and
+     12.77% → 12.25% with turbo, for about the same CPU. The gain comes from fewer missing
+     words: deletions fell on all six call/model pairs (8.29 → 7.12% and 7.24 → 6.57% pooled).
+     With `small` most of that is offset by garbled extra words from short leftovers
+     (substitutions 5.37 → 5.84%, insertions 1.26 → 1.66%); with turbo, hardly at all (+0.08 and
+     +0.06 pt). WER was lower on all three calls with turbo and on two of three with `small`.
+     Without continuation, the fallback re-decodes 15% (`small`) and 8% (turbo) of the speech
+     and still leaves more words missing.
+   - Leftover pieces are decoded without the speech before them, and very short ones are where
+     Whisper garbles: "and fully utilize" came out as "I'm free to die.", "12 months" as
+     "I'll see you in 12 minutes." Their segments are flagged `continued`, and the quality gate
+     (§4) drops any whose average log-prob is below Whisper's own failure threshold of −1.0.
+
+4. **Narrow fallback for what's left.** Batched decoding still has no temperature fallback, and
+   nothing checks that every stretch of speech produced text. So two checks run:
+   - **coverage:** no VAD speech region of about 1.4 s or more may have ≥1.5 s outside every
+     segment, or be under half covered. It's measured on the union of segment intervals, after
+     trimming the VAD's 0.2 s padding and allowing 0.3 s of timestamp jitter per segment edge.
+     Shorter regions aren't checked;
    - **loops:** no segment may have a gzip compression ratio > 2.4. Loop segments don't count
      as coverage.
 
-   Regions that fail either check are re-decoded with the *reference* algorithm's full safety
-   net: temperature fallback, compression, log-prob and no-speech thresholds. That happens only
-   there, so batched speed is kept everywhere else.
+   Regions that fail are re-decoded in two stages. First they're batched again with clips cut to
+   just those regions, which is cheap. Whatever still fails goes through the *reference*
+   algorithm's full safety net: temperature fallback, plus compression, log-prob and
+   no-speech thresholds. Batched speed is kept everywhere else.
 
    Each redo range is grown to fully contain every segment it touches, and those segments are
    replaced ("whole segments in, whole segments out"). Keeping a partially overlapping segment
-   duplicated words in practice.
+   duplicated words in practice: with `large-v3-turbo`, a batched segment ended mid-sentence
+   inside a re-decoded region and produced 6.4% WER on a synthetic clip, 0.0% after the rule.
 
-   Both failure modes are real:
-   - With `tiny.en`, the model stopped early inside a ~29 s clip on **5 of 11** format-matrix
-     files, silently dropping a whole sentence (23% WER). The coverage check brought all 11
-     back to 0.0%.
-   - With `large-v3-turbo`, a batched segment ended mid-sentence inside a re-decoded region.
-     Before the whole-segment rule this produced duplicated words (6.4% WER); after it, 0.0%.
+   Before continuation existed, this fallback did most of the work. Early stops showed up as
+   coverage gaps: with `tiny.en`, on 5 of 11 synthetic format-matrix files. Re-checked with
+   continuation, the same 5 files each have one continued clip, all 11 are at 0.0% WER, and
+   nothing is re-decoded (`scripts/check_format_matrix.py`; output in
+   [docs/evaluation_raw.md](docs/evaluation_raw.md)). On real
+   calls, an earlier development run (not in the published results) had the fallback, plus a
+   coverage check that didn't tolerate timestamp jitter, re-decoding so much audio that the
+   pipeline cost ~2.8× the default batched path. Today's two-stage fallback is much cheaper:
+   with continuation switched off, it catches the early stops at about the same total cost as
+   continuation (§6), just less completely. With continuation on, the checks flagged **0
+   ranges** (nothing re-decoded) on the three real calls, for both models, and the pipeline
+   costs 1.5–1.7× the defaults.
 
-4. **Language** is detected on the first chunk that actually contains speech, then pinned for
+5. **Language** is detected on the first chunk that actually contains speech, then pinned for
    the rest of the file. Per-chunk detection lets one noisy chunk flip the language mid-file.
 
 ### Service side
@@ -255,7 +294,7 @@ The canonical JSON is the system of record. Processors are small pure functions
 | `sanitize_timestamps` | Enforces `0 ≤ start ≤ end ≤ duration`, words inside their segment and monotonic, and flags >30 chars/s as `timestamp_anomaly`. Consumers assume these invariants; engines don't guarantee them. |
 | `normalize_text` | Unicode NFC and whitespace cleanup. Lossless; scoring normalization stays out of stored text. |
 | `tighten_to_words` | With word timings, clamps segment bounds to the first and last word. |
-| `QualityGate` | Re-applies Whisper's reference thresholds that batched decoding skips. **Drops:**<br>• `no_speech > 0.6 ∧ logprob < −1` (silence)<br>• `compression_ratio > 2.4` (loop inside a segment)<br>• **loops across segments**: the same ≥3-word sentence again within 2 s, or a fourth copy of a short phrase ("No. No. No." survives; "I'm sorry." ×12 doesn't). Batched decoding scores each short segment alone, so a per-segment ratio never catches these.<br>• known hallucination phrases ("thanks for watching"…), **only when the model's own scores also doubt them** (a real "Thank you so much." survives, test-enforced).<br>**Flags:** `low_confidence` (`logprob < −1`) and `possible_loop` (a 5-segment window compressing > 2.4) for human review.<br>Text comparison is Unicode-aware. Dropped segments go to `transcript.dropped` with a reason; nothing vanishes silently. |
+| `QualityGate` | Re-applies Whisper's reference thresholds that batched decoding skips. **Drops:**<br>• `no_speech > 0.6 ∧ logprob < −1` (silence)<br>• `compression_ratio > 2.4` (loop inside a segment)<br>• **loops across segments**: a third copy of the same ≥3-word sentence, each within 2 s of the last, or a fourth copy of a short phrase ("No. No. No." survives; "I'm sorry." ×12 doesn't). Batched decoding scores each short segment alone, so a per-segment ratio never catches these.<br>• known hallucination phrases ("thanks for watching"…), **only when the model's own scores also doubt them** (a real "Thank you so much." survives, test-enforced).<br>• `continued` segments (decoded from a leftover piece, §3) with `logprob < −1`. On three real calls with `small`, 5 of 89 continued segments fell below the line, and all 5 garbled a short real phrase: only 4 of their 23 words were right ("and fully utilize" → "I'm free to die."). The 84 above it had 79% of their words right. Dropping loses a few real words but keeps confident-looking wrong text out of search and summaries. It doesn't catch everything (§10).<br>**Flags:** `low_confidence` (`logprob < −1`) and `possible_loop` (a 5-segment window compressing > 2.4) for human review.<br>Text comparison is Unicode-aware. Dropped segments go to `transcript.dropped` with a reason; nothing vanishes silently. |
 | `resegment_sentences` | With word timings, rebuilds segments as sentences. `large-v3-turbo` puts segment boundaries mid-sentence. Re-segmenting gave sentence-level segments with starts within ~0.05 s of ground truth on the test clip. |
 | `redact_pii` (opt-in) | Email / phone / card / SSN → `[EMAIL]` etc. **What it covers:**<br>• text *and* word timings (so the same spans could be bleeped in audio)<br>• the `dropped` audit trail too (it ships in the JSON)<br>• PII read across pauses: split over 2–3 segments of the same speaker, even around the other party's "mm-hmm" in split-channel calls<br>• **spoken forms**: ASR writes what was said, e.g. `john.smith at example.com`, `John.Smith.at.example.com`, `415, 555, 0132`<br>**Rules that keep it precise:**<br>• word timings are redacted from the *same character spans* as the text, so words can never keep what the text removed<br>• card numbers need an issuer digit and a Luhn-valid window on digit-group boundaries: a trailing spoken CVV is handled, order and tracking numbers aren't touched<br>• loose phone forms ("250, 500, 1000") need a phone word nearby<br>Regex is deterministic and explainable for v1; names and addresses need NER (Presidio) in v2. |
 
@@ -277,12 +316,12 @@ The canonical JSON is the system of record. Processors are small pure functions
 
 | Decision | Chosen | Alternatives considered | What the choice buys |
 |---|---|---|---|
-| Model family | Whisper via **faster-whisper**: `large-v3-turbo` on GPU, `small` for the CPU demo | Parakeet-TDT (faster and better English WER, 25 EU languages, NeMo stack); Qwen3-ASR / Cohere / Canary (better WER, but no timestamps or ≤40 s windows); whisper.cpp / mlx (fast on Mac, but no dev/prod parity); WhisperX (alignment + diarization, torch stack) | 99 languages, segment *and* word timestamps, MIT, no torch. **The same code path on the M1 and a CUDA box.** Parakeet is the documented upgrade for EN/EU at high volume, and plugs in behind the same engine interface. |
+| Model family | Whisper via **faster-whisper**: `large-v3-turbo` in production, `small` only for a cheap CPU demo (turbo was more accurate on every real-speech set, at ~2× the CPU) | Parakeet-TDT (faster, better short-form English WER, but worse than turbo on long-form Earnings-21/22; 25 EU languages; NeMo stack); Qwen3-ASR / Cohere / canary-qwen (better short-form WER, but timestamps only through a second aligner model (Qwen3), or none at all (Cohere, canary-qwen; canary-qwen also ≤40 s clips)); whisper.cpp / mlx (fast on Mac, but no dev/prod parity); WhisperX (alignment + diarization, torch stack) | 99 languages, segment *and* word timestamps, MIT, no torch. **The same code path on the M1 and a CUDA box.** Parakeet is the documented upgrade for EN/EU at high volume, and plugs in behind the same engine interface. |
 | Engine boundary | `transcribe(pcm ≤ 10 min) → segments`; the pipeline owns everything else | Engine owns files/chunking | Swapping models or vendors is config (`STT_ENGINE`). Tests run the whole system against a fake engine in ms. |
 | Build vs buy | Self-host by default; **hosted adapter included** (`openai-compatible`: OpenAI whisper-1, Groq) | Deepgram / AssemblyAI / ElevenLabs etc. | Hosted is $0.04–0.36/audio-h, self-host roughly $0.01–0.03 marginal. Crossover is ~5–20k audio-h/month; privacy can force self-hosting at any volume. The adapter refuses OpenAI's text-only models (`gpt-4o-transcribe`…), which would silently drop timestamps. |
 | Decoder | PyAV (bundled FFmpeg), float32 | ffmpeg CLI, soundfile, pydub, torchaudio | See §2. Also: faster-whisper's own `decode_audio` is **broken by PyAV 19** (verified), and we don't depend on it. |
-| Long-form | Silence-cut macro-chunks + VAD clips + batched + narrow fallback | Sequential; batched defaults; overlap-stitch; single-pass Parakeet | See §3 and the ablation in §6. |
-| Segment timestamps | Whisper timestamp tokens inside VAD clips; optional DTW word timings and sentence re-segmentation | Batched defaults (30 s blobs); wav2vec2 forced alignment (WhisperX) | p90 start error 0.20–0.22 s vs 12.7–13.8 s, with no extra model. Forced alignment is the v2 step when word precision matters (karaoke, audio redaction). |
+| Long-form | Silence-cut macro-chunks + VAD clips + batched + continuation of early stops + narrow fallback | Sequential; batched defaults; overlap-stitch; single-pass Parakeet | See §3 and the ablation in §6. |
+| Segment timestamps | Whisper timestamp tokens inside VAD clips; optional DTW word timings and sentence re-segmentation | Batched defaults (30 s blobs); wav2vec2 forced alignment (WhisperX) | On real earnings calls (the two with usable word times): median sentence-start error 0.3–0.8 s vs ~8 s, and 54–71% of sentence starts within 1 s vs 9–10%, with no extra model. Forced alignment is the v2 step when word precision matters (karaoke, audio redaction). |
 | Queue | SQLite table with leases; separate worker processes | Celery/RQ/Arq/Dramatiq; Temporal | See §3. Crash isolation: an FFmpeg or CUDA crash kills a disposable worker, not the API. |
 | Sync API | Enqueue at high priority + bounded wait; `202` on timeout | Run the model in the request handler | One execution path; no model contention; no 504s. |
 
@@ -290,16 +329,98 @@ The canonical JSON is the system of record. Processors are small pure functions
 
 ## 6. Evaluation
 
+All numbers are measured on this machine: Apple M1 Pro, CPU only, int8 (CTranslate2 has no
+Metal backend).
+
+### On real speech: LibriSpeech and three earnings calls
+
+**How it was measured** ([scripts/eval_datasets.py](scripts/eval_datasets.py), full output in
+[docs/eval_real_data.md](docs/eval_real_data.md)):
+- **LibriSpeech:** a random sample of 200 test-clean clips (21 speakers) and 100 test-other
+  clips (17 speakers). Each clip is run through the model alone and through the pipeline, and
+  the difference gets a paired bootstrap 95% confidence interval.
+- **Earnings-22:** three real earnings calls with accented speakers (South Africa, China,
+  Chile; 80 min). Timing is scored against the dataset's forced-aligned word times, on China
+  and Chile; the South Africa alignment in the dataset is unusable.
+- WER uses Whisper's English text normaliser, the Open ASR Leaderboard convention.
+- Every approach gets the same 6 CPU threads; cost is CPU seconds per audio second.
+
+**Does the pipeline change accuracy?** Not detectably.
+
+| model | LibriSpeech split | model alone | through the pipeline | difference (95% CI) | Open ASR Leaderboard (full set, HF transformers) |
+|---|---|---|---|---|---|
+| small | test-clean | 3.66% | 3.58% | −0.08 pt (−0.49 to +0.30) | 3.05% (small.en) |
+| small | test-other | 8.74% | 8.93% | +0.19 pt (−0.61 to +1.07) | 7.25% (small.en) |
+| large-v3-turbo | test-clean | 2.19% | 2.19% | 0.00 pt (−0.24 to +0.25) | 2.10% |
+| large-v3-turbo | test-other | 4.43% | 4.63% | +0.19 pt (−0.15 to +0.57) | 4.24% |
+
+**Earnings calls: about the same accuracy as the defaults, much better timestamps, 1.5–1.7×
+the compute.**
+
+| model | approach | WER (3 calls) | sub / del / ins | segments > 30 s (3 calls) | sentence-start error, median | sentence starts within 1 s | CPU s per audio s |
+|---|---|---|---|---|---|---|---|
+| small | faster-whisper batched defaults | 14.06% | 5.15 / 7.76 / 1.15 | 63 | 7.9 s | 9–10% | 0.247 |
+| small | pipeline, continuation off | 14.92% | 5.37 / 8.29 / 1.26 | 0 | 0.29–0.76 s | 58–72% | 0.396 (1.60×) |
+| small | **this pipeline** | 14.62% | 5.84 / 7.12 / 1.66 | 0 | 0.29–0.77 s | 57–71% | 0.381 (1.54×) |
+| large-v3-turbo | faster-whisper batched defaults | 12.75% | 4.06 / 7.66 / 1.03 | 63 | 7.9 s | 9–10% | 0.453 |
+| large-v3-turbo | pipeline, continuation off | 12.77% | 4.29 / 7.24 / 1.25 | 0 | 0.38–0.75 s | 56–65% | 0.749 (1.65×) |
+| large-v3-turbo | **this pipeline** | 12.25% | 4.37 / 6.57 / 1.31 | 0 | 0.40–0.80 s | 54–65% | 0.757 (1.67×) |
+
+The two sentence-start columns are for China and Chile, the calls with usable word times; the
+ranges are those two calls.
+
+What this shows:
+- **No detectable accuracy change.** Every LibriSpeech 95% confidence interval includes zero
+  (the widest, `small` test-other, runs from −0.61 to +1.07 pt), and turbo lands close to its
+  leaderboard numbers. On the calls the pipeline is 0.56 pt worse pooled with `small` and
+  0.50 pt better with turbo. Per call, the difference goes both ways: South Africa / China /
+  Chile are +1.5 / −0.1 / −0.1 pt with `small` and +0.5 / −0.8 / −1.5 pt with turbo (worse on
+  South Africa with both). Three calls can't separate the pooled differences.
+- **The error mix shifts.** The pipeline misses fewer words (deletions 7.76 → 7.12% with
+  `small`, 7.66 → 6.57% with turbo) but writes more wrong or extra ones (substitutions
+  5.15 → 5.84% and 4.06 → 4.37%; insertions 1.15 → 1.66% and 1.03 → 1.31%). Extra words are
+  output words not in the reference. Some are speech the reference skipped, and some are
+  garbled short pieces (§3, §10).
+- **The timestamps are the gain.** The defaults return ~30 s blocks (median 29.3–29.9 s per
+  call, up to 55 s), so a sentence typically starts ~8 s away from the nearest segment start.
+  The pipeline's segments have a median of 3.7–6.1 s per call, with none over 30 s. Half of the
+  segments start within ~0.1 s of the aligned time of their first word, and 9 in 10 within
+  0.5–0.8 s. The long tail of the sentence-start error (p90 2.8–3.7 s) is sentences that begin
+  in the middle of a segment rather than at one. That is looser than on synthetic audio (p90
+  0.22 s), so the synthetic timing numbers below are best-case.
+  - "Sentence start" here means a forced-aligned word after sentence-ending punctuation, a
+    speaker change, or a pause of ≥1 s.
+- **The cost is 1.5–1.7× the defaults' CPU.** The checks flagged nothing for re-decoding on
+  any call: continuation (§3) handles early stops in batch, and the coverage check tolerates
+  timestamp jitter. Switching continuation off costs about the same (1.60× and 1.65×). The
+  coverage fallback then catches most early stops itself, re-decoding 15% and 8% of the speech
+  (62 and 39 ranges), but leaves more words missing (deletions +1.2 and +0.7 pt). WER ends up
+  0.3 and 0.5 pt higher, because with `small` continuation also adds some garbled words.
+  Timing is essentially the same either way.
+- **The quality gate dropped little.** With `small`: 5 weak continuations and 2 known-phrase
+  segments. One was a duplicated "Thank you very much."; the other was a real, low-scoring
+  "Thank you." an analyst said (§10). With turbo: 1 known-phrase segment.
+- **Turbo beats `small` on every set** (2.19 vs 3.58%, 4.63 vs 8.93%, 12.25 vs 14.62%) for
+  ~2× the CPU (2.0× on the calls, 2.2× on LibriSpeech). On the synthetic audio below they looked
+  equally accurate, so that data couldn't have chosen the model.
+- For reference, turbo's Open ASR Leaderboard long-form Earnings-22 WER is 13.10% (whole
+  dataset, HF transformers). Three calls aren't comparable to that, but it's the same range.
+
+### On synthetic audio (regression fixtures)
+
 **How it was measured:**
-- All numbers are measured on this machine (Apple M1 Pro, CPU only, int8; CTranslate2 has no
-  Metal backend).
 - Audio is synthetic speech from the macOS TTS (6 voices/accents), with exact ground-truth text
-  and utterance timings.
-- **Caveat:** TTS speech is far cleaner than real calls, so absolute WER is optimistic. These
-  fixtures are for regression-testing the *pipeline*, not for choosing a model.
+  and utterance timings. That makes timing and hallucination easy to score exactly.
+- **Caveat:** TTS speech is far cleaner than real calls, and the real-speech results above show
+  where it misled: absolute WER, the WER gap to the defaults, model choice, and the turbo/`small`
+  cost ratio (1.14× in the RTFs below, 2.0–2.2× CPU on real speech with equal threads). These
+  fixtures are for regression-testing the *pipeline*.
+- These runs predate the continuation fix and the current fallback (§3). Early stops then
+  showed up as re-decodes by the sequential decoder, under a coverage check with no jitter
+  tolerance, which is why most fallback counts below are non-zero.
 - Reproduce with `scripts/make_fixtures.py` and `scripts/evaluate.py`.
 
-### Ablation: three ways to run the same model on long audio
+#### Ablation: three ways to run the same model on long audio
 
 The test file is `small` on a 14.3-min, 6-voice meeting with a 90 s silence + 20 s hold-music
 stretch mid-file.
@@ -318,13 +439,15 @@ What is actually in the non-speech stretch:
   both sides of the silence. Its words are right; its timestamps are meaningless.
 - **C** puts nothing there.
 
-C costs about 1.5× B's compute. That buys two things: timestamps usable for captions, search
-and citations (p90 0.22 s vs 12.7 s), and the restored safety net. Compute was measured on a
-shared, busy laptop, so treat RTF as ±30%; the relative ordering was stable across runs.
+C costs about 1.5× B's compute in this run. A separate run of the same configuration (the
+model comparison below) measured RTF 0.115 rather than 0.081, which would make it 2.1×.
+Compute was measured on a shared, busy laptop without fixed thread counts, so the controlled
+real-speech numbers above (1.5–1.7×) are the ones to use. C buys two things: timestamps usable
+for captions, search and citations (p90 0.22 s vs 12.7 s), and the restored safety net.
 
-### Model comparison (this pipeline, CPU int8)
+#### Model comparison (this pipeline, CPU int8)
 
-| model | clean 38 s (WER) | 8 kHz µ-law telephony (WER) | 14-min meeting (WER / start err p50 / RTF) | noise-only file | sequential fallbacks (14 min) | peak RSS |
+| model | clean 38 s (WER) | 8 kHz µ-law telephony (WER) | 14-min meeting (WER / start err p50 / RTF) | noise-only file | segments from fallback re-decodes (14 min) | peak RSS |
 |---|---|---|---|---|---|---|
 | tiny.en | 0.0% | 0.0% | 1.39% / 0.17 s / **0.028** | 0 segments | 17 | 1.5 GB |
 | small | 0.0% | 1.06% | **0.30%** / 0.16 s / 0.115 | 0 segments | 1 | 2.9 GB |
@@ -332,27 +455,26 @@ shared, busy laptop, so treat RTF as ±30%; the relative ordering was stable acr
 
 - Every model produced **zero hallucinated words**, both in the silence stretch and on the
   noise-only file.
-- The fallback count tracks model strength. `tiny.en` stops early often (17 re-decoded ranges in
-  14 min), and the fallback is what keeps its WER at 1.4% instead of losing whole sentences.
-- On CPU, turbo costs only ~15% more than `small` for long-form audio (4 decoder layers).
-  - With a GPU, turbo is the production default.
-  - On a CPU-only box, `small` is the default here because it is 3–4× cheaper on short clips at
-    equal quality on this data.
-  - Real, noisy, accented audio would likely favour turbo; measure on your own domain audio.
+- The fallback count tracks model strength. `tiny.en` stops early often (17 output segments came
+  from fallback re-decodes in 14 min), and recovering those is what keeps its WER at 1.4%
+  instead of losing whole sentences. Those early stops are now continued in a batched pass instead (§3).
+- `small` and turbo look equally accurate on this clean audio. On real speech turbo was better
+  on every set, for ~2× `small`'s CPU. So turbo is the production default, and `small` is only
+  the cheap option for a CPU-only demo.
 
-### Long file end to end (64 min, 6 voices, 360 turns; `small`)
+#### Long file end to end (64 min, 6 voices, 360 turns; `small`)
 
 | approach | WER | start error p50 / p90 | longest segment | RTF | peak RSS |
 |---|---|---|---|---|---|
 | faster-whisper batched defaults (whole file) | 1.48% | 7.40 s / 13.77 s | 143.2 s | **0.059** | 3.1 GB |
-| **this pipeline** (streamed, 10-min chunks, 8 fallback ranges) | **0.62%** | **0.17 s / 0.20 s** | 12.6 s | 0.104 | 3.1 GB |
+| **this pipeline** (streamed, 10-min chunks, 8 segments from fallback re-decodes) | **0.62%** | **0.17 s / 0.20 s** | 12.6 s | 0.104 | 3.1 GB |
 
 This table also records a mistake caught by measurement. The first run of this benchmark had
 the pipeline *worse* (1.87% WER). The cause: the duplicate-loop rule deleted 9 real sentences
 where two speakers said the same thing back to back. The rule now keeps a single repeat; loops
 repeat many times. Re-measured: 0.62%, 0 drops.
 
-### Memory that grows with duration (audio + log-mel features, model excluded)
+#### Memory that grows with duration (audio + log-mel features, model excluded)
 
 | audio length | whole file (faster-whisper batched path) | this pipeline (streamed) |
 |---|---|---|
@@ -375,7 +497,7 @@ repeat many times. Re-measured: 0.62%, 0 drops.
 ```bash
 uv sync
 uv run python scripts/make_fixtures.py          # macOS: TTS fixtures + format matrix + hostile files
-uv run pytest -m "not slow"                     # 105 fast tests (mock engine), ~25 s
+uv run pytest -m "not slow"                     # 111 fast tests (mock engine), ~25 s
 uv run pytest -m slow                           # real model (tiny.en): format matrix, silence, call
 uv run python scripts/smoke_e2e.py              # real API + worker processes, SIGTERM mid-job, resume
 ./scripts/make_examples.sh                      # regenerate examples/
@@ -395,7 +517,18 @@ uv run python scripts/smoke_e2e.py              # real API + worker processes, S
   finished by a second worker that **reused 3 of 8 chunks** from the first worker's checkpoints;
 - resubmitting the same file returns 200 `Idempotent-Replay` with the same job id.
 
-**Reproducing §6:**
+**Reproducing the real-speech results** (downloads ~55 MB: a random LibriSpeech sample from the
+Hugging Face datasets server, and three Earnings-22 calls with their references):
+
+```bash
+uv run python scripts/eval_datasets.py download
+uv run python scripts/eval_datasets.py run --out docs/eval_real_data.md     # all approaches, ~1.5 h on an M1 Pro CPU
+# re-run only some approaches, taking the other rows from an earlier run (write to a new file, then copy it over)
+uv run python scripts/eval_datasets.py run --modes pipeline --reuse docs/eval_real_data.json --out /tmp/eval_rerun.md
+uv run python scripts/eval_datasets.py report docs/eval_real_data.json     # rebuild the .md from the saved .json
+```
+
+**Reproducing the synthetic benchmarks:**
 
 ```bash
 uv run python scripts/make_fixtures.py --long-minutes 60 --out fixtures_60min --seed 11
@@ -404,6 +537,7 @@ uv run python scripts/evaluate.py --out docs/evaluation_raw.md ablation --model 
 uv run python scripts/evaluate.py --out docs/evaluation_raw.md models --models tiny.en small large-v3-turbo
 uv run python scripts/evaluate.py --out docs/evaluation_raw.md memory --file fixtures_60min/long_meeting.mp3
 uv run python scripts/evaluate.py --out docs/evaluation_raw.md scaling fixtures_scaling/meeting_x{1,2,3}.mp3
+uv run python scripts/check_format_matrix.py --model tiny.en   # format matrix: WER, continued clips, re-decodes
 ```
 
 **CLI:**
@@ -480,10 +614,34 @@ docs/RESEARCH.md           sourced research notes (fact-checked)
      against primary sources: 52 confirmed, 8 corrected, 0 refuted.
    - Key library claims were then re-verified by reading the installed source.
    - Details: [docs/RESEARCH.md](docs/RESEARCH.md).
-2. **Measured, not assumed.** Every design choice in §2–§3 traces to a measured problem on real
-   fixtures. Several came from surprises: the PyAV/faster-whisper break, the +3 dB downmix,
-   merged turns, dropped tails, turbo's duplicated words.
-3. **Adversarial code review.**
+2. **Measured, not assumed.** Every design choice in §2–§3 traces to a measured problem.
+   Several came from surprises: the PyAV/faster-whisper break, the +3 dB downmix, merged
+   turns, dropped tails, turbo's duplicated words.
+3. **Tested on real speech, which changed things.** Synthetic TTS audio was enough to build
+   the pipeline but flattered it. On LibriSpeech and real earnings calls:
+   - the pipeline's WER advantage on synthetic audio didn't hold: on real speech there's no
+     detectable difference from the model alone or the default batched path;
+   - the timestamp advantage did hold, though it's smaller than on synthetic audio;
+   - `large-v3-turbo` beat `small` on every set, which overturned "`small` at equal quality";
+   - the "dropped tails" turned out to be faster-whisper's batched mode, with timestamps on,
+     ignoring Whisper's "continue from here" signal. Fixing that at the source (§3) left fewer
+     words missing than catching the gaps afterwards: deletions were lower on all six
+     call/model pairs, measured with it switched off. Pooled WER was 0.3–0.5 pt lower, which
+     is within call-to-call noise for `small`;
+   - separately, a coverage check that tolerates timestamp jitter and re-decodes in batch
+     first brought the cost from ~2.8× the default path (an earlier development run) to about
+     1.6×. Continuation costs about the same as letting that fallback catch the early stops.
+
+   The evaluation itself was audited before trusting it, and three flaws were fixed: a timing
+   metric that only looked from the segment side, unequal CPU threads across approaches, and a
+   LibriSpeech sample drawn from too few speakers. Then independent checkers re-derived the
+   real-speech numbers in this README from the raw results (and the continued-segment counts
+   from a separate diagnostic run), in two rounds. They caught a bug in my own diagnostic
+   script, which had tagged only half the continued segments, and several overstatements.
+   Those are corrected here. The continuation effect in §3 is now a measured on/off run. An
+   earlier estimate simply deleted the continued text (~4 pt with `small`); the measured effect
+   is much smaller (0.3–0.5 pt), because the fallback catches most early stops on its own.
+4. **Adversarial code review.**
    - Five reviewers each took one dimension (ingestion/security, long-audio correctness,
      queue/concurrency, post-processing/formats, hosted adapter/config/deploy). Each reviewer's
      findings went to a verifier that tried to refute them.
@@ -496,7 +654,7 @@ docs/RESEARCH.md           sourced research notes (fact-checked)
      - A hung decoder could hold a job forever.
      - The API process ran FFmpeg on untrusted input.
    - All were fixed, each with a regression test ([tests/test_review_regressions.py](tests/test_review_regressions.py)).
-4. **Fix verification.**
+5. **Fix verification.**
    - A second adversarial pass re-checked every finding against the fixed code: **51 fixed,
      17 partially fixed, 1 not fixed**.
    - It also found **16 new defects introduced by the fixes** themselves. The notable ones:
@@ -507,8 +665,8 @@ docs/RESEARCH.md           sourced research notes (fact-checked)
      - A new phone pattern redacted "250, 500, 1000 dollars".
    - A second round fixed these with more regression tests. Remaining trade-offs are listed
      in §10.
-5. **Tests.**
-   - 105 fast tests on the mock engine: format matrix, hostile inputs, chunking invariants,
+6. **Tests.**
+   - 111 fast tests on the mock engine: format matrix, hostile inputs, chunking invariants,
      checkpoint/resume, queue semantics (atomic claims, lease expiry, poison, drain), API
      contracts, formats, PII, and every regression from both review rounds.
    - 3 real-model integration tests.
@@ -552,8 +710,26 @@ front.
 
 ## 10. Known limitations
 
-- **Absolute WER is not representative.** Accuracy was measured on TTS speech. The pipeline
-  measurements (timestamps, hallucination, memory, robustness) transfer; absolute WER doesn't.
+- **The real-speech test is small.** 300 LibriSpeech clips and three earnings calls (80 min),
+  English only. Enough to show no detectable accuracy cost and that the timestamp gain holds on
+  real speech; not enough to rank models for a specific domain. The pooled WER differences
+  between the pipeline and the defaults (+0.56 pt with `small`, −0.50 pt with turbo) are well
+  inside the spread of per-call differences (−1.5 to +1.5 pt), so three calls can't tell them
+  apart.
+- **Hallucination over real non-speech wasn't measured.** The "0 words in the silence" result
+  is from a synthetic silence + hold-music stretch. The earnings calls have little non-speech.
+- **A made-up continued segment can survive.** On one call `small` decoded a 0.7 s leftover
+  piece as "Thank you very much for watching, and I'll see you in the next video." Its
+  log-prob (−0.85) is above the weak-continuation line, and the phrase filter only drops exact
+  matches of listed short phrases, so neither rule caught it. Its timestamps run 6 s past the
+  leftover piece it came from, which a future check could use. More generally, the −1.0 line
+  doesn't catch all garbling: in the diagnostic run, 15 of the 84 continued segments above it
+  had at most half their words right.
+- **The phrase filter can drop a real short "Thank you."** It drops listed phrases when the
+  model's scores are weak (no-speech > 0.3 or log-prob < −0.7). On one call that removed an
+  analyst's real, quietly scored "Thank you." It's kept in `dropped` for audit.
+- **Continued segments with low confidence are dropped, not repaired.** That removes garbled
+  text but also the few real words it stood for.
 - **GPU numbers are not measured here.** GPU throughput and cost figures come from published
   benchmarks.
 - **One language per file**, no code-switching.
@@ -561,9 +737,10 @@ front.
   write "John, Don't Smith, at example.com".
 - **The worker decodes in-process.** The API's probe is sandboxed per upload; in the worker, a
   decoder crash kills that worker and poison quarantine stops it repeating.
-- **The duplicate rule drops genuine immediate repeats.** A ≥3-word sentence said twice within
-  2 s by the same speaker is treated as a decoding loop. The 60-min synthetic script contains 2
-  such repeats. They are kept in `dropped` for audit.
+- **The duplicate rule drops genuine repeats said three or more times.** A ≥3-word sentence
+  repeated a third time within 2 s by the same speaker (a fourth time for short phrases) is
+  treated as a decoding loop. A single repeat is kept. Dropped copies stay in `dropped` for
+  audit.
 - **A drained worker abandons its in-flight chunk.** That work is recomputed elsewhere from the
   last checkpoint.
 - **Changing the engine-key settings strands queued jobs.** Those settings are the model,

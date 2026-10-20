@@ -124,6 +124,7 @@ class Pipeline:
         segments: list[Segment] = []
         chunk_meta: list[ChunkMeta] = []
         inference_s = decode_s = 0.0
+        diagnostics: dict = {}
         decoded_s = 0.0
         total_est = info.container_duration_s * len(channels) if info.container_duration_s else None
         done_s = 0.0
@@ -156,6 +157,9 @@ class Pipeline:
                     except Exception as e:  # OOM, driver errors...: transient by assumption
                         raise EngineFailure(f"engine failed on chunk {chunk.index}: {e}") from e
                     inference_s += time.perf_counter() - t0
+                    for k, v in (result.extra or {}).items():
+                        if isinstance(v, (int, float)):
+                            diagnostics[k] = round(diagnostics.get(k, 0) + v, 3)
                     was_cached = False
                     if checkpoints:
                         checkpoints.save(
@@ -209,6 +213,7 @@ class Pipeline:
             options=options.model_dump(),
             chunks=chunk_meta,
             warnings=warnings,
+            diagnostics=diagnostics,
             timing=Timing(
                 decode_s=round(decode_s, 3), inference_s=round(inference_s, 3), total_s=round(total_s, 3),
                 rtf=round(total_s / decoded_s, 4) if decoded_s else 0.0,

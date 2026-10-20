@@ -425,3 +425,115 @@ def test_captions_apply_the_audio_start_offset():
 def test_hosted_engine_refuses_local_model_names():
     with pytest.raises(ValueError, match="local faster-whisper model"):
         OpenAICompatibleEngine("https://x/v1", "k", "large-v3-turbo")
+
+
+# ------------------------------------------------------------------ real-data tuning (Earnings-22 audit)
+
+def test_timestamp_jitter_alone_does_not_trigger_a_redecode():
+    from stt_pipeline.engines.faster_whisper_engine import uncovered
+
+    regions = [(20.0, 21.6)]  # a 1.2 s utterance (20.2-21.4) plus 0.2 s VAD padding each side
+    segs = [S(20.55, 21.15, "yes that's right")]  # correct text, boundaries ~0.3 s inside the speech
+    assert uncovered(regions, segs)  # the original, intolerant check fires on jitter alone
+    assert uncovered(regions, segs, tolerance_s=0.3, shrink_s=0.2) == []
+    long_region = [(10.0, 30.0)]
+    assert uncovered(long_region, [S(10.2, 14.0, "a")], tolerance_s=0.3, shrink_s=0.2)  # a real lost tail still fires
+
+
+class _TwoPass(_ScriptedWhisper):
+    """First batched pass loses the tail; the targeted batched re-decode recovers it."""
+
+    def __init__(self):
+        super().__init__([(10.0, 30.0)], batched=[S(10, 14, "Good start.")],
+                         redo=[S(10, 30, "should not be needed")])
+        self.decode_calls = 0
+
+    def _decode(self, audio, clips, **kw):
+        self.decode_calls += 1
+        info = type("Info", (), {"language": "en", "language_probability": 1.0})
+        if self.decode_calls == 1:
+            return [S(10, 14, "Good start.")], info
+        return [S(10, 14, "Good start."), S(14.2, 29.8, "And the rest of the sentence.")], info
+
+
+def test_lost_tail_is_fixed_by_the_cheap_batched_stage():
+    eng = _TwoPass()
+    r = eng.transcribe(np.zeros(16000 * 31, np.float32), language=None)
+    assert [s.text for s in r.segments] == ["Good start.", "And the rest of the sentence."]
+    assert eng.redo_ranges is None  # the expensive sequential decoder never ran
+    assert r.extra["suspect_ranges"] == 1 and r.extra["stage2_ranges"] == 0
+
+
+# ------------------------------------------------------------------ batched continuation (root cause of lost tails)
+
+def test_seek_aware_records_where_a_clip_stopped_early():
+    from types import SimpleNamespace
+
+    from stt_pipeline.engines.faster_whisper_engine import _SeekAware
+
+    # Whisper output "...upon<5.92><5.92>" on an 8 s clip: faster-whisper returns seek=5.92 s
+    # (592 frames) and single_timestamp_ending=False, i.e. "continue from 5.92 s".
+    fake = SimpleNamespace(frames_per_second=100,
+                           _split_segments_by_timestamps=lambda **kw: ([{"tokens": [1]}], 592, False))
+    proxy = _SeekAware(fake)
+    proxy._split_segments_by_timestamps(None, [1], time_offset=0.15, segment_size=800, segment_duration=7.79, seek=0)
+    assert proxy.remainders == [{"start": pytest.approx(6.07), "end": pytest.approx(7.94)}]
+    finished = SimpleNamespace(frames_per_second=100,  # ended with a single timestamp: nothing left
+                               _split_segments_by_timestamps=lambda **kw: ([{"tokens": [1]}], 800, True))
+    done = _SeekAware(finished)
+    done._split_segments_by_timestamps(None, [1], time_offset=0, segment_size=800, segment_duration=8.0, seek=0)
+    assert done.remainders == []
+    almost = SimpleNamespace(frames_per_second=100,  # stopped 0.3 s before the end: too short to continue
+                             _split_segments_by_timestamps=lambda **kw: ([{"tokens": [1]}], 770, False))
+    short = _SeekAware(almost)
+    short._split_segments_by_timestamps(None, [1], time_offset=0, segment_size=800, segment_duration=8.0, seek=0)
+    assert short.remainders == []
+
+
+def test_continuation_can_be_switched_off_and_leftovers_are_counted():
+    eng = _Continuing()
+    eng.continuation = False
+    segs, _ = eng._decode(np.zeros(16000 * 8, np.float32), [{"start": 0.15, "end": 7.94}],
+                          language="en", word_timestamps=False, prompt=None)
+    assert [s.text for s in segs] == ["dismay upon"] and len(eng.calls) == 1
+    assert eng._continued == 1 and eng._left_over == 1  # detected, not continued
+
+
+class _Continuing(FasterWhisperEngine):
+    def __init__(self):
+        from types import SimpleNamespace
+
+        self._seek = SimpleNamespace(remainders=[])
+        self._continued, self._left_over, self.calls = 0, 0, []
+
+    def _decode_once(self, audio, clips, **kw):
+        self.calls.append(clips)
+        info = type("Info", (), {"language": "en", "language_probability": 1.0})
+        if len(self.calls) == 1:
+            self._seek.remainders = [{"start": 6.07, "end": 7.94}]  # first pass stopped early
+            return [S(0.15, 6.07, "dismay upon")], info
+        self._seek.remainders = []
+        return [S(6.07, 7.9, "banister in the farther corner")], info
+
+
+def test_early_stopped_clips_are_continued_in_another_batched_pass():
+    eng = _Continuing()
+    segs, _ = eng._decode(np.zeros(16000 * 8, np.float32), [{"start": 0.15, "end": 7.94}],
+                          language="en", word_timestamps=False, prompt=None)
+    assert [s.text for s in segs] == ["dismay upon", "banister in the farther corner"]
+    assert eng.calls[1] == [{"start": 6.07, "end": 7.94}] and eng._continued == 1
+    assert [s.flags for s in segs] == [[], ["continued"]]
+
+
+def test_weak_continuations_are_dropped_but_confident_ones_and_normal_segments_are_kept():
+    # Real cases from Earnings-22: a 1.6 s leftover piece decoded with no context turned "and fully
+    # utilize" into "I'm free to die." (avg log-prob -1.12); a 0.8 s one came back correctly as
+    # "Volumes" (-0.94).
+    t = QualityGate()(T(
+        S(0, 4, "Our strategy is unchanged.", lp=-1.12),                          # normal, weak: flagged only
+        S(4, 5.6, "I'm free to die.", lp=-1.12, flags=["continued"]),             # dropped
+        S(6, 6.8, "Volumes", lp=-0.94, flags=["continued"]),                      # kept
+    ))
+    assert [s.text for s in t.segments] == ["Our strategy is unchanged.", "Volumes"]
+    assert t.segments[0].flags == ["low_confidence"]
+    assert [(d.segment.text, d.reason) for d in t.dropped] == [("I'm free to die.", "weak_continuation")]

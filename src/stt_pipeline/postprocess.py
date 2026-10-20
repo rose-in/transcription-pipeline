@@ -61,6 +61,14 @@ class QualityGate:
       each within 2 s of the previous                      -> drop  (loop across segments; a
                                                                      single repeat is kept)
     - known hallucination phrase + weak evidence of speech -> drop
+    - segment flagged `continued` and avg_logprob < -1.0   -> drop  (decoded from a short
+      leftover piece with no context before it. On three real earnings calls with `small`,
+      5 of 89 continued segments fell below Whisper's own failure threshold, and all 5 garbled
+      a short real phrase (4 of 23 words right): "and fully utilize" came out as "I'm free to
+      die.", "12 months" as "I'll see you in 12 minutes." The 84 above it had 79% of words
+      right. Dropping loses a few real words but keeps confident-looking wrong text out of
+      search and summaries. Not caught: one 0.7 s leftover became "Thank you very much for
+      watching, and I'll see you in the next video." at log-prob -0.85.)
     - a window of 5 consecutive segments compressing > 2.4 -> flag `possible_loop`
     - avg_logprob < -1.0                                   -> keep, flag `low_confidence`
     """
@@ -91,6 +99,8 @@ class QualityGate:
                 reason = "duplicate"
             elif key in HALLUCINATION_PHRASES and (ns > 0.3 or lp < -0.7):
                 reason = "hallucination_phrase"
+            elif "continued" in s.flags and lp < self.lpt:
+                reason = "weak_continuation"
             if reason:
                 t.dropped.append(DroppedSegment(segment=s, reason=reason))
                 continue

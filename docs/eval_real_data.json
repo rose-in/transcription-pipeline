@@ -1,0 +1,11358 @@
+[
+ {
+  "kind": "librispeech",
+  "mode": "pipeline",
+  "model": "small",
+  "threads": 6,
+  "clips": [
+   {
+    "id": "260-123440-0011",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "260-123440-0012",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 16
+   },
+   {
+    "id": "260-123440-0013",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "260-123440-0014",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "260-123440-0015",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "260-123288-0003",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 28
+   },
+   {
+    "id": "260-123288-0004",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "260-123288-0005",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 34
+   },
+   {
+    "id": "260-123288-0006",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "260-123288-0007",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "260-123288-0013",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 30
+   },
+   {
+    "id": "260-123288-0014",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 3
+   },
+   {
+    "id": "260-123288-0015",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 53
+   },
+   {
+    "id": "260-123288-0016",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "260-123288-0017",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "260-123288-0018",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "260-123288-0019",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "260-123288-0020",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "260-123288-0021",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "260-123288-0022",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "7729-102255-0034",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "7729-102255-0035",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "7729-102255-0036",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "7729-102255-0037",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 30
+   },
+   {
+    "id": "7729-102255-0038",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "7729-102255-0039",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 3,
+    "del": 1,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "7729-102255-0040",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "7729-102255-0041",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 31
+   },
+   {
+    "id": "7729-102255-0042",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "7729-102255-0043",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 30
+   },
+   {
+    "id": "7729-102255-0044",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 3,
+    "del": 1,
+    "ins": 0,
+    "n": 43
+   },
+   {
+    "id": "7729-102255-0045",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "7729-102255-0046",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 2,
+    "del": 1,
+    "ins": 0,
+    "n": 56
+   },
+   {
+    "id": "2094-142345-0000",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 49
+   },
+   {
+    "id": "2094-142345-0001",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "2094-142345-0007",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "2094-142345-0008",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 88
+   },
+   {
+    "id": "2094-142345-0009",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 4,
+    "del": 0,
+    "ins": 0,
+    "n": 35
+   },
+   {
+    "id": "2094-142345-0010",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 6,
+    "del": 0,
+    "ins": 0,
+    "n": 80
+   },
+   {
+    "id": "2094-142345-0011",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 36
+   },
+   {
+    "id": "2094-142345-0012",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 2,
+    "del": 1,
+    "ins": 0,
+    "n": 37
+   },
+   {
+    "id": "2094-142345-0013",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 2,
+    "del": 0,
+    "ins": 2,
+    "n": 40
+   },
+   {
+    "id": "2094-142345-0014",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 31
+   },
+   {
+    "id": "2094-142345-0015",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 38
+   },
+   {
+    "id": "2094-142345-0016",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 2
+   },
+   {
+    "id": "2094-142345-0047",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "2094-142345-0048",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 2,
+    "del": 0,
+    "ins": 1,
+    "n": 18
+   },
+   {
+    "id": "2094-142345-0049",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "2094-142345-0050",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "2094-142345-0051",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "3575-170457-0001",
+    "split": "clean",
+    "speaker": 3575,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "3575-170457-0002",
+    "split": "clean",
+    "speaker": 3575,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "3575-170457-0003",
+    "split": "clean",
+    "speaker": 3575,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "3575-170457-0004",
+    "split": "clean",
+    "speaker": 3575,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "3575-170457-0005",
+    "split": "clean",
+    "speaker": 3575,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 22
+   },
+   {
+    "id": "7127-75947-0014",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 27
+   },
+   {
+    "id": "7127-75947-0015",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "7127-75947-0016",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 16
+   },
+   {
+    "id": "7127-75947-0017",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "7127-75947-0018",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "7127-75947-0034",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "7127-75947-0035",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "7127-75947-0036",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 4
+   },
+   {
+    "id": "7127-75947-0037",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 27
+   },
+   {
+    "id": "7127-75947-0038",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 35
+   },
+   {
+    "id": "7127-75946-0013",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 22
+   },
+   {
+    "id": "7127-75946-0014",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 27
+   },
+   {
+    "id": "7127-75946-0015",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "7127-75946-0016",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 28
+   },
+   {
+    "id": "7127-75946-0017",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 2,
+    "del": 0,
+    "ins": 1,
+    "n": 31
+   },
+   {
+    "id": "7127-75946-0028",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 36
+   },
+   {
+    "id": "7127-75946-0029",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 23
+   },
+   {
+    "id": "2961-960-0000",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 51
+   },
+   {
+    "id": "2961-960-0001",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "2961-960-0002",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 36
+   },
+   {
+    "id": "2961-961-0005",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "2961-961-0006",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "2961-961-0007",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "2961-961-0008",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "2961-961-0009",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "8463-294828-0022",
+    "split": "clean",
+    "speaker": 8463,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "8463-294828-0023",
+    "split": "clean",
+    "speaker": 8463,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "8463-294828-0024",
+    "split": "clean",
+    "speaker": 8463,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "8463-294828-0025",
+    "split": "clean",
+    "speaker": 8463,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "8463-294828-0026",
+    "split": "clean",
+    "speaker": 8463,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "8230-279154-0013",
+    "split": "clean",
+    "speaker": 8230,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 39
+   },
+   {
+    "id": "8230-279154-0014",
+    "split": "clean",
+    "speaker": 8230,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 22
+   },
+   {
+    "id": "8230-279154-0015",
+    "split": "clean",
+    "speaker": 8230,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "8230-279154-0016",
+    "split": "clean",
+    "speaker": 8230,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 24
+   },
+   {
+    "id": "8230-279154-0017",
+    "split": "clean",
+    "speaker": 8230,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "7176-92135-0019",
+    "split": "clean",
+    "speaker": 7176,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "7176-92135-0020",
+    "split": "clean",
+    "speaker": 7176,
+    "sub": 3,
+    "del": 0,
+    "ins": 1,
+    "n": 11
+   },
+   {
+    "id": "7176-92135-0021",
+    "split": "clean",
+    "speaker": 7176,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "7176-92135-0022",
+    "split": "clean",
+    "speaker": 7176,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 26
+   },
+   {
+    "id": "7176-92135-0023",
+    "split": "clean",
+    "speaker": 7176,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "1995-1836-0000",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 24
+   },
+   {
+    "id": "1995-1836-0001",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "1995-1836-0002",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "1995-1836-0003",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "1995-1836-0004",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 3,
+    "del": 0,
+    "ins": 0,
+    "n": 96
+   },
+   {
+    "id": "1995-1826-0020",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "1995-1826-0021",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 32
+   },
+   {
+    "id": "1995-1826-0022",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "1995-1826-0023",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 2,
+    "del": 0,
+    "ins": 2,
+    "n": 19
+   },
+   {
+    "id": "1995-1826-0024",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "5142-33396-0027",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "5142-33396-0028",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "5142-33396-0029",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "5142-33396-0030",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "5142-33396-0031",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 29
+   },
+   {
+    "id": "5142-33396-0062",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "5142-33396-0063",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "5142-33396-0064",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "5142-33396-0065",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "5142-33396-0066",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "2830-3980-0007",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 33
+   },
+   {
+    "id": "2830-3980-0008",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "2830-3980-0009",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "2830-3980-0010",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "2830-3980-0011",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 16
+   },
+   {
+    "id": "2830-3980-0052",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 16
+   },
+   {
+    "id": "2830-3980-0053",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "2830-3980-0054",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 29
+   },
+   {
+    "id": "2830-3980-0055",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "2830-3980-0056",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "2830-3979-0010",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "2830-3979-0011",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "2830-3979-0012",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "4446-2271-0000",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 8
+   },
+   {
+    "id": "4446-2271-0001",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "4446-2271-0007",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "4446-2271-0008",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "4446-2271-0009",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 23
+   },
+   {
+    "id": "4446-2271-0010",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "4446-2271-0011",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "4446-2275-0035",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "4446-2275-0036",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "4446-2275-0037",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "4446-2275-0038",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "4446-2275-0039",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "4507-16021-0011",
+    "split": "clean",
+    "speaker": 4507,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "4507-16021-0012",
+    "split": "clean",
+    "speaker": 4507,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "4507-16021-0013",
+    "split": "clean",
+    "speaker": 4507,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 23
+   },
+   {
+    "id": "4507-16021-0014",
+    "split": "clean",
+    "speaker": 4507,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "4507-16021-0015",
+    "split": "clean",
+    "speaker": 4507,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "672-122797-0046",
+    "split": "clean",
+    "speaker": 672,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 9
+   },
+   {
+    "id": "672-122797-0047",
+    "split": "clean",
+    "speaker": 672,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "672-122797-0048",
+    "split": "clean",
+    "speaker": 672,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "672-122797-0049",
+    "split": "clean",
+    "speaker": 672,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 2
+   },
+   {
+    "id": "672-122797-0050",
+    "split": "clean",
+    "speaker": 672,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "5105-28233-0006",
+    "split": "clean",
+    "speaker": 5105,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "5105-28233-0007",
+    "split": "clean",
+    "speaker": 5105,
+    "sub": 2,
+    "del": 1,
+    "ins": 0,
+    "n": 61
+   },
+   {
+    "id": "5105-28233-0008",
+    "split": "clean",
+    "speaker": 5105,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 32
+   },
+   {
+    "id": "5105-28233-0009",
+    "split": "clean",
+    "speaker": 5105,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 40
+   },
+   {
+    "id": "5105-28233-0010",
+    "split": "clean",
+    "speaker": 5105,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 35
+   },
+   {
+    "id": "6829-68769-0012",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "6829-68769-0013",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 2,
+    "del": 1,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "6829-68769-0014",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "6829-68769-0015",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 4,
+    "del": 0,
+    "ins": 1,
+    "n": 25
+   },
+   {
+    "id": "6829-68769-0016",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "6829-68769-0047",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "6829-68769-0048",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "6829-68769-0049",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "6829-68769-0050",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "6829-68769-0051",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "1580-141084-0017",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "1580-141084-0018",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "1580-141084-0019",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "1580-141084-0020",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "1580-141084-0021",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "1580-141084-0027",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 4
+   },
+   {
+    "id": "1580-141084-0028",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "1580-141084-0029",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 24
+   },
+   {
+    "id": "1580-141084-0030",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "1580-141084-0031",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 22
+   },
+   {
+    "id": "4992-23283-0000",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "4992-23283-0001",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "4992-23283-0002",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "4992-23283-0003",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "4992-23283-0004",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "4992-23283-0005",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 33
+   },
+   {
+    "id": "4992-23283-0006",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "4992-23283-0007",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "4992-23283-0008",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "4992-23283-0009",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 24
+   },
+   {
+    "id": "4992-41806-0009",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "4992-41806-0010",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 4
+   },
+   {
+    "id": "4992-41806-0011",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "4992-41806-0012",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "4992-41806-0013",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 16
+   },
+   {
+    "id": "61-70968-0041",
+    "split": "clean",
+    "speaker": 61,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 24
+   },
+   {
+    "id": "61-70968-0042",
+    "split": "clean",
+    "speaker": 61,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 10
+   },
+   {
+    "id": "61-70968-0043",
+    "split": "clean",
+    "speaker": 61,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 17
+   },
+   {
+    "id": "61-70968-0044",
+    "split": "clean",
+    "speaker": 61,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "61-70968-0045",
+    "split": "clean",
+    "speaker": 61,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "121-127105-0017",
+    "split": "clean",
+    "speaker": 121,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "121-127105-0018",
+    "split": "clean",
+    "speaker": 121,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "121-127105-0019",
+    "split": "clean",
+    "speaker": 121,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "121-127105-0020",
+    "split": "clean",
+    "speaker": 121,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 44
+   },
+   {
+    "id": "121-127105-0021",
+    "split": "clean",
+    "speaker": 121,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "8280-266249-0031",
+    "split": "other",
+    "speaker": 8280,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "8280-266249-0032",
+    "split": "other",
+    "speaker": 8280,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "8280-266249-0033",
+    "split": "other",
+    "speaker": 8280,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "8280-266249-0034",
+    "split": "other",
+    "speaker": 8280,
+    "sub": 3,
+    "del": 0,
+    "ins": 0,
+    "n": 30
+   },
+   {
+    "id": "8280-266249-0035",
+    "split": "other",
+    "speaker": 8280,
+    "sub": 4,
+    "del": 1,
+    "ins": 1,
+    "n": 50
+   },
+   {
+    "id": "5764-299665-0010",
+    "split": "other",
+    "speaker": 5764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "5764-299665-0011",
+    "split": "other",
+    "speaker": 5764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "5764-299665-0012",
+    "split": "other",
+    "speaker": 5764,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "5764-299665-0013",
+    "split": "other",
+    "speaker": 5764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "5764-299665-0014",
+    "split": "other",
+    "speaker": 5764,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "5484-24317-0029",
+    "split": "other",
+    "speaker": 5484,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 23
+   },
+   {
+    "id": "5484-24317-0030",
+    "split": "other",
+    "speaker": 5484,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "5484-24317-0031",
+    "split": "other",
+    "speaker": 5484,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 31
+   },
+   {
+    "id": "5484-24317-0032",
+    "split": "other",
+    "speaker": 5484,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 25
+   },
+   {
+    "id": "5484-24317-0033",
+    "split": "other",
+    "speaker": 5484,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "3528-168669-0043",
+    "split": "other",
+    "speaker": 3528,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "3528-168669-0044",
+    "split": "other",
+    "speaker": 3528,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "3528-168669-0045",
+    "split": "other",
+    "speaker": 3528,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "3528-168669-0046",
+    "split": "other",
+    "speaker": 3528,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 28
+   },
+   {
+    "id": "3528-168669-0047",
+    "split": "other",
+    "speaker": 3528,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "6938-70848-0029",
+    "split": "other",
+    "speaker": 6938,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "6938-70848-0030",
+    "split": "other",
+    "speaker": 6938,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "8131-117029-0000",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "8131-117029-0001",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "8131-117029-0002",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "8131-117017-0000",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 29
+   },
+   {
+    "id": "8131-117017-0001",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 16
+   },
+   {
+    "id": "8131-117017-0002",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "8131-117017-0003",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 13
+   },
+   {
+    "id": "8131-117017-0004",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "367-130732-0004",
+    "split": "other",
+    "speaker": 367,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 23
+   },
+   {
+    "id": "367-130732-0005",
+    "split": "other",
+    "speaker": 367,
+    "sub": 3,
+    "del": 2,
+    "ins": 0,
+    "n": 50
+   },
+   {
+    "id": "367-130732-0006",
+    "split": "other",
+    "speaker": 367,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 4
+   },
+   {
+    "id": "367-130732-0007",
+    "split": "other",
+    "speaker": 367,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 24
+   },
+   {
+    "id": "367-130732-0008",
+    "split": "other",
+    "speaker": 367,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "3538-163622-0015",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 3,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "3538-163622-0016",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 2,
+    "del": 0,
+    "ins": 1,
+    "n": 10
+   },
+   {
+    "id": "3538-163622-0017",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "3538-163622-0018",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 38
+   },
+   {
+    "id": "3538-163622-0019",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 2,
+    "del": 1,
+    "ins": 0,
+    "n": 36
+   },
+   {
+    "id": "3538-163622-0020",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 3,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "3538-163622-0021",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 5,
+    "del": 0,
+    "ins": 4,
+    "n": 9
+   },
+   {
+    "id": "3538-163622-0022",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 3,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "3538-163622-0023",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "3538-163622-0024",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 2,
+    "del": 0,
+    "ins": 2,
+    "n": 7
+   },
+   {
+    "id": "8461-281231-0011",
+    "split": "other",
+    "speaker": 8461,
+    "sub": 2,
+    "del": 0,
+    "ins": 1,
+    "n": 19
+   },
+   {
+    "id": "8461-281231-0012",
+    "split": "other",
+    "speaker": 8461,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 25
+   },
+   {
+    "id": "8461-281231-0013",
+    "split": "other",
+    "speaker": 8461,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "8461-281231-0014",
+    "split": "other",
+    "speaker": 8461,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "8461-281231-0015",
+    "split": "other",
+    "speaker": 8461,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "3764-168671-0031",
+    "split": "other",
+    "speaker": 3764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "3764-168671-0032",
+    "split": "other",
+    "speaker": 3764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "3764-168671-0033",
+    "split": "other",
+    "speaker": 3764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 3
+   },
+   {
+    "id": "3764-168671-0034",
+    "split": "other",
+    "speaker": 3764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "3764-168671-0035",
+    "split": "other",
+    "speaker": 3764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "3997-180297-0016",
+    "split": "other",
+    "speaker": 3997,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "3997-180297-0017",
+    "split": "other",
+    "speaker": 3997,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "3997-180297-0018",
+    "split": "other",
+    "speaker": 3997,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "3997-180297-0019",
+    "split": "other",
+    "speaker": 3997,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 45
+   },
+   {
+    "id": "3997-180297-0020",
+    "split": "other",
+    "speaker": 3997,
+    "sub": 0,
+    "del": 0,
+    "ins": 1,
+    "n": 20
+   },
+   {
+    "id": "1998-29454-0028",
+    "split": "other",
+    "speaker": 1998,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "1998-29454-0029",
+    "split": "other",
+    "speaker": 1998,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "1998-29454-0030",
+    "split": "other",
+    "speaker": 1998,
+    "sub": 3,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "1998-29454-0031",
+    "split": "other",
+    "speaker": 1998,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "1998-29454-0032",
+    "split": "other",
+    "speaker": 1998,
+    "sub": 6,
+    "del": 0,
+    "ins": 3,
+    "n": 10
+   },
+   {
+    "id": "7105-2340-0023",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "7105-2340-0024",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 33
+   },
+   {
+    "id": "7105-2340-0025",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "7105-2340-0026",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 37
+   },
+   {
+    "id": "7105-2340-0027",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 3,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "7105-2330-0010",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 3,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "7105-2330-0011",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "7105-2330-0012",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 0,
+    "del": 1,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "7105-2330-0013",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "7105-2330-0014",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 32
+   },
+   {
+    "id": "2609-156975-0013",
+    "split": "other",
+    "speaker": 2609,
+    "sub": 4,
+    "del": 0,
+    "ins": 1,
+    "n": 16
+   },
+   {
+    "id": "2609-156975-0014",
+    "split": "other",
+    "speaker": 2609,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "2609-156975-0015",
+    "split": "other",
+    "speaker": 2609,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "2609-156975-0016",
+    "split": "other",
+    "speaker": 2609,
+    "sub": 7,
+    "del": 0,
+    "ins": 5,
+    "n": 8
+   },
+   {
+    "id": "2609-156975-0017",
+    "split": "other",
+    "speaker": 2609,
+    "sub": 0,
+    "del": 1,
+    "ins": 2,
+    "n": 16
+   },
+   {
+    "id": "6432-63723-0039",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "6432-63723-0040",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "6432-63723-0041",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "6432-63723-0042",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 3
+   },
+   {
+    "id": "6432-63723-0043",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 22
+   },
+   {
+    "id": "6432-63723-0049",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 13
+   },
+   {
+    "id": "6432-63723-0050",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "6432-63723-0051",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 3,
+    "del": 1,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "6432-63723-0052",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "6432-63723-0053",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "2414-159411-0032",
+    "split": "other",
+    "speaker": 2414,
+    "sub": 3,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "2414-159411-0033",
+    "split": "other",
+    "speaker": 2414,
+    "sub": 4,
+    "del": 0,
+    "ins": 1,
+    "n": 18
+   },
+   {
+    "id": "2414-159411-0034",
+    "split": "other",
+    "speaker": 2414,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "2414-159411-0035",
+    "split": "other",
+    "speaker": 2414,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "2414-128291-0000",
+    "split": "other",
+    "speaker": 2414,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "4350-10919-0004",
+    "split": "other",
+    "speaker": 4350,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "4350-10919-0005",
+    "split": "other",
+    "speaker": 4350,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "4350-10919-0006",
+    "split": "other",
+    "speaker": 4350,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "4350-10919-0007",
+    "split": "other",
+    "speaker": 4350,
+    "sub": 0,
+    "del": 0,
+    "ins": 1,
+    "n": 10
+   },
+   {
+    "id": "4350-10919-0008",
+    "split": "other",
+    "speaker": 4350,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   }
+  ],
+  "audio_s": 1964.9,
+  "wall_s": 327.0,
+  "cpu_s": 1983.7,
+  "rtf": 0.1664,
+  "peak_rss_mb": 1495,
+  "diagnostics": {
+   "speech_s": 1834.81,
+   "batched_s": 321.1,
+   "continued_clips": 4,
+   "suspect_ranges": 0,
+   "redecoded_s": 0.0,
+   "stage2_ranges": 0,
+   "fallback_s": 0.0
+  }
+ },
+ {
+  "kind": "librispeech",
+  "mode": "plain",
+  "model": "small",
+  "threads": 6,
+  "clips": [
+   {
+    "id": "260-123440-0011",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "260-123440-0012",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 16
+   },
+   {
+    "id": "260-123440-0013",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "260-123440-0014",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "260-123440-0015",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "260-123288-0003",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 28
+   },
+   {
+    "id": "260-123288-0004",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "260-123288-0005",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 34
+   },
+   {
+    "id": "260-123288-0006",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "260-123288-0007",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "260-123288-0013",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 30
+   },
+   {
+    "id": "260-123288-0014",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 3
+   },
+   {
+    "id": "260-123288-0015",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 53
+   },
+   {
+    "id": "260-123288-0016",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "260-123288-0017",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "260-123288-0018",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "260-123288-0019",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "260-123288-0020",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "260-123288-0021",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "260-123288-0022",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "7729-102255-0034",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "7729-102255-0035",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "7729-102255-0036",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "7729-102255-0037",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 30
+   },
+   {
+    "id": "7729-102255-0038",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "7729-102255-0039",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "7729-102255-0040",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "7729-102255-0041",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 31
+   },
+   {
+    "id": "7729-102255-0042",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 1,
+    "n": 20
+   },
+   {
+    "id": "7729-102255-0043",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 30
+   },
+   {
+    "id": "7729-102255-0044",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 2,
+    "del": 1,
+    "ins": 0,
+    "n": 43
+   },
+   {
+    "id": "7729-102255-0045",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "7729-102255-0046",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 2,
+    "del": 1,
+    "ins": 0,
+    "n": 56
+   },
+   {
+    "id": "2094-142345-0000",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 49
+   },
+   {
+    "id": "2094-142345-0001",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "2094-142345-0007",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "2094-142345-0008",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 88
+   },
+   {
+    "id": "2094-142345-0009",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 4,
+    "del": 0,
+    "ins": 0,
+    "n": 35
+   },
+   {
+    "id": "2094-142345-0010",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 6,
+    "del": 0,
+    "ins": 0,
+    "n": 80
+   },
+   {
+    "id": "2094-142345-0011",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 36
+   },
+   {
+    "id": "2094-142345-0012",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 2,
+    "del": 1,
+    "ins": 0,
+    "n": 37
+   },
+   {
+    "id": "2094-142345-0013",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 40
+   },
+   {
+    "id": "2094-142345-0014",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 31
+   },
+   {
+    "id": "2094-142345-0015",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 38
+   },
+   {
+    "id": "2094-142345-0016",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 2
+   },
+   {
+    "id": "2094-142345-0047",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "2094-142345-0048",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "2094-142345-0049",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "2094-142345-0050",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "2094-142345-0051",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "3575-170457-0001",
+    "split": "clean",
+    "speaker": 3575,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "3575-170457-0002",
+    "split": "clean",
+    "speaker": 3575,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "3575-170457-0003",
+    "split": "clean",
+    "speaker": 3575,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "3575-170457-0004",
+    "split": "clean",
+    "speaker": 3575,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "3575-170457-0005",
+    "split": "clean",
+    "speaker": 3575,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 22
+   },
+   {
+    "id": "7127-75947-0014",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 27
+   },
+   {
+    "id": "7127-75947-0015",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "7127-75947-0016",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 16
+   },
+   {
+    "id": "7127-75947-0017",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "7127-75947-0018",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "7127-75947-0034",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "7127-75947-0035",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "7127-75947-0036",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 4
+   },
+   {
+    "id": "7127-75947-0037",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 27
+   },
+   {
+    "id": "7127-75947-0038",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 35
+   },
+   {
+    "id": "7127-75946-0013",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 22
+   },
+   {
+    "id": "7127-75946-0014",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 27
+   },
+   {
+    "id": "7127-75946-0015",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "7127-75946-0016",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 28
+   },
+   {
+    "id": "7127-75946-0017",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 31
+   },
+   {
+    "id": "7127-75946-0028",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 36
+   },
+   {
+    "id": "7127-75946-0029",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 23
+   },
+   {
+    "id": "2961-960-0000",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 51
+   },
+   {
+    "id": "2961-960-0001",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "2961-960-0002",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 2,
+    "del": 1,
+    "ins": 0,
+    "n": 36
+   },
+   {
+    "id": "2961-961-0005",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "2961-961-0006",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "2961-961-0007",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "2961-961-0008",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "2961-961-0009",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 2,
+    "del": 0,
+    "ins": 1,
+    "n": 14
+   },
+   {
+    "id": "8463-294828-0022",
+    "split": "clean",
+    "speaker": 8463,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "8463-294828-0023",
+    "split": "clean",
+    "speaker": 8463,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "8463-294828-0024",
+    "split": "clean",
+    "speaker": 8463,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "8463-294828-0025",
+    "split": "clean",
+    "speaker": 8463,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "8463-294828-0026",
+    "split": "clean",
+    "speaker": 8463,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "8230-279154-0013",
+    "split": "clean",
+    "speaker": 8230,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 39
+   },
+   {
+    "id": "8230-279154-0014",
+    "split": "clean",
+    "speaker": 8230,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 22
+   },
+   {
+    "id": "8230-279154-0015",
+    "split": "clean",
+    "speaker": 8230,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "8230-279154-0016",
+    "split": "clean",
+    "speaker": 8230,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 24
+   },
+   {
+    "id": "8230-279154-0017",
+    "split": "clean",
+    "speaker": 8230,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "7176-92135-0019",
+    "split": "clean",
+    "speaker": 7176,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "7176-92135-0020",
+    "split": "clean",
+    "speaker": 7176,
+    "sub": 3,
+    "del": 0,
+    "ins": 1,
+    "n": 11
+   },
+   {
+    "id": "7176-92135-0021",
+    "split": "clean",
+    "speaker": 7176,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "7176-92135-0022",
+    "split": "clean",
+    "speaker": 7176,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 26
+   },
+   {
+    "id": "7176-92135-0023",
+    "split": "clean",
+    "speaker": 7176,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "1995-1836-0000",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 24
+   },
+   {
+    "id": "1995-1836-0001",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "1995-1836-0002",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "1995-1836-0003",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "1995-1836-0004",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 3,
+    "del": 0,
+    "ins": 0,
+    "n": 96
+   },
+   {
+    "id": "1995-1826-0020",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "1995-1826-0021",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 32
+   },
+   {
+    "id": "1995-1826-0022",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "1995-1826-0023",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 1,
+    "del": 0,
+    "ins": 2,
+    "n": 19
+   },
+   {
+    "id": "1995-1826-0024",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "5142-33396-0027",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "5142-33396-0028",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "5142-33396-0029",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "5142-33396-0030",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "5142-33396-0031",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 29
+   },
+   {
+    "id": "5142-33396-0062",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "5142-33396-0063",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "5142-33396-0064",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "5142-33396-0065",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "5142-33396-0066",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "2830-3980-0007",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 33
+   },
+   {
+    "id": "2830-3980-0008",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "2830-3980-0009",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "2830-3980-0010",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "2830-3980-0011",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 16
+   },
+   {
+    "id": "2830-3980-0052",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 16
+   },
+   {
+    "id": "2830-3980-0053",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "2830-3980-0054",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 29
+   },
+   {
+    "id": "2830-3980-0055",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "2830-3980-0056",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "2830-3979-0010",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "2830-3979-0011",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "2830-3979-0012",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "4446-2271-0000",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 8
+   },
+   {
+    "id": "4446-2271-0001",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "4446-2271-0007",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "4446-2271-0008",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "4446-2271-0009",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 23
+   },
+   {
+    "id": "4446-2271-0010",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "4446-2271-0011",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "4446-2275-0035",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "4446-2275-0036",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "4446-2275-0037",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "4446-2275-0038",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "4446-2275-0039",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "4507-16021-0011",
+    "split": "clean",
+    "speaker": 4507,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "4507-16021-0012",
+    "split": "clean",
+    "speaker": 4507,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "4507-16021-0013",
+    "split": "clean",
+    "speaker": 4507,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 23
+   },
+   {
+    "id": "4507-16021-0014",
+    "split": "clean",
+    "speaker": 4507,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "4507-16021-0015",
+    "split": "clean",
+    "speaker": 4507,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "672-122797-0046",
+    "split": "clean",
+    "speaker": 672,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "672-122797-0047",
+    "split": "clean",
+    "speaker": 672,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "672-122797-0048",
+    "split": "clean",
+    "speaker": 672,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "672-122797-0049",
+    "split": "clean",
+    "speaker": 672,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 2
+   },
+   {
+    "id": "672-122797-0050",
+    "split": "clean",
+    "speaker": 672,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "5105-28233-0006",
+    "split": "clean",
+    "speaker": 5105,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "5105-28233-0007",
+    "split": "clean",
+    "speaker": 5105,
+    "sub": 2,
+    "del": 1,
+    "ins": 0,
+    "n": 61
+   },
+   {
+    "id": "5105-28233-0008",
+    "split": "clean",
+    "speaker": 5105,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 32
+   },
+   {
+    "id": "5105-28233-0009",
+    "split": "clean",
+    "speaker": 5105,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 40
+   },
+   {
+    "id": "5105-28233-0010",
+    "split": "clean",
+    "speaker": 5105,
+    "sub": 2,
+    "del": 1,
+    "ins": 0,
+    "n": 35
+   },
+   {
+    "id": "6829-68769-0012",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "6829-68769-0013",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 2,
+    "del": 1,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "6829-68769-0014",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "6829-68769-0015",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 4,
+    "del": 0,
+    "ins": 1,
+    "n": 25
+   },
+   {
+    "id": "6829-68769-0016",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "6829-68769-0047",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "6829-68769-0048",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "6829-68769-0049",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "6829-68769-0050",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "6829-68769-0051",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "1580-141084-0017",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "1580-141084-0018",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "1580-141084-0019",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "1580-141084-0020",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "1580-141084-0021",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "1580-141084-0027",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 4
+   },
+   {
+    "id": "1580-141084-0028",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "1580-141084-0029",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 24
+   },
+   {
+    "id": "1580-141084-0030",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 3,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "1580-141084-0031",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 22
+   },
+   {
+    "id": "4992-23283-0000",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "4992-23283-0001",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "4992-23283-0002",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "4992-23283-0003",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "4992-23283-0004",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "4992-23283-0005",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 33
+   },
+   {
+    "id": "4992-23283-0006",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "4992-23283-0007",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "4992-23283-0008",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "4992-23283-0009",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 24
+   },
+   {
+    "id": "4992-41806-0009",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "4992-41806-0010",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 4
+   },
+   {
+    "id": "4992-41806-0011",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "4992-41806-0012",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "4992-41806-0013",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 16
+   },
+   {
+    "id": "61-70968-0041",
+    "split": "clean",
+    "speaker": 61,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 24
+   },
+   {
+    "id": "61-70968-0042",
+    "split": "clean",
+    "speaker": 61,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 10
+   },
+   {
+    "id": "61-70968-0043",
+    "split": "clean",
+    "speaker": 61,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 17
+   },
+   {
+    "id": "61-70968-0044",
+    "split": "clean",
+    "speaker": 61,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "61-70968-0045",
+    "split": "clean",
+    "speaker": 61,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "121-127105-0017",
+    "split": "clean",
+    "speaker": 121,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "121-127105-0018",
+    "split": "clean",
+    "speaker": 121,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "121-127105-0019",
+    "split": "clean",
+    "speaker": 121,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "121-127105-0020",
+    "split": "clean",
+    "speaker": 121,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 44
+   },
+   {
+    "id": "121-127105-0021",
+    "split": "clean",
+    "speaker": 121,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "8280-266249-0031",
+    "split": "other",
+    "speaker": 8280,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "8280-266249-0032",
+    "split": "other",
+    "speaker": 8280,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "8280-266249-0033",
+    "split": "other",
+    "speaker": 8280,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "8280-266249-0034",
+    "split": "other",
+    "speaker": 8280,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 30
+   },
+   {
+    "id": "8280-266249-0035",
+    "split": "other",
+    "speaker": 8280,
+    "sub": 4,
+    "del": 1,
+    "ins": 1,
+    "n": 50
+   },
+   {
+    "id": "5764-299665-0010",
+    "split": "other",
+    "speaker": 5764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "5764-299665-0011",
+    "split": "other",
+    "speaker": 5764,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "5764-299665-0012",
+    "split": "other",
+    "speaker": 5764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "5764-299665-0013",
+    "split": "other",
+    "speaker": 5764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "5764-299665-0014",
+    "split": "other",
+    "speaker": 5764,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "5484-24317-0029",
+    "split": "other",
+    "speaker": 5484,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 23
+   },
+   {
+    "id": "5484-24317-0030",
+    "split": "other",
+    "speaker": 5484,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "5484-24317-0031",
+    "split": "other",
+    "speaker": 5484,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 31
+   },
+   {
+    "id": "5484-24317-0032",
+    "split": "other",
+    "speaker": 5484,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 25
+   },
+   {
+    "id": "5484-24317-0033",
+    "split": "other",
+    "speaker": 5484,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "3528-168669-0043",
+    "split": "other",
+    "speaker": 3528,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 10
+   },
+   {
+    "id": "3528-168669-0044",
+    "split": "other",
+    "speaker": 3528,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "3528-168669-0045",
+    "split": "other",
+    "speaker": 3528,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "3528-168669-0046",
+    "split": "other",
+    "speaker": 3528,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 28
+   },
+   {
+    "id": "3528-168669-0047",
+    "split": "other",
+    "speaker": 3528,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "6938-70848-0029",
+    "split": "other",
+    "speaker": 6938,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "6938-70848-0030",
+    "split": "other",
+    "speaker": 6938,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "8131-117029-0000",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "8131-117029-0001",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "8131-117029-0002",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "8131-117017-0000",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 29
+   },
+   {
+    "id": "8131-117017-0001",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 16
+   },
+   {
+    "id": "8131-117017-0002",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "8131-117017-0003",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 13
+   },
+   {
+    "id": "8131-117017-0004",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "367-130732-0004",
+    "split": "other",
+    "speaker": 367,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 23
+   },
+   {
+    "id": "367-130732-0005",
+    "split": "other",
+    "speaker": 367,
+    "sub": 3,
+    "del": 2,
+    "ins": 0,
+    "n": 50
+   },
+   {
+    "id": "367-130732-0006",
+    "split": "other",
+    "speaker": 367,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 4
+   },
+   {
+    "id": "367-130732-0007",
+    "split": "other",
+    "speaker": 367,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 24
+   },
+   {
+    "id": "367-130732-0008",
+    "split": "other",
+    "speaker": 367,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "3538-163622-0015",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 4,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "3538-163622-0016",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 2,
+    "del": 0,
+    "ins": 1,
+    "n": 10
+   },
+   {
+    "id": "3538-163622-0017",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "3538-163622-0018",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 38
+   },
+   {
+    "id": "3538-163622-0019",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 36
+   },
+   {
+    "id": "3538-163622-0020",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 3,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "3538-163622-0021",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 5,
+    "del": 0,
+    "ins": 4,
+    "n": 9
+   },
+   {
+    "id": "3538-163622-0022",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 3,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "3538-163622-0023",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "3538-163622-0024",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 2,
+    "del": 0,
+    "ins": 2,
+    "n": 7
+   },
+   {
+    "id": "8461-281231-0011",
+    "split": "other",
+    "speaker": 8461,
+    "sub": 2,
+    "del": 0,
+    "ins": 1,
+    "n": 19
+   },
+   {
+    "id": "8461-281231-0012",
+    "split": "other",
+    "speaker": 8461,
+    "sub": 3,
+    "del": 0,
+    "ins": 0,
+    "n": 25
+   },
+   {
+    "id": "8461-281231-0013",
+    "split": "other",
+    "speaker": 8461,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "8461-281231-0014",
+    "split": "other",
+    "speaker": 8461,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "8461-281231-0015",
+    "split": "other",
+    "speaker": 8461,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "3764-168671-0031",
+    "split": "other",
+    "speaker": 3764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "3764-168671-0032",
+    "split": "other",
+    "speaker": 3764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "3764-168671-0033",
+    "split": "other",
+    "speaker": 3764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 3
+   },
+   {
+    "id": "3764-168671-0034",
+    "split": "other",
+    "speaker": 3764,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "3764-168671-0035",
+    "split": "other",
+    "speaker": 3764,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "3997-180297-0016",
+    "split": "other",
+    "speaker": 3997,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "3997-180297-0017",
+    "split": "other",
+    "speaker": 3997,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "3997-180297-0018",
+    "split": "other",
+    "speaker": 3997,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "3997-180297-0019",
+    "split": "other",
+    "speaker": 3997,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 45
+   },
+   {
+    "id": "3997-180297-0020",
+    "split": "other",
+    "speaker": 3997,
+    "sub": 0,
+    "del": 0,
+    "ins": 1,
+    "n": 20
+   },
+   {
+    "id": "1998-29454-0028",
+    "split": "other",
+    "speaker": 1998,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "1998-29454-0029",
+    "split": "other",
+    "speaker": 1998,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "1998-29454-0030",
+    "split": "other",
+    "speaker": 1998,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "1998-29454-0031",
+    "split": "other",
+    "speaker": 1998,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "1998-29454-0032",
+    "split": "other",
+    "speaker": 1998,
+    "sub": 6,
+    "del": 0,
+    "ins": 3,
+    "n": 10
+   },
+   {
+    "id": "7105-2340-0023",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "7105-2340-0024",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 33
+   },
+   {
+    "id": "7105-2340-0025",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "7105-2340-0026",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 37
+   },
+   {
+    "id": "7105-2340-0027",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 3,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "7105-2330-0010",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "7105-2330-0011",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "7105-2330-0012",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 0,
+    "del": 1,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "7105-2330-0013",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "7105-2330-0014",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 32
+   },
+   {
+    "id": "2609-156975-0013",
+    "split": "other",
+    "speaker": 2609,
+    "sub": 4,
+    "del": 0,
+    "ins": 1,
+    "n": 16
+   },
+   {
+    "id": "2609-156975-0014",
+    "split": "other",
+    "speaker": 2609,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "2609-156975-0015",
+    "split": "other",
+    "speaker": 2609,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "2609-156975-0016",
+    "split": "other",
+    "speaker": 2609,
+    "sub": 7,
+    "del": 0,
+    "ins": 5,
+    "n": 8
+   },
+   {
+    "id": "2609-156975-0017",
+    "split": "other",
+    "speaker": 2609,
+    "sub": 0,
+    "del": 1,
+    "ins": 2,
+    "n": 16
+   },
+   {
+    "id": "6432-63723-0039",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "6432-63723-0040",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "6432-63723-0041",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "6432-63723-0042",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 3
+   },
+   {
+    "id": "6432-63723-0043",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 22
+   },
+   {
+    "id": "6432-63723-0049",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "6432-63723-0050",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "6432-63723-0051",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 3,
+    "del": 1,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "6432-63723-0052",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "6432-63723-0053",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "2414-159411-0032",
+    "split": "other",
+    "speaker": 2414,
+    "sub": 3,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "2414-159411-0033",
+    "split": "other",
+    "speaker": 2414,
+    "sub": 3,
+    "del": 0,
+    "ins": 1,
+    "n": 18
+   },
+   {
+    "id": "2414-159411-0034",
+    "split": "other",
+    "speaker": 2414,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "2414-159411-0035",
+    "split": "other",
+    "speaker": 2414,
+    "sub": 2,
+    "del": 1,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "2414-128291-0000",
+    "split": "other",
+    "speaker": 2414,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "4350-10919-0004",
+    "split": "other",
+    "speaker": 4350,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 20
+   },
+   {
+    "id": "4350-10919-0005",
+    "split": "other",
+    "speaker": 4350,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "4350-10919-0006",
+    "split": "other",
+    "speaker": 4350,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "4350-10919-0007",
+    "split": "other",
+    "speaker": 4350,
+    "sub": 0,
+    "del": 0,
+    "ins": 1,
+    "n": 10
+   },
+   {
+    "id": "4350-10919-0008",
+    "split": "other",
+    "speaker": 4350,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   }
+  ],
+  "audio_s": 1964.9,
+  "wall_s": 325.1,
+  "cpu_s": 1976.9,
+  "rtf": 0.1655,
+  "peak_rss_mb": 1074
+ },
+ {
+  "kind": "earnings22",
+  "mode": "pipeline",
+  "model": "small",
+  "threads": 6,
+  "files": {
+   "4469075": {
+    "country": "South Africa",
+    "minutes": 27.0,
+    "errors": {
+     "sub": 230,
+     "del": 243,
+     "ins": 80,
+     "n": 4269
+    },
+    "segments": 358,
+    "median_seg_s": 4.2,
+    "max_seg_s": 18.0,
+    "segs_over_30s": 0,
+    "timing": null
+   },
+   "4472895": {
+    "country": "China",
+    "minutes": 24.8,
+    "errors": {
+     "sub": 208,
+     "del": 149,
+     "ins": 51,
+     "n": 2905
+    },
+    "segments": 256,
+    "median_seg_s": 5.0,
+    "max_seg_s": 13.0,
+    "segs_over_30s": 0,
+    "timing": {
+     "ref_sentences": 166,
+     "sent_p50": 0.29,
+     "sent_p90": 2.77,
+     "sent_within_1s": 71.1,
+     "bound_p50": 0.11,
+     "bound_p90": 0.62,
+     "bound_n": 246
+    }
+   },
+   "4446796": {
+    "country": "Chile",
+    "minutes": 28.0,
+    "errors": {
+     "sub": 195,
+     "del": 380,
+     "ins": 49,
+     "n": 3668
+    },
+    "segments": 308,
+    "median_seg_s": 4.7,
+    "max_seg_s": 26.0,
+    "segs_over_30s": 0,
+    "timing": {
+     "ref_sentences": 263,
+     "sent_p50": 0.77,
+     "sent_p90": 3.56,
+     "sent_within_1s": 56.7,
+     "bound_p50": 0.09,
+     "bound_p90": 0.68,
+     "bound_n": 285
+    }
+   }
+  },
+  "audio_s": 4793.5,
+  "wall_s": 315.9,
+  "cpu_s": 1826.1,
+  "rtf": 0.0659,
+  "peak_rss_mb": 3809,
+  "diagnostics": {
+   "speech_s": 4137.34,
+   "batched_s": 299.41,
+   "continued_clips": 88,
+   "suspect_ranges": 0,
+   "redecoded_s": 0.0,
+   "stage2_ranges": 0,
+   "fallback_s": 0.02,
+   "dropped_weak_continuation": 5,
+   "dropped_hallucination_phrase": 2
+  }
+ },
+ {
+  "kind": "earnings22",
+  "mode": "batched_default",
+  "model": "small",
+  "threads": 6,
+  "files": {
+   "4469075": {
+    "country": "South Africa",
+    "minutes": 27.0,
+    "errors": {
+     "sub": 197,
+     "del": 247,
+     "ins": 44,
+     "n": 4269
+    },
+    "segments": 54,
+    "median_seg_s": 29.9,
+    "max_seg_s": 45.3,
+    "segs_over_30s": 26,
+    "timing": null
+   },
+   "4472895": {
+    "country": "China",
+    "minutes": 24.8,
+    "errors": {
+     "sub": 173,
+     "del": 205,
+     "ins": 32,
+     "n": 2905
+    },
+    "segments": 48,
+    "median_seg_s": 29.5,
+    "max_seg_s": 49.6,
+    "segs_over_30s": 19,
+    "timing": {
+     "ref_sentences": 166,
+     "sent_p50": 7.97,
+     "sent_p90": 14.64,
+     "sent_within_1s": 10.2,
+     "bound_p50": 0.24,
+     "bound_p90": 2.45,
+     "bound_n": 46
+    }
+   },
+   "4446796": {
+    "country": "Chile",
+    "minutes": 28.0,
+    "errors": {
+     "sub": 188,
+     "del": 389,
+     "ins": 49,
+     "n": 3668
+    },
+    "segments": 53,
+    "median_seg_s": 29.3,
+    "max_seg_s": 55.1,
+    "segs_over_30s": 18,
+    "timing": {
+     "ref_sentences": 263,
+     "sent_p50": 7.86,
+     "sent_p90": 15.65,
+     "sent_within_1s": 8.7,
+     "bound_p50": 0.19,
+     "bound_p90": 0.63,
+     "bound_n": 50
+    }
+   }
+  },
+  "audio_s": 4793.5,
+  "wall_s": 204.2,
+  "cpu_s": 1182.0,
+  "rtf": 0.0426,
+  "peak_rss_mb": 3725
+ },
+ {
+  "kind": "earnings22",
+  "mode": "no_continuation",
+  "model": "small",
+  "threads": 6,
+  "files": {
+   "4469075": {
+    "country": "South Africa",
+    "minutes": 27.0,
+    "errors": {
+     "sub": 212,
+     "del": 277,
+     "ins": 49,
+     "n": 4269
+    },
+    "segments": 345,
+    "median_seg_s": 4.2,
+    "max_seg_s": 18.0,
+    "segs_over_30s": 0,
+    "timing": null
+   },
+   "4472895": {
+    "country": "China",
+    "minutes": 24.8,
+    "errors": {
+     "sub": 196,
+     "del": 166,
+     "ins": 48,
+     "n": 2905
+    },
+    "segments": 252,
+    "median_seg_s": 5.0,
+    "max_seg_s": 14.0,
+    "segs_over_30s": 0,
+    "timing": {
+     "ref_sentences": 166,
+     "sent_p50": 0.29,
+     "sent_p90": 2.77,
+     "sent_within_1s": 71.7,
+     "bound_p50": 0.11,
+     "bound_p90": 0.58,
+     "bound_n": 242
+    }
+   },
+   "4446796": {
+    "country": "Chile",
+    "minutes": 28.0,
+    "errors": {
+     "sub": 174,
+     "del": 456,
+     "ins": 40,
+     "n": 3668
+    },
+    "segments": 292,
+    "median_seg_s": 4.8,
+    "max_seg_s": 26.0,
+    "segs_over_30s": 0,
+    "timing": {
+     "ref_sentences": 263,
+     "sent_p50": 0.76,
+     "sent_p90": 3.79,
+     "sent_within_1s": 57.8,
+     "bound_p50": 0.09,
+     "bound_p90": 0.77,
+     "bound_n": 270
+    }
+   }
+  },
+  "audio_s": 4793.5,
+  "wall_s": 358.4,
+  "cpu_s": 1896.8,
+  "rtf": 0.0748,
+  "peak_rss_mb": 3151,
+  "diagnostics": {
+   "speech_s": 4137.34,
+   "batched_s": 283.31,
+   "continued_clips": 88,
+   "uncontinued_clips": 88,
+   "suspect_ranges": 62,
+   "redecoded_s": 637.45,
+   "stage2_ranges": 2,
+   "fallback_s": 58.63,
+   "dropped_hallucination_phrase": 1
+  }
+ },
+ {
+  "kind": "librispeech",
+  "mode": "pipeline",
+  "model": "large-v3-turbo",
+  "threads": 6,
+  "clips": [
+   {
+    "id": "260-123440-0011",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "260-123440-0012",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 16
+   },
+   {
+    "id": "260-123440-0013",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "260-123440-0014",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "260-123440-0015",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "260-123288-0003",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 28
+   },
+   {
+    "id": "260-123288-0004",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "260-123288-0005",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 34
+   },
+   {
+    "id": "260-123288-0006",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "260-123288-0007",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "260-123288-0013",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 30
+   },
+   {
+    "id": "260-123288-0014",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 3
+   },
+   {
+    "id": "260-123288-0015",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 53
+   },
+   {
+    "id": "260-123288-0016",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "260-123288-0017",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "260-123288-0018",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "260-123288-0019",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "260-123288-0020",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "260-123288-0021",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "260-123288-0022",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "7729-102255-0034",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "7729-102255-0035",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "7729-102255-0036",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "7729-102255-0037",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 30
+   },
+   {
+    "id": "7729-102255-0038",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "7729-102255-0039",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "7729-102255-0040",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "7729-102255-0041",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 31
+   },
+   {
+    "id": "7729-102255-0042",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "7729-102255-0043",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 30
+   },
+   {
+    "id": "7729-102255-0044",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 43
+   },
+   {
+    "id": "7729-102255-0045",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "7729-102255-0046",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 56
+   },
+   {
+    "id": "2094-142345-0000",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 49
+   },
+   {
+    "id": "2094-142345-0001",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "2094-142345-0007",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "2094-142345-0008",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 88
+   },
+   {
+    "id": "2094-142345-0009",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 35
+   },
+   {
+    "id": "2094-142345-0010",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 4,
+    "del": 0,
+    "ins": 0,
+    "n": 80
+   },
+   {
+    "id": "2094-142345-0011",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 36
+   },
+   {
+    "id": "2094-142345-0012",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 37
+   },
+   {
+    "id": "2094-142345-0013",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 40
+   },
+   {
+    "id": "2094-142345-0014",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 31
+   },
+   {
+    "id": "2094-142345-0015",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 38
+   },
+   {
+    "id": "2094-142345-0016",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 2
+   },
+   {
+    "id": "2094-142345-0047",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "2094-142345-0048",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "2094-142345-0049",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "2094-142345-0050",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 1,
+    "n": 14
+   },
+   {
+    "id": "2094-142345-0051",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "3575-170457-0001",
+    "split": "clean",
+    "speaker": 3575,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "3575-170457-0002",
+    "split": "clean",
+    "speaker": 3575,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "3575-170457-0003",
+    "split": "clean",
+    "speaker": 3575,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "3575-170457-0004",
+    "split": "clean",
+    "speaker": 3575,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "3575-170457-0005",
+    "split": "clean",
+    "speaker": 3575,
+    "sub": 2,
+    "del": 1,
+    "ins": 0,
+    "n": 22
+   },
+   {
+    "id": "7127-75947-0014",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 27
+   },
+   {
+    "id": "7127-75947-0015",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "7127-75947-0016",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 16
+   },
+   {
+    "id": "7127-75947-0017",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "7127-75947-0018",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "7127-75947-0034",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "7127-75947-0035",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "7127-75947-0036",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 4
+   },
+   {
+    "id": "7127-75947-0037",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 27
+   },
+   {
+    "id": "7127-75947-0038",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 35
+   },
+   {
+    "id": "7127-75946-0013",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 22
+   },
+   {
+    "id": "7127-75946-0014",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 27
+   },
+   {
+    "id": "7127-75946-0015",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "7127-75946-0016",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 28
+   },
+   {
+    "id": "7127-75946-0017",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 31
+   },
+   {
+    "id": "7127-75946-0028",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 36
+   },
+   {
+    "id": "7127-75946-0029",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 23
+   },
+   {
+    "id": "2961-960-0000",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 51
+   },
+   {
+    "id": "2961-960-0001",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "2961-960-0002",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 2,
+    "del": 1,
+    "ins": 0,
+    "n": 36
+   },
+   {
+    "id": "2961-961-0005",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "2961-961-0006",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "2961-961-0007",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "2961-961-0008",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "2961-961-0009",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 2,
+    "del": 0,
+    "ins": 2,
+    "n": 14
+   },
+   {
+    "id": "8463-294828-0022",
+    "split": "clean",
+    "speaker": 8463,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "8463-294828-0023",
+    "split": "clean",
+    "speaker": 8463,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "8463-294828-0024",
+    "split": "clean",
+    "speaker": 8463,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "8463-294828-0025",
+    "split": "clean",
+    "speaker": 8463,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "8463-294828-0026",
+    "split": "clean",
+    "speaker": 8463,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "8230-279154-0013",
+    "split": "clean",
+    "speaker": 8230,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 39
+   },
+   {
+    "id": "8230-279154-0014",
+    "split": "clean",
+    "speaker": 8230,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 22
+   },
+   {
+    "id": "8230-279154-0015",
+    "split": "clean",
+    "speaker": 8230,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "8230-279154-0016",
+    "split": "clean",
+    "speaker": 8230,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 24
+   },
+   {
+    "id": "8230-279154-0017",
+    "split": "clean",
+    "speaker": 8230,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "7176-92135-0019",
+    "split": "clean",
+    "speaker": 7176,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "7176-92135-0020",
+    "split": "clean",
+    "speaker": 7176,
+    "sub": 3,
+    "del": 0,
+    "ins": 1,
+    "n": 11
+   },
+   {
+    "id": "7176-92135-0021",
+    "split": "clean",
+    "speaker": 7176,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "7176-92135-0022",
+    "split": "clean",
+    "speaker": 7176,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "7176-92135-0023",
+    "split": "clean",
+    "speaker": 7176,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "1995-1836-0000",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 24
+   },
+   {
+    "id": "1995-1836-0001",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "1995-1836-0002",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "1995-1836-0003",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "1995-1836-0004",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 96
+   },
+   {
+    "id": "1995-1826-0020",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "1995-1826-0021",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 32
+   },
+   {
+    "id": "1995-1826-0022",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "1995-1826-0023",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 2,
+    "del": 0,
+    "ins": 2,
+    "n": 19
+   },
+   {
+    "id": "1995-1826-0024",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "5142-33396-0027",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "5142-33396-0028",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "5142-33396-0029",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "5142-33396-0030",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "5142-33396-0031",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 29
+   },
+   {
+    "id": "5142-33396-0062",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "5142-33396-0063",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "5142-33396-0064",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "5142-33396-0065",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "5142-33396-0066",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "2830-3980-0007",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 33
+   },
+   {
+    "id": "2830-3980-0008",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "2830-3980-0009",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "2830-3980-0010",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "2830-3980-0011",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 16
+   },
+   {
+    "id": "2830-3980-0052",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 16
+   },
+   {
+    "id": "2830-3980-0053",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "2830-3980-0054",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 29
+   },
+   {
+    "id": "2830-3980-0055",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "2830-3980-0056",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "2830-3979-0010",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "2830-3979-0011",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "2830-3979-0012",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "4446-2271-0000",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 8
+   },
+   {
+    "id": "4446-2271-0001",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "4446-2271-0007",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "4446-2271-0008",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "4446-2271-0009",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 23
+   },
+   {
+    "id": "4446-2271-0010",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "4446-2271-0011",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "4446-2275-0035",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "4446-2275-0036",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "4446-2275-0037",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "4446-2275-0038",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "4446-2275-0039",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "4507-16021-0011",
+    "split": "clean",
+    "speaker": 4507,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "4507-16021-0012",
+    "split": "clean",
+    "speaker": 4507,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "4507-16021-0013",
+    "split": "clean",
+    "speaker": 4507,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 23
+   },
+   {
+    "id": "4507-16021-0014",
+    "split": "clean",
+    "speaker": 4507,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "4507-16021-0015",
+    "split": "clean",
+    "speaker": 4507,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "672-122797-0046",
+    "split": "clean",
+    "speaker": 672,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "672-122797-0047",
+    "split": "clean",
+    "speaker": 672,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "672-122797-0048",
+    "split": "clean",
+    "speaker": 672,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "672-122797-0049",
+    "split": "clean",
+    "speaker": 672,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 2
+   },
+   {
+    "id": "672-122797-0050",
+    "split": "clean",
+    "speaker": 672,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "5105-28233-0006",
+    "split": "clean",
+    "speaker": 5105,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "5105-28233-0007",
+    "split": "clean",
+    "speaker": 5105,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 61
+   },
+   {
+    "id": "5105-28233-0008",
+    "split": "clean",
+    "speaker": 5105,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 32
+   },
+   {
+    "id": "5105-28233-0009",
+    "split": "clean",
+    "speaker": 5105,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 40
+   },
+   {
+    "id": "5105-28233-0010",
+    "split": "clean",
+    "speaker": 5105,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 35
+   },
+   {
+    "id": "6829-68769-0012",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "6829-68769-0013",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "6829-68769-0014",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "6829-68769-0015",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 4,
+    "del": 0,
+    "ins": 1,
+    "n": 25
+   },
+   {
+    "id": "6829-68769-0016",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "6829-68769-0047",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "6829-68769-0048",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "6829-68769-0049",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "6829-68769-0050",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "6829-68769-0051",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "1580-141084-0017",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "1580-141084-0018",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "1580-141084-0019",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "1580-141084-0020",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "1580-141084-0021",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "1580-141084-0027",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 4
+   },
+   {
+    "id": "1580-141084-0028",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "1580-141084-0029",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 24
+   },
+   {
+    "id": "1580-141084-0030",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "1580-141084-0031",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 22
+   },
+   {
+    "id": "4992-23283-0000",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "4992-23283-0001",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "4992-23283-0002",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "4992-23283-0003",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "4992-23283-0004",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "4992-23283-0005",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 33
+   },
+   {
+    "id": "4992-23283-0006",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "4992-23283-0007",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "4992-23283-0008",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "4992-23283-0009",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 24
+   },
+   {
+    "id": "4992-41806-0009",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "4992-41806-0010",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 4
+   },
+   {
+    "id": "4992-41806-0011",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "4992-41806-0012",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "4992-41806-0013",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 16
+   },
+   {
+    "id": "61-70968-0041",
+    "split": "clean",
+    "speaker": 61,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 24
+   },
+   {
+    "id": "61-70968-0042",
+    "split": "clean",
+    "speaker": 61,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "61-70968-0043",
+    "split": "clean",
+    "speaker": 61,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "61-70968-0044",
+    "split": "clean",
+    "speaker": 61,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "61-70968-0045",
+    "split": "clean",
+    "speaker": 61,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "121-127105-0017",
+    "split": "clean",
+    "speaker": 121,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "121-127105-0018",
+    "split": "clean",
+    "speaker": 121,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "121-127105-0019",
+    "split": "clean",
+    "speaker": 121,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "121-127105-0020",
+    "split": "clean",
+    "speaker": 121,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 44
+   },
+   {
+    "id": "121-127105-0021",
+    "split": "clean",
+    "speaker": 121,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "8280-266249-0031",
+    "split": "other",
+    "speaker": 8280,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "8280-266249-0032",
+    "split": "other",
+    "speaker": 8280,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "8280-266249-0033",
+    "split": "other",
+    "speaker": 8280,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "8280-266249-0034",
+    "split": "other",
+    "speaker": 8280,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 30
+   },
+   {
+    "id": "8280-266249-0035",
+    "split": "other",
+    "speaker": 8280,
+    "sub": 2,
+    "del": 1,
+    "ins": 0,
+    "n": 50
+   },
+   {
+    "id": "5764-299665-0010",
+    "split": "other",
+    "speaker": 5764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "5764-299665-0011",
+    "split": "other",
+    "speaker": 5764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "5764-299665-0012",
+    "split": "other",
+    "speaker": 5764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "5764-299665-0013",
+    "split": "other",
+    "speaker": 5764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "5764-299665-0014",
+    "split": "other",
+    "speaker": 5764,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "5484-24317-0029",
+    "split": "other",
+    "speaker": 5484,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 23
+   },
+   {
+    "id": "5484-24317-0030",
+    "split": "other",
+    "speaker": 5484,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "5484-24317-0031",
+    "split": "other",
+    "speaker": 5484,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 31
+   },
+   {
+    "id": "5484-24317-0032",
+    "split": "other",
+    "speaker": 5484,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 25
+   },
+   {
+    "id": "5484-24317-0033",
+    "split": "other",
+    "speaker": 5484,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "3528-168669-0043",
+    "split": "other",
+    "speaker": 3528,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "3528-168669-0044",
+    "split": "other",
+    "speaker": 3528,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "3528-168669-0045",
+    "split": "other",
+    "speaker": 3528,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "3528-168669-0046",
+    "split": "other",
+    "speaker": 3528,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 28
+   },
+   {
+    "id": "3528-168669-0047",
+    "split": "other",
+    "speaker": 3528,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "6938-70848-0029",
+    "split": "other",
+    "speaker": 6938,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "6938-70848-0030",
+    "split": "other",
+    "speaker": 6938,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "8131-117029-0000",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "8131-117029-0001",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "8131-117029-0002",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "8131-117017-0000",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 29
+   },
+   {
+    "id": "8131-117017-0001",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 16
+   },
+   {
+    "id": "8131-117017-0002",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "8131-117017-0003",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 13
+   },
+   {
+    "id": "8131-117017-0004",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "367-130732-0004",
+    "split": "other",
+    "speaker": 367,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 23
+   },
+   {
+    "id": "367-130732-0005",
+    "split": "other",
+    "speaker": 367,
+    "sub": 3,
+    "del": 2,
+    "ins": 0,
+    "n": 50
+   },
+   {
+    "id": "367-130732-0006",
+    "split": "other",
+    "speaker": 367,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 4
+   },
+   {
+    "id": "367-130732-0007",
+    "split": "other",
+    "speaker": 367,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 24
+   },
+   {
+    "id": "367-130732-0008",
+    "split": "other",
+    "speaker": 367,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "3538-163622-0015",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 2,
+    "del": 0,
+    "ins": 1,
+    "n": 19
+   },
+   {
+    "id": "3538-163622-0016",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "3538-163622-0017",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "3538-163622-0018",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 38
+   },
+   {
+    "id": "3538-163622-0019",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 36
+   },
+   {
+    "id": "3538-163622-0020",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 3,
+    "del": 0,
+    "ins": 1,
+    "n": 15
+   },
+   {
+    "id": "3538-163622-0021",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "3538-163622-0022",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "3538-163622-0023",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "3538-163622-0024",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "8461-281231-0011",
+    "split": "other",
+    "speaker": 8461,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "8461-281231-0012",
+    "split": "other",
+    "speaker": 8461,
+    "sub": 0,
+    "del": 1,
+    "ins": 0,
+    "n": 25
+   },
+   {
+    "id": "8461-281231-0013",
+    "split": "other",
+    "speaker": 8461,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "8461-281231-0014",
+    "split": "other",
+    "speaker": 8461,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "8461-281231-0015",
+    "split": "other",
+    "speaker": 8461,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "3764-168671-0031",
+    "split": "other",
+    "speaker": 3764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "3764-168671-0032",
+    "split": "other",
+    "speaker": 3764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "3764-168671-0033",
+    "split": "other",
+    "speaker": 3764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 3
+   },
+   {
+    "id": "3764-168671-0034",
+    "split": "other",
+    "speaker": 3764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "3764-168671-0035",
+    "split": "other",
+    "speaker": 3764,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "3997-180297-0016",
+    "split": "other",
+    "speaker": 3997,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "3997-180297-0017",
+    "split": "other",
+    "speaker": 3997,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "3997-180297-0018",
+    "split": "other",
+    "speaker": 3997,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "3997-180297-0019",
+    "split": "other",
+    "speaker": 3997,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 45
+   },
+   {
+    "id": "3997-180297-0020",
+    "split": "other",
+    "speaker": 3997,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "1998-29454-0028",
+    "split": "other",
+    "speaker": 1998,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "1998-29454-0029",
+    "split": "other",
+    "speaker": 1998,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "1998-29454-0030",
+    "split": "other",
+    "speaker": 1998,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "1998-29454-0031",
+    "split": "other",
+    "speaker": 1998,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "1998-29454-0032",
+    "split": "other",
+    "speaker": 1998,
+    "sub": 4,
+    "del": 0,
+    "ins": 1,
+    "n": 10
+   },
+   {
+    "id": "7105-2340-0023",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "7105-2340-0024",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 33
+   },
+   {
+    "id": "7105-2340-0025",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "7105-2340-0026",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 37
+   },
+   {
+    "id": "7105-2340-0027",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "7105-2330-0010",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "7105-2330-0011",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "7105-2330-0012",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 0,
+    "del": 1,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "7105-2330-0013",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "7105-2330-0014",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 3,
+    "del": 0,
+    "ins": 0,
+    "n": 32
+   },
+   {
+    "id": "2609-156975-0013",
+    "split": "other",
+    "speaker": 2609,
+    "sub": 4,
+    "del": 0,
+    "ins": 1,
+    "n": 16
+   },
+   {
+    "id": "2609-156975-0014",
+    "split": "other",
+    "speaker": 2609,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "2609-156975-0015",
+    "split": "other",
+    "speaker": 2609,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "2609-156975-0016",
+    "split": "other",
+    "speaker": 2609,
+    "sub": 2,
+    "del": 0,
+    "ins": 1,
+    "n": 8
+   },
+   {
+    "id": "2609-156975-0017",
+    "split": "other",
+    "speaker": 2609,
+    "sub": 0,
+    "del": 1,
+    "ins": 2,
+    "n": 16
+   },
+   {
+    "id": "6432-63723-0039",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "6432-63723-0040",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "6432-63723-0041",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "6432-63723-0042",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 3
+   },
+   {
+    "id": "6432-63723-0043",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 22
+   },
+   {
+    "id": "6432-63723-0049",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "6432-63723-0050",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "6432-63723-0051",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 2,
+    "del": 1,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "6432-63723-0052",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "6432-63723-0053",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "2414-159411-0032",
+    "split": "other",
+    "speaker": 2414,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "2414-159411-0033",
+    "split": "other",
+    "speaker": 2414,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "2414-159411-0034",
+    "split": "other",
+    "speaker": 2414,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "2414-159411-0035",
+    "split": "other",
+    "speaker": 2414,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "2414-128291-0000",
+    "split": "other",
+    "speaker": 2414,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "4350-10919-0004",
+    "split": "other",
+    "speaker": 4350,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "4350-10919-0005",
+    "split": "other",
+    "speaker": 4350,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "4350-10919-0006",
+    "split": "other",
+    "speaker": 4350,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "4350-10919-0007",
+    "split": "other",
+    "speaker": 4350,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "4350-10919-0008",
+    "split": "other",
+    "speaker": 4350,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   }
+  ],
+  "audio_s": 1964.9,
+  "wall_s": 730.7,
+  "cpu_s": 4302.4,
+  "rtf": 0.3719,
+  "peak_rss_mb": 2435,
+  "diagnostics": {
+   "speech_s": 1834.81,
+   "batched_s": 724.79,
+   "continued_clips": 3,
+   "suspect_ranges": 0,
+   "redecoded_s": 0.0,
+   "stage2_ranges": 0,
+   "fallback_s": 0.0
+  }
+ },
+ {
+  "kind": "librispeech",
+  "mode": "plain",
+  "model": "large-v3-turbo",
+  "threads": 6,
+  "clips": [
+   {
+    "id": "260-123440-0011",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "260-123440-0012",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 16
+   },
+   {
+    "id": "260-123440-0013",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "260-123440-0014",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "260-123440-0015",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "260-123288-0003",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 28
+   },
+   {
+    "id": "260-123288-0004",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "260-123288-0005",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 34
+   },
+   {
+    "id": "260-123288-0006",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "260-123288-0007",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "260-123288-0013",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 30
+   },
+   {
+    "id": "260-123288-0014",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 3
+   },
+   {
+    "id": "260-123288-0015",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 53
+   },
+   {
+    "id": "260-123288-0016",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "260-123288-0017",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "260-123288-0018",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "260-123288-0019",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "260-123288-0020",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "260-123288-0021",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "260-123288-0022",
+    "split": "clean",
+    "speaker": 260,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "7729-102255-0034",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "7729-102255-0035",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "7729-102255-0036",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "7729-102255-0037",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 30
+   },
+   {
+    "id": "7729-102255-0038",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "7729-102255-0039",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "7729-102255-0040",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "7729-102255-0041",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 31
+   },
+   {
+    "id": "7729-102255-0042",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "7729-102255-0043",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 30
+   },
+   {
+    "id": "7729-102255-0044",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 43
+   },
+   {
+    "id": "7729-102255-0045",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "7729-102255-0046",
+    "split": "clean",
+    "speaker": 7729,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 56
+   },
+   {
+    "id": "2094-142345-0000",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 49
+   },
+   {
+    "id": "2094-142345-0001",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "2094-142345-0007",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "2094-142345-0008",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 88
+   },
+   {
+    "id": "2094-142345-0009",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 1,
+    "del": 2,
+    "ins": 0,
+    "n": 35
+   },
+   {
+    "id": "2094-142345-0010",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 3,
+    "del": 0,
+    "ins": 0,
+    "n": 80
+   },
+   {
+    "id": "2094-142345-0011",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 36
+   },
+   {
+    "id": "2094-142345-0012",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 37
+   },
+   {
+    "id": "2094-142345-0013",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 40
+   },
+   {
+    "id": "2094-142345-0014",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 31
+   },
+   {
+    "id": "2094-142345-0015",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 38
+   },
+   {
+    "id": "2094-142345-0016",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 2
+   },
+   {
+    "id": "2094-142345-0047",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "2094-142345-0048",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "2094-142345-0049",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "2094-142345-0050",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 1,
+    "n": 14
+   },
+   {
+    "id": "2094-142345-0051",
+    "split": "clean",
+    "speaker": 2094,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "3575-170457-0001",
+    "split": "clean",
+    "speaker": 3575,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "3575-170457-0002",
+    "split": "clean",
+    "speaker": 3575,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "3575-170457-0003",
+    "split": "clean",
+    "speaker": 3575,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "3575-170457-0004",
+    "split": "clean",
+    "speaker": 3575,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "3575-170457-0005",
+    "split": "clean",
+    "speaker": 3575,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 22
+   },
+   {
+    "id": "7127-75947-0014",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 27
+   },
+   {
+    "id": "7127-75947-0015",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "7127-75947-0016",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 16
+   },
+   {
+    "id": "7127-75947-0017",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "7127-75947-0018",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "7127-75947-0034",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "7127-75947-0035",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "7127-75947-0036",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 4
+   },
+   {
+    "id": "7127-75947-0037",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 27
+   },
+   {
+    "id": "7127-75947-0038",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 35
+   },
+   {
+    "id": "7127-75946-0013",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 22
+   },
+   {
+    "id": "7127-75946-0014",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 27
+   },
+   {
+    "id": "7127-75946-0015",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "7127-75946-0016",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 28
+   },
+   {
+    "id": "7127-75946-0017",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 31
+   },
+   {
+    "id": "7127-75946-0028",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 36
+   },
+   {
+    "id": "7127-75946-0029",
+    "split": "clean",
+    "speaker": 7127,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 23
+   },
+   {
+    "id": "2961-960-0000",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 51
+   },
+   {
+    "id": "2961-960-0001",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "2961-960-0002",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 2,
+    "del": 1,
+    "ins": 0,
+    "n": 36
+   },
+   {
+    "id": "2961-961-0005",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "2961-961-0006",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "2961-961-0007",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "2961-961-0008",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "2961-961-0009",
+    "split": "clean",
+    "speaker": 2961,
+    "sub": 2,
+    "del": 0,
+    "ins": 2,
+    "n": 14
+   },
+   {
+    "id": "8463-294828-0022",
+    "split": "clean",
+    "speaker": 8463,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "8463-294828-0023",
+    "split": "clean",
+    "speaker": 8463,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "8463-294828-0024",
+    "split": "clean",
+    "speaker": 8463,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "8463-294828-0025",
+    "split": "clean",
+    "speaker": 8463,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "8463-294828-0026",
+    "split": "clean",
+    "speaker": 8463,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "8230-279154-0013",
+    "split": "clean",
+    "speaker": 8230,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 39
+   },
+   {
+    "id": "8230-279154-0014",
+    "split": "clean",
+    "speaker": 8230,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 22
+   },
+   {
+    "id": "8230-279154-0015",
+    "split": "clean",
+    "speaker": 8230,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "8230-279154-0016",
+    "split": "clean",
+    "speaker": 8230,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 24
+   },
+   {
+    "id": "8230-279154-0017",
+    "split": "clean",
+    "speaker": 8230,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "7176-92135-0019",
+    "split": "clean",
+    "speaker": 7176,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "7176-92135-0020",
+    "split": "clean",
+    "speaker": 7176,
+    "sub": 3,
+    "del": 0,
+    "ins": 1,
+    "n": 11
+   },
+   {
+    "id": "7176-92135-0021",
+    "split": "clean",
+    "speaker": 7176,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "7176-92135-0022",
+    "split": "clean",
+    "speaker": 7176,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "7176-92135-0023",
+    "split": "clean",
+    "speaker": 7176,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "1995-1836-0000",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 24
+   },
+   {
+    "id": "1995-1836-0001",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "1995-1836-0002",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "1995-1836-0003",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "1995-1836-0004",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 96
+   },
+   {
+    "id": "1995-1826-0020",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "1995-1826-0021",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 32
+   },
+   {
+    "id": "1995-1826-0022",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "1995-1826-0023",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 2,
+    "del": 0,
+    "ins": 2,
+    "n": 19
+   },
+   {
+    "id": "1995-1826-0024",
+    "split": "clean",
+    "speaker": 1995,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "5142-33396-0027",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "5142-33396-0028",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "5142-33396-0029",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "5142-33396-0030",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "5142-33396-0031",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 29
+   },
+   {
+    "id": "5142-33396-0062",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "5142-33396-0063",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "5142-33396-0064",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "5142-33396-0065",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "5142-33396-0066",
+    "split": "clean",
+    "speaker": 5142,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "2830-3980-0007",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 33
+   },
+   {
+    "id": "2830-3980-0008",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "2830-3980-0009",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "2830-3980-0010",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "2830-3980-0011",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 16
+   },
+   {
+    "id": "2830-3980-0052",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 16
+   },
+   {
+    "id": "2830-3980-0053",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "2830-3980-0054",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 29
+   },
+   {
+    "id": "2830-3980-0055",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "2830-3980-0056",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "2830-3979-0010",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "2830-3979-0011",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "2830-3979-0012",
+    "split": "clean",
+    "speaker": 2830,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "4446-2271-0000",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 8
+   },
+   {
+    "id": "4446-2271-0001",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "4446-2271-0007",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "4446-2271-0008",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "4446-2271-0009",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 23
+   },
+   {
+    "id": "4446-2271-0010",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "4446-2271-0011",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "4446-2275-0035",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "4446-2275-0036",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "4446-2275-0037",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "4446-2275-0038",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "4446-2275-0039",
+    "split": "clean",
+    "speaker": 4446,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "4507-16021-0011",
+    "split": "clean",
+    "speaker": 4507,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "4507-16021-0012",
+    "split": "clean",
+    "speaker": 4507,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "4507-16021-0013",
+    "split": "clean",
+    "speaker": 4507,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 23
+   },
+   {
+    "id": "4507-16021-0014",
+    "split": "clean",
+    "speaker": 4507,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "4507-16021-0015",
+    "split": "clean",
+    "speaker": 4507,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "672-122797-0046",
+    "split": "clean",
+    "speaker": 672,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "672-122797-0047",
+    "split": "clean",
+    "speaker": 672,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "672-122797-0048",
+    "split": "clean",
+    "speaker": 672,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "672-122797-0049",
+    "split": "clean",
+    "speaker": 672,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 2
+   },
+   {
+    "id": "672-122797-0050",
+    "split": "clean",
+    "speaker": 672,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "5105-28233-0006",
+    "split": "clean",
+    "speaker": 5105,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "5105-28233-0007",
+    "split": "clean",
+    "speaker": 5105,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 61
+   },
+   {
+    "id": "5105-28233-0008",
+    "split": "clean",
+    "speaker": 5105,
+    "sub": 0,
+    "del": 1,
+    "ins": 0,
+    "n": 32
+   },
+   {
+    "id": "5105-28233-0009",
+    "split": "clean",
+    "speaker": 5105,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 40
+   },
+   {
+    "id": "5105-28233-0010",
+    "split": "clean",
+    "speaker": 5105,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 35
+   },
+   {
+    "id": "6829-68769-0012",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "6829-68769-0013",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "6829-68769-0014",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "6829-68769-0015",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 4,
+    "del": 0,
+    "ins": 1,
+    "n": 25
+   },
+   {
+    "id": "6829-68769-0016",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "6829-68769-0047",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "6829-68769-0048",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "6829-68769-0049",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "6829-68769-0050",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "6829-68769-0051",
+    "split": "clean",
+    "speaker": 6829,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "1580-141084-0017",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "1580-141084-0018",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "1580-141084-0019",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "1580-141084-0020",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "1580-141084-0021",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "1580-141084-0027",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 4
+   },
+   {
+    "id": "1580-141084-0028",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "1580-141084-0029",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 24
+   },
+   {
+    "id": "1580-141084-0030",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "1580-141084-0031",
+    "split": "clean",
+    "speaker": 1580,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 22
+   },
+   {
+    "id": "4992-23283-0000",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "4992-23283-0001",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "4992-23283-0002",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "4992-23283-0003",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "4992-23283-0004",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "4992-23283-0005",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 33
+   },
+   {
+    "id": "4992-23283-0006",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "4992-23283-0007",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "4992-23283-0008",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "4992-23283-0009",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 24
+   },
+   {
+    "id": "4992-41806-0009",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "4992-41806-0010",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 4
+   },
+   {
+    "id": "4992-41806-0011",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "4992-41806-0012",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "4992-41806-0013",
+    "split": "clean",
+    "speaker": 4992,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 16
+   },
+   {
+    "id": "61-70968-0041",
+    "split": "clean",
+    "speaker": 61,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 24
+   },
+   {
+    "id": "61-70968-0042",
+    "split": "clean",
+    "speaker": 61,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "61-70968-0043",
+    "split": "clean",
+    "speaker": 61,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "61-70968-0044",
+    "split": "clean",
+    "speaker": 61,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "61-70968-0045",
+    "split": "clean",
+    "speaker": 61,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "121-127105-0017",
+    "split": "clean",
+    "speaker": 121,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "121-127105-0018",
+    "split": "clean",
+    "speaker": 121,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "121-127105-0019",
+    "split": "clean",
+    "speaker": 121,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "121-127105-0020",
+    "split": "clean",
+    "speaker": 121,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 44
+   },
+   {
+    "id": "121-127105-0021",
+    "split": "clean",
+    "speaker": 121,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "8280-266249-0031",
+    "split": "other",
+    "speaker": 8280,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "8280-266249-0032",
+    "split": "other",
+    "speaker": 8280,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "8280-266249-0033",
+    "split": "other",
+    "speaker": 8280,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "8280-266249-0034",
+    "split": "other",
+    "speaker": 8280,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 30
+   },
+   {
+    "id": "8280-266249-0035",
+    "split": "other",
+    "speaker": 8280,
+    "sub": 2,
+    "del": 1,
+    "ins": 0,
+    "n": 50
+   },
+   {
+    "id": "5764-299665-0010",
+    "split": "other",
+    "speaker": 5764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "5764-299665-0011",
+    "split": "other",
+    "speaker": 5764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "5764-299665-0012",
+    "split": "other",
+    "speaker": 5764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "5764-299665-0013",
+    "split": "other",
+    "speaker": 5764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "5764-299665-0014",
+    "split": "other",
+    "speaker": 5764,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "5484-24317-0029",
+    "split": "other",
+    "speaker": 5484,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 23
+   },
+   {
+    "id": "5484-24317-0030",
+    "split": "other",
+    "speaker": 5484,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 21
+   },
+   {
+    "id": "5484-24317-0031",
+    "split": "other",
+    "speaker": 5484,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 31
+   },
+   {
+    "id": "5484-24317-0032",
+    "split": "other",
+    "speaker": 5484,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 25
+   },
+   {
+    "id": "5484-24317-0033",
+    "split": "other",
+    "speaker": 5484,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "3528-168669-0043",
+    "split": "other",
+    "speaker": 3528,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "3528-168669-0044",
+    "split": "other",
+    "speaker": 3528,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "3528-168669-0045",
+    "split": "other",
+    "speaker": 3528,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "3528-168669-0046",
+    "split": "other",
+    "speaker": 3528,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 28
+   },
+   {
+    "id": "3528-168669-0047",
+    "split": "other",
+    "speaker": 3528,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "6938-70848-0029",
+    "split": "other",
+    "speaker": 6938,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "6938-70848-0030",
+    "split": "other",
+    "speaker": 6938,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "8131-117029-0000",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "8131-117029-0001",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "8131-117029-0002",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "8131-117017-0000",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 29
+   },
+   {
+    "id": "8131-117017-0001",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 16
+   },
+   {
+    "id": "8131-117017-0002",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "8131-117017-0003",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 13
+   },
+   {
+    "id": "8131-117017-0004",
+    "split": "other",
+    "speaker": 8131,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "367-130732-0004",
+    "split": "other",
+    "speaker": 367,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 23
+   },
+   {
+    "id": "367-130732-0005",
+    "split": "other",
+    "speaker": 367,
+    "sub": 3,
+    "del": 2,
+    "ins": 0,
+    "n": 50
+   },
+   {
+    "id": "367-130732-0006",
+    "split": "other",
+    "speaker": 367,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 4
+   },
+   {
+    "id": "367-130732-0007",
+    "split": "other",
+    "speaker": 367,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 24
+   },
+   {
+    "id": "367-130732-0008",
+    "split": "other",
+    "speaker": 367,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "3538-163622-0015",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 2,
+    "del": 0,
+    "ins": 1,
+    "n": 19
+   },
+   {
+    "id": "3538-163622-0016",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "3538-163622-0017",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "3538-163622-0018",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 1,
+    "del": 0,
+    "ins": 1,
+    "n": 38
+   },
+   {
+    "id": "3538-163622-0019",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 36
+   },
+   {
+    "id": "3538-163622-0020",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 3,
+    "del": 0,
+    "ins": 1,
+    "n": 15
+   },
+   {
+    "id": "3538-163622-0021",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "3538-163622-0022",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "3538-163622-0023",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "3538-163622-0024",
+    "split": "other",
+    "speaker": 3538,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "8461-281231-0011",
+    "split": "other",
+    "speaker": 8461,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   },
+   {
+    "id": "8461-281231-0012",
+    "split": "other",
+    "speaker": 8461,
+    "sub": 0,
+    "del": 1,
+    "ins": 0,
+    "n": 25
+   },
+   {
+    "id": "8461-281231-0013",
+    "split": "other",
+    "speaker": 8461,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "8461-281231-0014",
+    "split": "other",
+    "speaker": 8461,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "8461-281231-0015",
+    "split": "other",
+    "speaker": 8461,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "3764-168671-0031",
+    "split": "other",
+    "speaker": 3764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 7
+   },
+   {
+    "id": "3764-168671-0032",
+    "split": "other",
+    "speaker": 3764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "3764-168671-0033",
+    "split": "other",
+    "speaker": 3764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 3
+   },
+   {
+    "id": "3764-168671-0034",
+    "split": "other",
+    "speaker": 3764,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "3764-168671-0035",
+    "split": "other",
+    "speaker": 3764,
+    "sub": 1,
+    "del": 1,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "3997-180297-0016",
+    "split": "other",
+    "speaker": 3997,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "3997-180297-0017",
+    "split": "other",
+    "speaker": 3997,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "3997-180297-0018",
+    "split": "other",
+    "speaker": 3997,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "3997-180297-0019",
+    "split": "other",
+    "speaker": 3997,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 45
+   },
+   {
+    "id": "3997-180297-0020",
+    "split": "other",
+    "speaker": 3997,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "1998-29454-0028",
+    "split": "other",
+    "speaker": 1998,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "1998-29454-0029",
+    "split": "other",
+    "speaker": 1998,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "1998-29454-0030",
+    "split": "other",
+    "speaker": 1998,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "1998-29454-0031",
+    "split": "other",
+    "speaker": 1998,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "1998-29454-0032",
+    "split": "other",
+    "speaker": 1998,
+    "sub": 3,
+    "del": 0,
+    "ins": 1,
+    "n": 10
+   },
+   {
+    "id": "7105-2340-0023",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 17
+   },
+   {
+    "id": "7105-2340-0024",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 33
+   },
+   {
+    "id": "7105-2340-0025",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "7105-2340-0026",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 37
+   },
+   {
+    "id": "7105-2340-0027",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 9
+   },
+   {
+    "id": "7105-2330-0010",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "7105-2330-0011",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "7105-2330-0012",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 0,
+    "del": 1,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "7105-2330-0013",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "7105-2330-0014",
+    "split": "other",
+    "speaker": 7105,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 32
+   },
+   {
+    "id": "2609-156975-0013",
+    "split": "other",
+    "speaker": 2609,
+    "sub": 4,
+    "del": 0,
+    "ins": 1,
+    "n": 16
+   },
+   {
+    "id": "2609-156975-0014",
+    "split": "other",
+    "speaker": 2609,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "2609-156975-0015",
+    "split": "other",
+    "speaker": 2609,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "2609-156975-0016",
+    "split": "other",
+    "speaker": 2609,
+    "sub": 2,
+    "del": 0,
+    "ins": 2,
+    "n": 8
+   },
+   {
+    "id": "2609-156975-0017",
+    "split": "other",
+    "speaker": 2609,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 16
+   },
+   {
+    "id": "6432-63723-0039",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 12
+   },
+   {
+    "id": "6432-63723-0040",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "6432-63723-0041",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "6432-63723-0042",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 3
+   },
+   {
+    "id": "6432-63723-0043",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 22
+   },
+   {
+    "id": "6432-63723-0049",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 13
+   },
+   {
+    "id": "6432-63723-0050",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 14
+   },
+   {
+    "id": "6432-63723-0051",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 2,
+    "del": 1,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "6432-63723-0052",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "6432-63723-0053",
+    "split": "other",
+    "speaker": 6432,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 26
+   },
+   {
+    "id": "2414-159411-0032",
+    "split": "other",
+    "speaker": 2414,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 15
+   },
+   {
+    "id": "2414-159411-0033",
+    "split": "other",
+    "speaker": 2414,
+    "sub": 2,
+    "del": 0,
+    "ins": 0,
+    "n": 18
+   },
+   {
+    "id": "2414-159411-0034",
+    "split": "other",
+    "speaker": 2414,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 6
+   },
+   {
+    "id": "2414-159411-0035",
+    "split": "other",
+    "speaker": 2414,
+    "sub": 1,
+    "del": 0,
+    "ins": 0,
+    "n": 8
+   },
+   {
+    "id": "2414-128291-0000",
+    "split": "other",
+    "speaker": 2414,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 5
+   },
+   {
+    "id": "4350-10919-0004",
+    "split": "other",
+    "speaker": 4350,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 20
+   },
+   {
+    "id": "4350-10919-0005",
+    "split": "other",
+    "speaker": 4350,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "4350-10919-0006",
+    "split": "other",
+    "speaker": 4350,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 11
+   },
+   {
+    "id": "4350-10919-0007",
+    "split": "other",
+    "speaker": 4350,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 10
+   },
+   {
+    "id": "4350-10919-0008",
+    "split": "other",
+    "speaker": 4350,
+    "sub": 0,
+    "del": 0,
+    "ins": 0,
+    "n": 19
+   }
+  ],
+  "audio_s": 1964.9,
+  "wall_s": 739.3,
+  "cpu_s": 4249.4,
+  "rtf": 0.3763,
+  "peak_rss_mb": 2026
+ },
+ {
+  "kind": "earnings22",
+  "mode": "pipeline",
+  "model": "large-v3-turbo",
+  "threads": 6,
+  "files": {
+   "4469075": {
+    "country": "South Africa",
+    "minutes": 27.0,
+    "errors": {
+     "sub": 152,
+     "del": 218,
+     "ins": 57,
+     "n": 4269
+    },
+    "segments": 380,
+    "median_seg_s": 3.7,
+    "max_seg_s": 12.0,
+    "segs_over_30s": 0,
+    "timing": null
+   },
+   "4472895": {
+    "country": "China",
+    "minutes": 24.8,
+    "errors": {
+     "sub": 160,
+     "del": 130,
+     "ins": 37,
+     "n": 2905
+    },
+    "segments": 215,
+    "median_seg_s": 6.1,
+    "max_seg_s": 27.2,
+    "segs_over_30s": 0,
+    "timing": {
+     "ref_sentences": 166,
+     "sent_p50": 0.4,
+     "sent_p90": 3.34,
+     "sent_within_1s": 64.5,
+     "bound_p50": 0.12,
+     "bound_p90": 0.54,
+     "bound_n": 207
+    }
+   },
+   "4446796": {
+    "country": "Chile",
+    "minutes": 28.0,
+    "errors": {
+     "sub": 162,
+     "del": 364,
+     "ins": 48,
+     "n": 3668
+    },
+    "segments": 281,
+    "median_seg_s": 5.0,
+    "max_seg_s": 28.1,
+    "segs_over_30s": 0,
+    "timing": {
+     "ref_sentences": 263,
+     "sent_p50": 0.8,
+     "sent_p90": 3.73,
+     "sent_within_1s": 54.4,
+     "bound_p50": 0.13,
+     "bound_p90": 0.83,
+     "bound_n": 263
+    }
+   }
+  },
+  "audio_s": 4793.5,
+  "wall_s": 654.6,
+  "cpu_s": 3628.6,
+  "rtf": 0.1366,
+  "peak_rss_mb": 5017,
+  "diagnostics": {
+   "speech_s": 4137.34,
+   "batched_s": 638.27,
+   "continued_clips": 46,
+   "suspect_ranges": 0,
+   "redecoded_s": 0.0,
+   "stage2_ranges": 0,
+   "fallback_s": 0.01,
+   "dropped_hallucination_phrase": 1
+  }
+ },
+ {
+  "kind": "earnings22",
+  "mode": "batched_default",
+  "model": "large-v3-turbo",
+  "threads": 6,
+  "files": {
+   "4469075": {
+    "country": "South Africa",
+    "minutes": 27.0,
+    "errors": {
+     "sub": 147,
+     "del": 209,
+     "ins": 48,
+     "n": 4269
+    },
+    "segments": 54,
+    "median_seg_s": 29.9,
+    "max_seg_s": 45.3,
+    "segs_over_30s": 26,
+    "timing": null
+   },
+   "4472895": {
+    "country": "China",
+    "minutes": 24.8,
+    "errors": {
+     "sub": 153,
+     "del": 169,
+     "ins": 27,
+     "n": 2905
+    },
+    "segments": 48,
+    "median_seg_s": 29.5,
+    "max_seg_s": 49.6,
+    "segs_over_30s": 19,
+    "timing": {
+     "ref_sentences": 166,
+     "sent_p50": 7.97,
+     "sent_p90": 14.64,
+     "sent_within_1s": 10.2,
+     "bound_p50": 0.26,
+     "bound_p90": 3.0,
+     "bound_n": 46
+    }
+   },
+   "4446796": {
+    "country": "Chile",
+    "minutes": 28.0,
+    "errors": {
+     "sub": 140,
+     "del": 452,
+     "ins": 37,
+     "n": 3668
+    },
+    "segments": 53,
+    "median_seg_s": 29.3,
+    "max_seg_s": 55.1,
+    "segs_over_30s": 18,
+    "timing": {
+     "ref_sentences": 263,
+     "sent_p50": 7.86,
+     "sent_p90": 15.65,
+     "sent_within_1s": 8.7,
+     "bound_p50": 0.2,
+     "bound_p90": 0.67,
+     "bound_n": 50
+    }
+   }
+  },
+  "audio_s": 4793.5,
+  "wall_s": 385.2,
+  "cpu_s": 2171.5,
+  "rtf": 0.0804,
+  "peak_rss_mb": 4902
+ },
+ {
+  "kind": "earnings22",
+  "mode": "no_continuation",
+  "model": "large-v3-turbo",
+  "threads": 6,
+  "files": {
+   "4469075": {
+    "country": "South Africa",
+    "minutes": 27.0,
+    "errors": {
+     "sub": 151,
+     "del": 228,
+     "ins": 54,
+     "n": 4269
+    },
+    "segments": 375,
+    "median_seg_s": 3.7,
+    "max_seg_s": 12.0,
+    "segs_over_30s": 0,
+    "timing": null
+   },
+   "4472895": {
+    "country": "China",
+    "minutes": 24.8,
+    "errors": {
+     "sub": 157,
+     "del": 157,
+     "ins": 35,
+     "n": 2905
+    },
+    "segments": 210,
+    "median_seg_s": 6.2,
+    "max_seg_s": 27.2,
+    "segs_over_30s": 0,
+    "timing": {
+     "ref_sentences": 166,
+     "sent_p50": 0.38,
+     "sent_p90": 3.43,
+     "sent_within_1s": 65.1,
+     "bound_p50": 0.12,
+     "bound_p90": 0.52,
+     "bound_n": 202
+    }
+   },
+   "4446796": {
+    "country": "Chile",
+    "minutes": 28.0,
+    "errors": {
+     "sub": 157,
+     "del": 400,
+     "ins": 46,
+     "n": 3668
+    },
+    "segments": 270,
+    "median_seg_s": 5.0,
+    "max_seg_s": 28.1,
+    "segs_over_30s": 0,
+    "timing": {
+     "ref_sentences": 263,
+     "sent_p50": 0.75,
+     "sent_p90": 3.64,
+     "sent_within_1s": 55.9,
+     "bound_p50": 0.13,
+     "bound_p90": 0.87,
+     "bound_n": 252
+    }
+   }
+  },
+  "audio_s": 4793.5,
+  "wall_s": 636.3,
+  "cpu_s": 3590.4,
+  "rtf": 0.1327,
+  "peak_rss_mb": 4762,
+  "diagnostics": {
+   "speech_s": 4137.34,
+   "batched_s": 536.48,
+   "continued_clips": 46,
+   "uncontinued_clips": 46,
+   "suspect_ranges": 39,
+   "redecoded_s": 339.51,
+   "stage2_ranges": 3,
+   "fallback_s": 83.61
+  }
+ }
+]

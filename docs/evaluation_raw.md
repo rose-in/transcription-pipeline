@@ -50,3 +50,24 @@ completeness but is unreliable on macOS (compressed pages are not counted).
 | whole file (faster-whisper batched) | 3.18 | 369 | 2270 | 1984 | 67.8 |
 | this pipeline (streamed) | 3.18 | 381 | 124 | 693 | 73.0 |
 
+
+## Re-check after the continuation fix: format matrix, `tiny.en`
+
+Same 11 `meeting_short` format variants as the slow test. Before the fix, 5 of them lost a
+sentence to an early stop inside a ~29 s clip and needed the coverage fallback. With
+continuation, the same 5 each have one continued clip, and nothing is re-decoded.
+Produced by `uv run python scripts/check_format_matrix.py --model tiny.en`.
+
+| file | WER | clips continued | ranges flagged for re-decode |
+|---|---|---|---|
+| meeting_short.wav | 0.0% | 0 | 0 |
+| meeting_short_f32_48k.wav | 0.0% | 1 | 0 |
+| meeting_short_s24.wav | 0.0% | 0 | 0 |
+| meeting_short_8k_mulaw.wav | 0.0% | 1 | 0 |
+| meeting_short.mp3 | 0.0% | 0 | 0 |
+| meeting_short.m4a | 0.0% | 0 | 0 |
+| meeting_short.ogg | 0.0% | 0 | 0 |
+| meeting_short.webm | 0.0% | 1 | 0 |
+| meeting_short.flac | 0.0% | 1 | 0 |
+| meeting_short.aiff | 0.0% | 1 | 0 |
+| meeting_short_video.mp4 | 0.0% | 0 | 0 |

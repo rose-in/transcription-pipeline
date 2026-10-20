@@ -30,6 +30,9 @@ faster-whisper. Use them for ranking, not for capacity planning.
 | whisper-large-v3 | 7.16 | 13.92 | segment + word (DTW) | 99 | Apache-2.0/MIT |
 | whisper-large-v3-turbo | 7.64 | 13.60 | segment + word (DTW) | 99 | MIT |
 
+Per long-form dataset, Parakeet's better average comes from CORAAL. On earnings calls turbo is
+better: Earnings-21 9.84 vs 9.96, Earnings-22 13.10 vs 14.58 (leaderboard long-form CSV).
+
 Short-form figures are from the 17-10-2026 leaderboard Space. Long-form figures are from the
 same Space's long-form tab (Earnings-21/22 + CORAAL); the repo CSV and the paper (v4) report
 different averages, so cite one column consistently.
