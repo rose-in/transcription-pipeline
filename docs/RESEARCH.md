@@ -33,6 +33,10 @@ faster-whisper. Use them for ranking, not for capacity planning.
 Per long-form dataset, Parakeet's better average comes from CORAAL. On earnings calls turbo is
 better: Earnings-21 9.84 vs 9.96, Earnings-22 13.10 vs 14.58 (leaderboard long-form CSV).
 
+LibriSpeech per split on the same leaderboard (HF transformers; used only as context for this
+repo's own runs in docs/eval_real_data.md): large-v3-turbo 2.10 test-clean / 4.24 test-other;
+small.en 3.05 / 7.25. Fetched 2026-10-20.
+
 Short-form figures are from the 17-10-2026 leaderboard Space. Long-form figures are from the
 same Space's long-form tab (Earnings-21/22 + CORAAL); the repo CSV and the paper (v4) report
 different averages, so cite one column consistently.

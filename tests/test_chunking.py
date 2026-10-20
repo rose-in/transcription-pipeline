@@ -5,7 +5,7 @@ import numpy as np
 from stt_pipeline.audio import TARGET_SR, load_pcm
 from stt_pipeline.chunking import find_cut, silence_aware_chunks
 
-from .conftest import FIXTURES, bursts
+from .conftest import bursts
 
 
 def energy_regions(window, sr):
@@ -47,14 +47,20 @@ def test_chunks_are_lossless_and_cut_in_silence():
 def test_wall_to_wall_speech_falls_back_to_quietest_point():
     x = bursts([(0, 100)], 100.0)
     x[int(45.3 * TARGET_SR) : int(45.35 * TARGET_SR)] *= 0.01  # one tiny dip
-    chunks = list(silence_aware_chunks(blocks_of(x), target_s=50, search_s=10,
-                                       cut_fn=lambda w, sr: find_cut(w, sr, speech_fn=lambda *_: [(0, len(w))])))
+    chunks = list(
+        silence_aware_chunks(
+            blocks_of(x),
+            target_s=50,
+            search_s=10,
+            cut_fn=lambda w, sr: find_cut(w, sr, speech_fn=lambda *_: [(0, len(w))]),
+        )
+    )
     assert abs(chunks[1].offset_s - 45.325) < 0.05
 
 
-def test_real_vad_cuts_between_tts_turns(manifest):
-    x = load_pcm(FIXTURES / "meeting_short.wav")
-    truth = json.loads((FIXTURES / "meeting_short.truth.json").read_text())
+def test_real_vad_cuts_between_tts_turns(fixtures_dir):
+    x = load_pcm(fixtures_dir / "meeting_short.wav")
+    truth = json.loads((fixtures_dir / "meeting_short.truth.json").read_text())
     chunks = list(silence_aware_chunks(blocks_of(x, 5.0), target_s=12, search_s=6))
     assert len(chunks) >= 3
     for c in chunks[1:]:

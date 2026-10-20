@@ -13,6 +13,7 @@ x-stt-env: &stt-env
 
 x-worker: &worker
   build: .
+  image: stt-pipeline:latest
   command: ["stt", "worker"]
   volumes: ["stt-data:/data"]
   restart: unless-stopped
@@ -24,13 +25,12 @@ x-worker: &worker
 services:
   api:
     build: .
+    image: stt-pipeline:latest
     command: ["stt", "serve", "--host", "0.0.0.0", "--port", "8000"]
     ports: ["8000:8000"]
     restart: unless-stopped
     environment:
       <<: *stt-env
-      STT_SYNC_MAX_DURATION_SECONDS: "300"
-      STT_MAX_UPLOAD_MB: "1024"
     volumes: ["stt-data:/data"]
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/healthz')"]

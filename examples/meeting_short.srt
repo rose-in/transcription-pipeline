@@ -38,16 +38,16 @@ Great.
 What are the main risks for next month?
 
 10
-00:00:22,615 --> 00:00:25,095
+00:00:22,615 --> 00:00:25,075
 The data migration is the biggest one.
 
 11
-00:00:25,475 --> 00:00:27,675
+00:00:25,415 --> 00:00:27,655
 We need two more weeks of testing before
 we
 
 12
-00:00:27,675 --> 00:00:29,635
+00:00:27,655 --> 00:00:29,635
 can switch over the production database.
 
 13

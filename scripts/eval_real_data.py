@@ -9,13 +9,14 @@
 
 All approaches run with the same number of CPU threads, each in a fresh subprocess.
 
-    uv run python scripts/eval_datasets.py download
-    uv run python scripts/eval_datasets.py run --out docs/eval_real_data.md
+    uv run python scripts/eval_real_data.py download
+    uv run python scripts/eval_real_data.py run --out docs/eval_real_data.md
 """
 
 from __future__ import annotations
 
 import argparse
+import bisect
 import json
 import random
 import re
@@ -23,12 +24,13 @@ import resource
 import subprocess
 import sys
 import time
+import urllib.error
 import urllib.request
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+from eval_common import ROOT, normalize, peak_rss_mb, percentile
+
 DATA = ROOT / "datasets"
-sys.path.insert(0, str(ROOT / "src"))
 
 LS_SAMPLE = {"clean": (2620, 200), "other": (2939, 100)}  # split: (rows in test set, clips sampled)
 LS_RUN = 5  # clips fetched per request from a random spot (rows are grouped by speaker)
@@ -38,15 +40,22 @@ E22_BASE = "https://raw.githubusercontent.com/revdotcom/speech-datasets/main/ear
 E22_MEDIA = "https://media.githubusercontent.com/media/revdotcom/speech-datasets/main/earnings22/media"
 # Reference scores on the FULL test sets, from the HF Open ASR Leaderboard CSVs (fetched 2026-10-20).
 # Different implementation (HF transformers, GPU, fp16) - context only, not a like-for-like target.
-PUBLISHED = {("large-v3-turbo", "ls-clean"): "2.10", ("large-v3-turbo", "ls-other"): "4.24",
-             ("small", "ls-clean"): "3.05 (small.en)", ("small", "ls-other"): "7.25 (small.en)"}
+PUBLISHED = {
+    ("large-v3-turbo", "ls-clean"): "2.10",
+    ("large-v3-turbo", "ls-other"): "4.24",
+    ("small", "ls-clean"): "3.05 (small.en)",
+    ("small", "ls-other"): "7.25 (small.en)",
+}
 # Approaches: "pipeline" (this project), "no_continuation" (this project with continuation of
 # early-stopped clips turned off, so the coverage fallback has to catch them: measures what
 # continuation buys), "plain" (WhisperModel.transcribe, the model on its own), "batched_default"
 # (faster-whisper's BatchedInferencePipeline out of the box).
 PLAN = [
-    ("librispeech", "pipeline"), ("librispeech", "plain"),
-    ("earnings22", "pipeline"), ("earnings22", "batched_default"), ("earnings22", "no_continuation"),
+    ("librispeech", "pipeline"),
+    ("librispeech", "plain"),
+    ("earnings22", "pipeline"),
+    ("earnings22", "batched_default"),
+    ("earnings22", "no_continuation"),
 ]
 E22_MODES = ("batched_default", "no_continuation", "pipeline")
 
@@ -56,17 +65,11 @@ def cpu_s() -> float:
     return u.ru_utime + u.ru_stime
 
 
-def peak_rss_mb() -> float:
-    r = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
-    return r / 2**20 if sys.platform == "darwin" else r / 2**10
-
-
 # ----------------------------------------------------------------------------- download
+
 
 def _fetch(url: str) -> bytes:
     """GET with backoff: the Hugging Face API rate-limits bursts (HTTP 429)."""
-    import urllib.error
-
     for attempt in range(8):
         try:
             with urllib.request.urlopen(url, timeout=120) as r:
@@ -74,7 +77,7 @@ def _fetch(url: str) -> bytes:
         except urllib.error.HTTPError as e:
             if e.code not in (429, 500, 502, 503, 504) or attempt == 7:
                 raise
-            time.sleep(float(e.headers.get("retry-after") or 2 ** attempt))
+            time.sleep(float(e.headers.get("retry-after") or 2**attempt))
     raise RuntimeError("unreachable")
 
 
@@ -95,14 +98,23 @@ def download() -> None:
         # speakers while keeping API calls few.
         spots = sorted(rng.sample(range(total // LS_RUN), n // LS_RUN))
         for spot in spots:
-            url = (f"https://datasets-server.huggingface.co/rows?dataset=openslr/librispeech_asr&config={split}"
-                   f"&split=test&offset={spot * LS_RUN}&length={LS_RUN}")
+            url = (
+                f"https://datasets-server.huggingface.co/rows?dataset=openslr/librispeech_asr&config={split}"
+                f"&split=test&offset={spot * LS_RUN}&length={LS_RUN}"
+            )
             for row in json.loads(_fetch(url))["rows"]:
                 x = row["row"]
                 dest = ls / split / f"{x['id']}.flac"
                 _get(x["audio"][0]["src"], dest)
-                manifest.append({"split": split, "id": x["id"], "speaker": x["speaker_id"],
-                                 "file": str(dest.relative_to(ROOT)), "text": x["text"]})
+                manifest.append(
+                    {
+                        "split": split,
+                        "id": x["id"],
+                        "speaker": x["speaker_id"],
+                        "file": str(dest.relative_to(ROOT)),
+                        "text": x["text"],
+                    }
+                )
             time.sleep(0.5)
         clips = [m for m in manifest if m["split"] == split]
         print(f"librispeech test-{split}: {len(clips)} clips, {len({m['speaker'] for m in clips})} speakers")
@@ -119,32 +131,31 @@ def download() -> None:
 
 # ----------------------------------------------------------------------------- metrics
 
-_NORM = None
-
-
-def norm(text: str) -> str:
-    global _NORM
-    if _NORM is None:
-        from whisper_normalizer.english import EnglishTextNormalizer
-
-        _NORM = EnglishTextNormalizer()
-    return _NORM(text)
-
 
 def errors(ref: str, hyp: str) -> dict:
     """Word errors after Whisper's English normaliser (the leaderboard convention)."""
     import jiwer
 
-    r, h = norm(ref) or "<empty>", norm(hyp)
+    r, h = normalize(ref) or "<empty>", normalize(hyp)
     o = jiwer.process_words(r, h)
-    return {"sub": o.substitutions, "del": o.deletions, "ins": o.insertions, "n": o.hits + o.substitutions + o.deletions}
+    return {
+        "sub": o.substitutions,
+        "del": o.deletions,
+        "ins": o.insertions,
+        "n": o.hits + o.substitutions + o.deletions,
+    }
 
 
 def pooled(errs: list[dict]) -> dict:
     n = sum(e["n"] for e in errs) or 1
     s, d, i = (sum(e[k] for e in errs) for k in ("sub", "del", "ins"))
-    return {"wer": round(100 * (s + d + i) / n, 2), "sub": round(100 * s / n, 2), "del": round(100 * d / n, 2),
-            "ins": round(100 * i / n, 2), "ref_words": n}
+    return {
+        "wer": round(100 * (s + d + i) / n, 2),
+        "sub": round(100 * s / n, 2),
+        "del": round(100 * d / n, 2),
+        "ins": round(100 * i / n, 2),
+        "ref_words": n,
+    }
 
 
 def paired_delta(a: list[dict], b: list[dict], reps: int = 2000) -> tuple[float, float, float]:
@@ -163,17 +174,17 @@ def paired_delta(a: list[dict], b: list[dict], reps: int = 2000) -> tuple[float,
 
 def read_nlp(path: Path) -> list[dict]:
     out = []
-    for r in (l.split("|") for l in path.read_text().splitlines()[1:]):
-        out.append({"token": r[0], "speaker": r[1] if len(r) > 1 else "",
-                    "ts": float(r[2]) if len(r) > 2 and r[2].strip() else None,
-                    "end": float(r[3]) if len(r) > 3 and r[3].strip() else None,
-                    "punct": r[4] if len(r) > 4 else ""})
+    for r in (line.split("|") for line in path.read_text().splitlines()[1:]):
+        out.append(
+            {
+                "token": r[0],
+                "speaker": r[1] if len(r) > 1 else "",
+                "ts": float(r[2]) if len(r) > 2 and r[2].strip() else None,
+                "end": float(r[3]) if len(r) > 3 and r[3].strip() else None,
+                "punct": r[4] if len(r) > 4 else "",
+            }
+        )
     return out
-
-
-def _pct(xs: list[float], q: float):
-    xs = sorted(xs)
-    return round(xs[min(len(xs) - 1, int(q * len(xs)))], 2) if xs else None
 
 
 def sentence_starts(aligned: list[dict], min_gap_s: float = 1.0) -> list[float]:
@@ -183,8 +194,12 @@ def sentence_starts(aligned: list[dict], min_gap_s: float = 1.0) -> list[float]:
     for t in aligned:
         if t["ts"] is None:
             continue
-        if prev is None or prev["punct"] in (".", "?", "!") or t["speaker"] != prev["speaker"] \
-                or (prev["end"] is not None and t["ts"] - prev["end"] >= min_gap_s):
+        if (
+            prev is None
+            or prev["punct"] in (".", "?", "!")
+            or t["speaker"] != prev["speaker"]
+            or (prev["end"] is not None and t["ts"] - prev["end"] >= min_gap_s)
+        ):
             starts.append(t["ts"])
         prev = t
     return starts
@@ -208,7 +223,6 @@ def timing(segments: list[dict], aligned: list[dict]) -> dict:
 
     starts = sorted(s["start"] for s in segments)
     ref_starts = sentence_starts(aligned)
-    import bisect
 
     sent_err = []
     for r in ref_starts:
@@ -239,18 +253,25 @@ def timing(segments: list[dict], aligned: list[dict]) -> dict:
                 if r is not None and ref_words[r][1]["ts"] is not None:
                     bound_err.append(abs(segments[i]["start"] - ref_words[r][1]["ts"]))
                     break
-    return {"ref_sentences": len(ref_starts), "sent_p50": _pct(sent_err, 0.5), "sent_p90": _pct(sent_err, 0.9),
-            "sent_within_1s": round(100 * sum(e <= 1.0 for e in sent_err) / max(1, len(sent_err)), 1),
-            "bound_p50": _pct(bound_err, 0.5), "bound_p90": _pct(bound_err, 0.9), "bound_n": len(bound_err)}
+    return {
+        "ref_sentences": len(ref_starts),
+        "sent_p50": percentile(sent_err, 0.5),
+        "sent_p90": percentile(sent_err, 0.9),
+        "sent_within_1s": round(100 * sum(e <= 1.0 for e in sent_err) / max(1, len(sent_err)), 1),
+        "bound_p50": percentile(bound_err, 0.5),
+        "bound_p90": percentile(bound_err, 0.9),
+        "bound_n": len(bound_err),
+    }
 
 
 # ----------------------------------------------------------------------------- runs (child process)
 
+
 def child(kind: str, mode: str, model: str) -> dict:
     from stt_pipeline.audio import load_pcm
-    from stt_pipeline.engines.faster_whisper_engine import _default_threads
+    from stt_pipeline.engines.devices import default_cpu_threads
 
-    threads = _default_threads()
+    threads = default_cpu_threads()
     diag: dict = {}
     if mode in ("pipeline", "no_continuation"):
         from stt_pipeline.engines.faster_whisper_engine import FasterWhisperEngine
@@ -274,7 +295,8 @@ def child(kind: str, mode: str, model: str) -> dict:
         batched = BatchedInferencePipeline(wm)
 
         def transcribe(path: Path) -> tuple[list[dict], float]:
-            audio = load_pcm(path)  # faster-whisper's own loader is broken with PyAV 19
+            # faster-whisper 1.2.1's decode_audio passes av.open(metadata_errors=...), removed in PyAV 19
+            audio = load_pcm(path)
             if mode == "plain":
                 segs, _ = wm.transcribe(audio, language="en", beam_size=5)
             else:
@@ -284,13 +306,19 @@ def child(kind: str, mode: str, model: str) -> dict:
     out: dict = {"kind": kind, "mode": mode, "model": model, "threads": threads}
     t0, c0, audio_s = time.perf_counter(), cpu_s(), 0.0
     if kind == "librispeech":
-        clips = [json.loads(l) for l in (DATA / "librispeech" / "manifest.jsonl").read_text().splitlines()]
+        clips = [json.loads(line) for line in (DATA / "librispeech" / "manifest.jsonl").read_text().splitlines()]
         per_clip = []
         for c in clips:
             segs, dur = transcribe(ROOT / c["file"])
             audio_s += dur
-            per_clip.append({"id": c["id"], "split": c["split"], "speaker": c["speaker"],
-                             **errors(c["text"], " ".join(s["text"] for s in segs))})
+            per_clip.append(
+                {
+                    "id": c["id"],
+                    "split": c["split"],
+                    "speaker": c["speaker"],
+                    **errors(c["text"], " ".join(s["text"] for s in segs)),
+                }
+            )
         out["clips"] = per_clip
     else:
         files = {}
@@ -301,11 +329,16 @@ def child(kind: str, mode: str, model: str) -> dict:
             aligned = read_nlp(DATA / "earnings22" / f"{fid}.aligned.nlp")
             usable = sum(r["ts"] is not None for r in aligned) / max(1, len(aligned)) > 0.8
             lens = sorted(s["end"] - s["start"] for s in segs)
-            files[fid] = {"country": country, "minutes": round(dur / 60, 1),
-                          "errors": errors(ref, " ".join(s["text"] for s in segs)),
-                          "segments": len(segs), "median_seg_s": round(lens[len(lens) // 2], 1) if lens else None,
-                          "max_seg_s": round(lens[-1], 1) if lens else None, "segs_over_30s": sum(x > 30 for x in lens),
-                          "timing": timing(segs, aligned) if usable else None}
+            files[fid] = {
+                "country": country,
+                "minutes": round(dur / 60, 1),
+                "errors": errors(ref, " ".join(s["text"] for s in segs)),
+                "segments": len(segs),
+                "median_seg_s": round(lens[len(lens) // 2], 1) if lens else None,
+                "max_seg_s": round(lens[-1], 1) if lens else None,
+                "segs_over_30s": sum(x > 30 for x in lens),
+                "timing": timing(segs, aligned) if usable else None,
+            }
         out["files"] = files
     out["audio_s"] = round(audio_s, 1)
     out["wall_s"] = round(time.perf_counter() - t0, 1)
@@ -318,7 +351,9 @@ def child(kind: str, mode: str, model: str) -> dict:
 
 
 def spawn(kind: str, mode: str, model: str) -> dict:
-    p = subprocess.run([sys.executable, __file__, "_child", kind, mode, model], capture_output=True, text=True, cwd=ROOT)
+    p = subprocess.run(
+        [sys.executable, __file__, "_child", kind, mode, model], capture_output=True, text=True, cwd=ROOT
+    )
     if p.returncode:
         raise RuntimeError(p.stderr[-3000:])
     r = json.loads(p.stdout.strip().splitlines()[-1])
@@ -328,18 +363,26 @@ def spawn(kind: str, mode: str, model: str) -> dict:
 
 # ----------------------------------------------------------------------------- report
 
+
 def report(results: list[dict]) -> str:
-    md = ["## Real-data evaluation", "",
-          "CPU int8, Apple M1 Pro, every approach with the same number of threads. WER after Whisper's English "
-          "normaliser (the leaderboard convention). `del` = reference words missing from the output (on Earnings-22 "
-          "this includes verbatim repeats and false starts the references keep); `ins` = output words not in the "
-          "reference (not necessarily made up).", ""]
+    md = [
+        "## Real-data evaluation",
+        "",
+        "CPU int8, Apple M1 Pro, every approach with the same number of threads. WER after Whisper's English "
+        "normaliser (the leaderboard convention). `del` = reference words missing from the output (on Earnings-22 "
+        "this includes verbatim repeats and false starts the references keep); `ins` = output words not in the "
+        "reference (not necessarily made up).",
+        "",
+    ]
     by = {(r["kind"], r["mode"], r["model"]): r for r in results}
     models = sorted({r["model"] for r in results}, key=lambda m: m != "small")
 
-    md += ["### LibriSpeech: does the pipeline change accuracy? (random sample, paired on the same clips)", "",
-           "| model | split | clips / speakers | model alone (plain) | through the pipeline | difference (95% CI) | published, full set, other implementation |",
-           "|---|---|---|---|---|---|---|"]
+    md += [
+        "### LibriSpeech: does the pipeline change accuracy? (random sample, paired on the same clips)",
+        "",
+        "| model | split | clips / speakers | model alone (plain) | through the pipeline | difference (95% CI) | published, full set, other implementation |",
+        "|---|---|---|---|---|---|---|",
+    ]
     for m in models:
         p, q = by.get(("librispeech", "plain", m)), by.get(("librispeech", "pipeline", m))
         if not (p and q):
@@ -348,13 +391,18 @@ def report(results: list[dict]) -> str:
             a = [c for c in p["clips"] if c["split"] == split]
             b = [c for c in q["clips"] if c["split"] == split]
             d, lo, hi = paired_delta(a, b)
-            md.append(f"| {m} | test-{split} | {len(a)} / {len({c['speaker'] for c in a})} | {pooled(a)['wer']}% | "
-                      f"{pooled(b)['wer']}% | {d:+.2f} pt ({lo:+.2f} to {hi:+.2f}) | {PUBLISHED.get((m, 'ls-' + split), '-')} |")
+            md.append(
+                f"| {m} | test-{split} | {len(a)} / {len({c['speaker'] for c in a})} | {pooled(a)['wer']}% | "
+                f"{pooled(b)['wer']}% | {d:+.2f} pt ({lo:+.2f} to {hi:+.2f}) | {PUBLISHED.get((m, 'ls-' + split), '-')} |"
+            )
     md.append("")
 
-    md += ["### Earnings-22: three real calls (South Africa 27 min, China 25 min, Chile 28 min)", "",
-           "| model | approach | WER | sub / del / ins | per call (SA / China / Chile) | wall RTF | CPU s per audio s | peak RSS |",
-           "|---|---|---|---|---|---|---|---|"]
+    md += [
+        "### Earnings-22: three real calls (South Africa 27 min, China 25 min, Chile 28 min)",
+        "",
+        "| model | approach | WER | sub / del / ins | per call (SA / China / Chile) | wall RTF | CPU s per audio s | peak RSS |",
+        "|---|---|---|---|---|---|---|---|",
+    ]
     for m in models:
         for mode in E22_MODES:
             r = by.get(("earnings22", mode, m))
@@ -363,12 +411,18 @@ def report(results: list[dict]) -> str:
             errs = [f["errors"] for f in r["files"].values()]
             p = pooled(errs)
             per = " / ".join(f"{pooled([e])['wer']}" for e in errs)
-            md.append(f"| {m} | {mode} | {p['wer']}% | {p['sub']} / {p['del']} / {p['ins']} | {per} | {r['rtf']} | "
-                      f"{round(r['cpu_s'] / r['audio_s'], 3)} | {r['peak_rss_mb']} MB |")
-    md += ["", "Segment timing against the forced-aligned reference (China and Chile; the South Africa alignment in "
-           "the dataset is unusable):", "",
-           "| model | approach | call | segments | median / max segment | segments > 30 s | sentence-start error p50 / p90 | sentence starts within 1 s | boundary precision p50 / p90 |",
-           "|---|---|---|---|---|---|---|---|---|"]
+            md.append(
+                f"| {m} | {mode} | {p['wer']}% | {p['sub']} / {p['del']} / {p['ins']} | {per} | {r['rtf']} | "
+                f"{round(r['cpu_s'] / r['audio_s'], 3)} | {r['peak_rss_mb']} MB |"
+            )
+    md += [
+        "",
+        "Segment timing against the forced-aligned reference (China and Chile; the South Africa alignment in "
+        "the dataset is unusable):",
+        "",
+        "| model | approach | call | segments | median / max segment | segments > 30 s | sentence-start error p50 / p90 | sentence starts within 1 s | boundary precision p50 / p90 |",
+        "|---|---|---|---|---|---|---|---|---|",
+    ]
     for m in models:
         for mode in E22_MODES:
             r = by.get(("earnings22", mode, m))
@@ -378,20 +432,32 @@ def report(results: list[dict]) -> str:
                 t = f["timing"]
                 if not t:
                     continue
-                md.append(f"| {m} | {mode} | {f['country']} | {f['segments']} | {f['median_seg_s']} / {f['max_seg_s']} s | "
-                          f"{f['segs_over_30s']} | {t['sent_p50']} / {t['sent_p90']} s | {t['sent_within_1s']}% | "
-                          f"{t['bound_p50']} / {t['bound_p90']} s |")
-    rows = [(m, mode, by[("earnings22", mode, m)]) for m in models for mode in ("no_continuation", "pipeline")
-            if ("earnings22", mode, m) in by]
+                md.append(
+                    f"| {m} | {mode} | {f['country']} | {f['segments']} | {f['median_seg_s']} / {f['max_seg_s']} s | "
+                    f"{f['segs_over_30s']} | {t['sent_p50']} / {t['sent_p90']} s | {t['sent_within_1s']}% | "
+                    f"{t['bound_p50']} / {t['bound_p90']} s |"
+                )
+    rows = [
+        (m, mode, by[("earnings22", mode, m)])
+        for m in models
+        for mode in ("no_continuation", "pipeline")
+        if ("earnings22", mode, m) in by
+    ]
     if rows:
-        md += ["", "Safety-net activity (all three calls):", "",
-               "| model | approach | early stops detected | ranges flagged for re-decode | sent to the slow sequential decoder | audio re-decoded | time in safety net | segments dropped by the quality gate |",
-               "|---|---|---|---|---|---|---|---|"]
+        md += [
+            "",
+            "Safety-net activity (all three calls):",
+            "",
+            "| model | approach | early stops detected | ranges flagged for re-decode | sent to the slow sequential decoder | audio re-decoded | time in safety net | segments dropped by the quality gate |",
+            "|---|---|---|---|---|---|---|---|",
+        ]
         for m, mode, r in rows:
             d = r.get("diagnostics", {})
-            dropped = {k[8:]: v for k, v in d.items() if k.startswith("dropped_")}
-            md.append(f"| {m} | {mode} | {d.get('continued_clips', 0):.0f} | {d.get('suspect_ranges', 0):.0f} | {d.get('stage2_ranges', 0):.0f} | "
-                      f"{d.get('redecoded_s', 0):.0f} s | {d.get('fallback_s', 0):.0f} s of {r['wall_s']:.0f} s | {dropped or 0} |")
+            dropped = {k.removeprefix("dropped_"): v for k, v in d.items() if k.startswith("dropped_")}
+            md.append(
+                f"| {m} | {mode} | {d.get('continued_clips', 0):.0f} | {d.get('suspect_ranges', 0):.0f} | {d.get('stage2_ranges', 0):.0f} | "
+                f"{d.get('redecoded_s', 0):.0f} s | {d.get('fallback_s', 0):.0f} s of {r['wall_s']:.0f} s | {dropped or 0} |"
+            )
     return "\n".join(md) + "\n"
 
 

@@ -10,8 +10,8 @@ Demonstrates, with real OS processes and signals rather than threads:
 
 from __future__ import annotations
 
-import json
 import os
+import shutil
 import signal
 import subprocess
 import sys
@@ -27,9 +27,12 @@ PORT = 8765
 BASE = f"http://127.0.0.1:{PORT}"
 
 
-def start(*args: str, env: dict) -> subprocess.Popen:
-    return subprocess.Popen([sys.executable, "-m", "stt_pipeline.cli", *args], env=env, cwd=ROOT,
-                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+def start(*args: str, env: dict, log: Path) -> subprocess.Popen:
+    """Run `stt_pipeline.cli <args>` as a child process, with stdout and stderr captured in `log`."""
+    with log.open("wb") as out:  # the child keeps its own copy of the descriptor
+        return subprocess.Popen(
+            [sys.executable, "-m", "stt_pipeline.cli", *args], env=env, cwd=ROOT, stdout=out, stderr=subprocess.STDOUT
+        )
 
 
 def wait(pred, timeout: float, every: float = 0.5):
@@ -49,16 +52,22 @@ def upload(c: httpx.Client, path: str, file: Path, **form) -> httpx.Response:
 
 def main() -> int:
     data = Path(tempfile.mkdtemp(prefix="stt-smoke-"))
-    env = {**os.environ, "STT_DATA_DIR": str(data), "STT_MODEL": "tiny.en", "STT_CHUNK_SECONDS": "120",
-           "STT_LEASE_SECONDS": "10", "PYTHONPATH": str(ROOT / "src")}
-    api = start("serve", "--port", str(PORT), env=env)
+    env = {
+        **os.environ,
+        "STT_DATA_DIR": str(data),
+        "STT_MODEL": "tiny.en",
+        "STT_CHUNK_SECONDS": "120",
+        "STT_LEASE_SECONDS": "10",
+    }
+    api = start("serve", "--port", str(PORT), env=env, log=data / "api.log")
     workers: list[subprocess.Popen] = []
     c = httpx.Client(base_url=BASE)
+    ok = False
     try:
         wait(lambda: _ok(c, "/healthz"), 30)
         print("1. API up (liveness) - readiness without a worker:", c.get("/readyz").status_code)
 
-        workers.append(start("worker", env=env))
+        workers.append(start("worker", env=env, log=data / "worker-1.log"))
         wait(lambda: _ok(c, "/readyz"), 120)
         print("2. worker up - /readyz:", c.get("/readyz").json()["workers"])
 
@@ -81,19 +90,24 @@ def main() -> int:
         ckpts = len(list((data / "jobs" / job["id"] / "checkpoints").glob("*.json")))
         print(f"   checkpoints on disk: {ckpts}")
 
-        workers.append(start("worker", env=env))
+        workers.append(start("worker", env=env, log=data / "worker-2.log"))
         j = wait(lambda: (x := c.get(f"/v1/jobs/{job['id']}").json())["status"] in ("succeeded", "failed") and x, 900)
         result = c.get(f"/v1/jobs/{job['id']}/result").json()
         cached = sum(ch["cached"] for ch in result["chunks"])
-        print(f"7. second worker finished: status={j['status']}, {len(result['segments'])} segments, "
-              f"{cached}/{len(result['chunks'])} chunks reused from the first worker's checkpoints")
+        print(
+            f"7. second worker finished: status={j['status']}, {len(result['segments'])} segments, "
+            f"{cached}/{len(result['chunks'])} chunks reused from the first worker's checkpoints"
+        )
 
         r = upload(c, "/v1/jobs", FIX / "long_meeting.mp3")
-        print(f"8. same file again -> {r.status_code}, Idempotent-Replay: {r.headers.get('idempotent-replay')}, "
-              f"same id: {r.json()['id'] == job['id']}")
+        print(
+            f"8. same file again -> {r.status_code}, Idempotent-Replay: {r.headers.get('idempotent-replay')}, "
+            f"same id: {r.json()['id'] == job['id']}"
+        )
 
         print("9. /metrics:\n   " + "\n   ".join(c.get("/metrics").text.strip().splitlines()))
-        return 0 if j["status"] == "succeeded" and cached > 0 else 1
+        ok = j["status"] == "succeeded" and cached > 0
+        return 0 if ok else 1
     finally:
         for p in [*workers, api]:
             if p.poll() is None:
@@ -102,6 +116,10 @@ def main() -> int:
                     p.wait(timeout=30)
                 except subprocess.TimeoutExpired:
                     p.kill()
+        if ok:
+            shutil.rmtree(data, ignore_errors=True)
+        else:
+            print(f"smoke test failed - process logs and job data kept in {data}", file=sys.stderr)
 
 
 def _ok(c: httpx.Client, path: str) -> bool:

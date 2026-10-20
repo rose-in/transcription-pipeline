@@ -13,9 +13,21 @@ def _env(name: str, default, cast=str):
     raw = os.environ.get(f"STT_{name}")
     if raw is None:
         return default
-    if cast is bool:
-        return raw.lower() in ("1", "true", "yes")
     return cast(raw)
+
+
+# Env vars that feed Settings.engine_key(): the API and every worker must agree on all of them
+# (STT_API_BASE only matters for the openai-compatible engine).
+ENGINE_KEY_ENV_VARS = (
+    "STT_ENGINE",
+    "STT_MODEL",
+    "STT_MODEL_REVISION",
+    "STT_DEVICE",
+    "STT_COMPUTE_TYPE",
+    "STT_BEAM_SIZE",
+    "STT_CHUNK_SECONDS",
+    "STT_API_BASE",
+)
 
 
 @dataclass
@@ -60,27 +72,37 @@ class Settings:
     def engine_key(self) -> str:
         """Identity of 'what would produce the transcript', computable without loading weights.
         The API uses it for idempotency keys; workers only claim jobs with their own key, so the
-        API and the workers MUST share every setting listed here (compose uses one env anchor).
-        Throughput-only knobs (batch size, threads, queue sizes) are deliberately excluded."""
+        API and the workers MUST share every setting in ENGINE_KEY_ENV_VARS (compose uses one env anchor).
+        Throughput-only knobs (batch size, threads, queue sizes) are deliberately excluded.
+        Checkpoint reuse is checked separately against the loaded engine's stricter Engine.engine_id."""
         from . import PIPELINE_VERSION
 
         device, compute = self.device, self.compute_type
         versions = None
         if self.engine == "faster-whisper":
-            # Resolve "auto"/"default" here, so a CPU pool (int8) and a GPU pool (fp16) never share
-            # a key, and pin library versions so an upgrade doesn't replay results from the old one.
+            # Resolve "auto"/"default" with the engine's own rules, so a CPU pool (int8) and a GPU pool (fp16)
+            # never share a key, and pin library versions so an upgrade doesn't replay results from the old one.
             from importlib.metadata import version
 
-            if device == "auto":
-                import ctranslate2
+            from .engines.devices import resolve_compute_type, resolve_device
 
-                device = "cuda" if ctranslate2.get_cuda_device_count() > 0 else "cpu"
-            if compute == "default":
-                compute = "int8" if device == "cpu" else "float16"
+            device = resolve_device(device)
+            compute = resolve_compute_type(compute, device)
             versions = [version("faster-whisper"), version("ctranslate2")]
-        blob = json.dumps([self.engine, self.resolved_model, self.model_revision, device, compute, self.beam_size,
-                           self.chunk_s, self.api_base if self.engine == "openai-compatible" else None, versions,
-                           PIPELINE_VERSION])
+        blob = json.dumps(
+            [
+                self.engine,
+                self.resolved_model,
+                self.model_revision,
+                device,
+                compute,
+                self.beam_size,
+                self.chunk_s,
+                self.api_base if self.engine == "openai-compatible" else None,
+                versions,
+                PIPELINE_VERSION,
+            ]
+        )
         return hashlib.sha256(blob.encode()).hexdigest()[:12]
 
     def engine_kwargs(self) -> dict:
@@ -96,4 +118,12 @@ class Settings:
             "batch_size": self.batch_size,
             "beam_size": self.beam_size,
             "cpu_threads": self.cpu_threads,
+        }
+
+    def pipeline_kwargs(self) -> dict:
+        """Keyword arguments for `PipelineConfig`: the one place deploy settings reach the pipeline."""
+        return {
+            "chunk_s": self.chunk_s,
+            "max_duration_s": self.max_duration_s,
+            "max_split_channels": self.max_split_channels,
         }

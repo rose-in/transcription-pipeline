@@ -1,0 +1,17 @@
+name: ci
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"  # matches .python-version and the Dockerfile base image
+      - run: uv sync --locked
+      - run: uv run ruff check
+      - run: uv run ruff format --check
+      # Fast tests only (pyproject addopts deselects `slow`); tests that need the macOS-generated
+      # fixtures/ skip themselves.
+      - run: uv run pytest

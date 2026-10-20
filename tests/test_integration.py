@@ -2,7 +2,7 @@
 
 Uses STT_TEST_MODEL (default tiny.en) so CI stays fast; WER thresholds are loose on purpose:
 these tests catch pipeline regressions (a format that silently decodes to garbage, a chunking
-bug that drops speech), not model-quality changes - that's what scripts/evaluate.py is for.
+bug that drops speech), not model-quality changes - that's what scripts/eval_synthetic.py is for.
 """
 
 import json
@@ -17,14 +17,13 @@ from stt_pipeline.engines.faster_whisper_engine import FasterWhisperEngine
 from stt_pipeline.pipeline import Pipeline
 from stt_pipeline.schemas import TranscribeOptions
 
-from .conftest import FIXTURES
-
 pytestmark = pytest.mark.slow
 norm = EnglishTextNormalizer()
 
 
 @pytest.fixture(scope="module")
-def pipeline():
+def pipeline(fixtures_dir):
+    # Requests fixtures_dir so every test here skips, before a model is downloaded, when fixtures/ is missing.
     return Pipeline(FasterWhisperEngine(os.environ.get("STT_TEST_MODEL", "tiny.en")))
 
 
@@ -32,22 +31,24 @@ def wer(ref: str, hyp: str) -> float:
     return jiwer.wer(norm(ref), norm(hyp))
 
 
-def test_format_matrix_transcribes_consistently(pipeline, manifest):
-    ref = (FIXTURES / "meeting_short.reference.txt").read_text()
+def test_format_matrix_transcribes_consistently(pipeline, manifest, fixtures_dir):
+    ref = (fixtures_dir / "meeting_short.reference.txt").read_text()
     for m in manifest:
         if m["kind"] == "valid" and m["file"].startswith("meeting_short"):
-            t = pipeline.run(FIXTURES / m["file"], TranscribeOptions(language="en"))
+            t = pipeline.run(fixtures_dir / m["file"], TranscribeOptions(language="en"))
             assert wer(ref, t.text) < 0.15, (m["file"], t.text)
 
 
-def test_silence_does_not_hallucinate(pipeline):
-    t = pipeline.run(FIXTURES / "silence_noise.wav")
+def test_silence_does_not_hallucinate(pipeline, fixtures_dir):
+    t = pipeline.run(fixtures_dir / "silence_noise.wav")
     assert t.segments == []
 
 
-def test_dual_channel_call_turns(pipeline):
-    truth = json.loads((FIXTURES / "support_call_dual_channel.truth.json").read_text())
-    t = pipeline.run(FIXTURES / "support_call_dual_channel.wav", TranscribeOptions(channel_mode="split", redact_pii=True))
+def test_dual_channel_call_turns(pipeline, fixtures_dir):
+    truth = json.loads((fixtures_dir / "support_call_dual_channel.truth.json").read_text())
+    t = pipeline.run(
+        fixtures_dir / "support_call_dual_channel.wav", TranscribeOptions(channel_mode="split", redact_pii=True)
+    )
     assert [s.speaker for s in t.segments] == [x["speaker"] for x in truth]
     for seg, x in zip(t.segments, truth):
         assert abs(seg.start - x["start"]) < 1.0

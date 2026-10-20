@@ -172,7 +172,8 @@
     116,
     117,
     118,
-    119
+    119,
+    120
    ],
    "text": "Honestly, I'm worried about the deadline. We underestimated the migration work. I'd like to propose that we freeze new features until the end of the month. There were three support tickets about the data warehouse last week, mostly about login problems. Can we move the review of the mobile app to Wednesday? I have a conflict this week. We found a bug in the data warehouse that only happens when two users edit the same record. The test suite for the payments API now takes 40 minutes, which is too slow for every pull request. Has anyone talked to the security team about the access logs? Our budget for the next quarter is about $3,000, so we have to prioritize. Has anyone talked to the security team about the access logs? The test suite for the search index now takes five minutes, which is too slow for every pull request. We found a bug in the mobile app that only happens when two users edit the same record. I'd like to propose that we freeze new features until the end of the month. Let's make sure Priya is in the loop before we change anything in the data warehouse. I agree. Let's schedule a follow-up on Wednesday to look at the numbers again. Kenji will send a summary of the decisions after this meeting. Has anyone talked to the security team about the access logs? Can we move the review of the data warehouse to Wednesday? I have a conflict this week. The test suite for the billing service now takes 8 minutes, which is too slow for every pull request."
   },
@@ -182,7 +183,6 @@
    "end": 821.552,
    "speakers": [],
    "segment_ids": [
-    120,
     121,
     122,
     123,
@@ -202,7 +202,8 @@
     137,
     138,
     139,
-    140
+    140,
+    141
    ],
    "text": "I'd like to propose that we freeze new features until the end of the month. I agree. Let's schedule a follow-up on Thursday to look at the numbers again. Can we move the review of the payments API to Thursday? I have a conflict this week. Has anyone talked to the security team about the access logs? I agree. Let's schedule a follow-up on Wednesday to look at the numbers again. The test suite for the payments API now takes 15 minutes. which is too slow for every pull request. There were five support tickets about the search index last week, mostly about login problems. Our budget for the next quarter is about $40,000, so we have to prioritize. Omar will send a summary of the decisions after this meeting. Let's make sure Kenji is in the loop before we change anything in the onboarding flow. The test suite for the billing service now takes 25 minutes, which is too slow for every pull request. I agree. Let's schedule a follow-up on Wednesday to look at the numbers again. The test suite for the search index now takes 12 minutes, which is too slow for every pull request. Can we move the review of the search index to Thursday? I have a conflict this week. I agree. Let's schedule a follow-up on Tuesday to look at the numbers again. I agree. Let's schedule a follow-up on Thursday to look at the numbers again. Honestly, I'm worried about the deadline. We underestimated the migration work. I'd like to propose that we freeze new features until the end of the month."
   },
@@ -212,12 +213,12 @@
    "end": 855.76,
    "speakers": [],
    "segment_ids": [
-    141,
     142,
     143,
     144,
     145,
-    146
+    146,
+    147
    ],
    "text": "Can we move the review of the Billind service to Tuesday? I have a conflict this week. The Venda contract renews on Wednesday, and they want to raise the price by 8%. Honestly, I'm worried about the deadline. We underestimated the migration work. Can we move the review of the onboarding flow to Friday? I have a conflict this week. I'd like to propose that we freeze new features until the end of the month. The new dashboard shows that most traffic comes from mobile devices in the evening."
   }

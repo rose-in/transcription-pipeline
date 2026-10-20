@@ -13,10 +13,10 @@ from __future__ import annotations
 import json
 import math
 import textwrap
+from collections.abc import Callable, Iterator
 
 from .schemas import Segment, Transcript
 
-FORMATS = ("json", "jsonl", "txt", "srt", "vtt", "chunks")
 MEDIA_TYPES = {
     "json": "application/json",
     "jsonl": "application/x-ndjson",
@@ -25,6 +25,7 @@ MEDIA_TYPES = {
     "vtt": "text/vtt; charset=utf-8",
     "chunks": "application/json",
 }
+Cue = tuple[float, float, list[str], str | None]  # (start_s, end_s, lines, speaker)
 
 
 def _ts(seconds: float, sep: str) -> str:
@@ -35,7 +36,9 @@ def _ts(seconds: float, sep: str) -> str:
     return f"{h:02d}:{m:02d}:{s:02d}{sep}{ms:03d}"
 
 
-def _cues(segments: list[Segment], *, prefix_speaker: bool, max_chars=42, max_lines=2, max_dur=7.0):
+def _cues(
+    segments: list[Segment], *, prefix_speaker: bool, max_chars: int = 42, max_lines: int = 2, max_dur: float = 7.0
+) -> Iterator[Cue]:
     """Split segments into caption cues of <= max_lines lines of <= max_chars, <= max_dur seconds.
     Yields (start, end, lines, speaker). Uses word timings when present; otherwise allocates time
     proportionally to characters (approximate, but monotonic and never overlapping)."""
@@ -51,13 +54,16 @@ def _cues(segments: list[Segment], *, prefix_speaker: bool, max_chars=42, max_li
         if seg.words:
             # Balanced split: if the text needs n cues, aim for ~len/n characters each instead of
             # filling greedily, which strands a one-word orphan cue ("tier.") at the end.
-            n = max(math.ceil(len(seg.text) / (max_chars * max_lines * 0.9)),
-                    math.ceil((seg.end - seg.start) / max_dur))
+            n = max(
+                math.ceil(len(seg.text) / (max_chars * max_lines * 0.9)), math.ceil((seg.end - seg.start) / max_dur)
+            )
             target = len(seg.text) / n
             cur, c_start, prev_end = "", None, seg.start
             for w in seg.words:
                 cand = cur + w.word
-                too_big = len(wrap(cand.strip(), seg.speaker)) > max_lines or (c_start is not None and w.end - c_start > max_dur)
+                too_big = len(wrap(cand.strip(), seg.speaker)) > max_lines or (
+                    c_start is not None and w.end - c_start > max_dur
+                )
                 at_clause = cur.rstrip().endswith((",", ";", ":", "—")) and len(cur.strip()) >= 0.6 * target
                 if cur and (too_big or at_clause or len(cur.strip()) >= target):
                     yield c_start, prev_end, wrap(cur.strip(), seg.speaker), seg.speaker
@@ -82,7 +88,7 @@ def _cues(segments: list[Segment], *, prefix_speaker: bool, max_chars=42, max_li
             t += d
 
 
-def _valid_cues(t: Transcript, *, prefix_speaker: bool):
+def _valid_cues(t: Transcript, *, prefix_speaker: bool) -> Iterator[Cue]:
     """Caption players reject zero-length or backwards cues (WebVTT requires end > start and
     non-decreasing starts). Sort rather than clamp: in split-channel transcripts cues from two
     speakers legitimately overlap, and clamping would move a reply to the wrong time.
@@ -131,12 +137,18 @@ def to_txt(t: Transcript, paragraph_gap_s: float = 2.0) -> str:
     return "\n\n".join(lines) + "\n"
 
 
+def to_json(t: Transcript) -> str:
+    """Full-fidelity canonical transcript: the system of record."""
+    return t.model_dump_json(indent=1)
+
+
 def to_jsonl(t: Transcript) -> str:
     return "".join(json.dumps(s.model_dump(exclude_none=True)) + "\n" for s in t.segments)
 
 
 def to_chunks(t: Transcript, max_chars: int = 1500) -> str:
     """Group whole segments into passages for RAG/LLM use; never splits a segment."""
+
     def size(x: Segment) -> int:
         return len(x.text) + 1 + (len(x.speaker) + 2 if x.speaker else 0)
 
@@ -162,7 +174,16 @@ def to_chunks(t: Transcript, max_chars: int = 1500) -> str:
     return json.dumps({"language": t.language, "duration_s": t.duration_s, "chunks": payload}, indent=1)
 
 
+_RENDERERS: dict[str, Callable[[Transcript], str]] = {
+    "json": to_json,
+    "jsonl": to_jsonl,
+    "txt": to_txt,
+    "srt": to_srt,
+    "vtt": to_vtt,
+    "chunks": to_chunks,
+}
+FORMATS = tuple(_RENDERERS)
+
+
 def render(t: Transcript, fmt: str) -> str:
-    if fmt == "json":
-        return t.model_dump_json(indent=1)
-    return {"jsonl": to_jsonl, "txt": to_txt, "srt": to_srt, "vtt": to_vtt, "chunks": to_chunks}[fmt](t)
+    return _RENDERERS[fmt](t)

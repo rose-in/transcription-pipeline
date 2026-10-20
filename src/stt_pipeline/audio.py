@@ -33,12 +33,35 @@ from .errors import AudioTooLong, EmptyFile, NoAudioStream, UndecodableAudio, Un
 
 TARGET_SR = 16_000
 
-ALLOWED_DEMUXERS = ("wav", "w64", "mp3", "aac", "flac", "ogg", "mov", "matroska", "aiff", "amr", "asf", "caf", "au", "wv")
+# Crafted containers with thousands of streams are a cheap DoS. FFmpeg stops adding
+# streams at this cap, and probe() rejects any file that reaches it.
+MAX_STREAMS = 16
+
+ALLOWED_DEMUXERS = (
+    "wav",
+    "w64",
+    "mp3",
+    "aac",
+    "flac",
+    "ogg",
+    "mov",
+    "matroska",
+    "aiff",
+    "amr",
+    "asf",
+    "caf",
+    "au",
+    "wv",
+)
 FFMPEG_OPTIONS = {
     "format_whitelist": ",".join(ALLOWED_DEMUXERS),
     "protocol_whitelist": "file",
-    "max_streams": "16",  # crafted containers with thousands of streams are a cheap DoS
+    "max_streams": str(MAX_STREAMS),
 }
+
+# Containers whose duration FFmpeg typically *estimates from bitrate* (no reliable header):
+# fine for progress bars, never for rejecting a file up front.
+_ESTIMATED_DURATION_CONTAINERS = {"mp3", "aac"}
 
 _ASF_GUID = bytes.fromhex("3026b2758e66cf11a6d900aa0062ce6c")
 
@@ -91,12 +114,6 @@ class AudioInfo:
     size_bytes: int
     start_offset_s: float = 0.0
     duration_is_estimate: bool = False
-
-
-# Containers whose duration FFmpeg typically *estimates from bitrate* (no reliable header):
-# fine for progress bars, never for rejecting a file up front.
-_ESTIMATED_DURATION_CONTAINERS = {"mp3", "aac"}
-MAX_STREAMS = 16
 
 
 def _open(path: Path, *, unsupported: bool = False) -> av.container.InputContainer:
@@ -182,13 +199,17 @@ class DecodeStats:
     def finalize(self, info: AudioInfo) -> None:
         # Quality signals are warnings, not rejections: the caller decides what "too bad" means.
         if self.samples and self.clipped / self.samples > 0.001:
-            self.warnings.append(f"{100 * self.clipped / self.samples:.2f}% of samples are clipped; expect lower accuracy.")
+            self.warnings.append(
+                f"{100 * self.clipped / self.samples:.2f}% of samples are clipped; expect lower accuracy."
+            )
         if self.samples and (self.sum_sq / self.samples) ** 0.5 < 0.003:
             self.warnings.append("Audio level is very low (< -50 dBFS RMS); the recording may be silent or mis-gained.")
         if self.corrupt_packets:
             self.warnings.append(f"Skipped {self.corrupt_packets} corrupt packet(s) while decoding.")
         if self.stopped_early:
-            self.warnings.append("The stream became undecodable part-way through; transcript covers the audio before that point.")
+            self.warnings.append(
+                "The stream became undecodable part-way through; transcript covers the audio before that point."
+            )
         cd = info.container_duration_s
         if cd and self.duration_s < 0.9 * cd and cd - self.duration_s > 1.0:
             self.warnings.append(

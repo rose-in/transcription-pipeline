@@ -1,18 +1,22 @@
 """Command line entry point.
 
-    stt transcribe meeting.mp3 --format srt -o meeting.srt
-    stt transcribe call.wav --split-channels --redact-pii --format txt
-    stt serve --port 8000
+stt transcribe meeting.mp3 --format srt -o meeting.srt
+stt transcribe call.wav --split-channels --redact-pii --format txt
+stt serve --port 8000
 """
 
 from __future__ import annotations
 
 import argparse
 import logging
+import signal
+import subprocess
 import sys
+import threading
 from pathlib import Path
 
 from .config import Settings
+from .engines import ENGINES
 from .errors import PipelineError
 from .formats import FORMATS, render
 
@@ -27,20 +31,24 @@ def _transcribe(args: argparse.Namespace) -> int:
         s.model = args.model
     if args.engine:
         s.engine = args.engine
+    if args.chunk_seconds:
+        s.chunk_s = args.chunk_seconds
     options = TranscribeOptions(
-        language=args.language, word_timestamps=args.words, redact_pii=args.redact_pii,
-        channel_mode="split" if args.split_channels else "mix", prompt=args.prompt,
+        language=args.language,
+        word_timestamps=args.words,
+        redact_pii=args.redact_pii,
+        channel_mode="split" if args.split_channels else "mix",
+        prompt=args.prompt,
     )
     engine = build_engine(s.engine, **s.engine_kwargs())
-    pipeline = Pipeline(engine, PipelineConfig(chunk_s=args.chunk_seconds or s.chunk_s, max_duration_s=s.max_duration_s,
-                                               max_split_channels=s.max_split_channels))
+    pipeline = Pipeline(engine, PipelineConfig(**s.pipeline_kwargs()))
 
     def progress(done: float, total: float | None) -> None:
         pct = f"{100 * done / total:5.1f}%" if total else ""
         print(f"\r  transcribed {done / 60:6.1f} min {pct}", end="", file=sys.stderr, flush=True)
 
     # Safe to reuse across files/models: every checkpoint carries a fingerprint of the input bytes,
-    # engine, options and chunking, and is ignored unless all of them match.
+    # engine, options, chunking and pipeline version, and is ignored unless all of them match.
     checkpoints = DirCheckpointStore(Path(args.checkpoint_dir)) if args.checkpoint_dir else None
     try:
         t = pipeline.run(Path(args.input), options, progress=progress, checkpoints=checkpoints)
@@ -65,22 +73,26 @@ def _transcribe(args: argparse.Namespace) -> int:
 
 
 def _worker(args: argparse.Namespace) -> int:
-    import signal
-
     from .engines import build_engine
-    from .jobs import JobStore, Worker
+    from .jobs import JobStore
     from .pipeline import Pipeline, PipelineConfig
+    from .worker import Worker
 
     s = Settings()
     engine = build_engine(s.engine, **s.engine_kwargs())
-    if hasattr(engine, "warmup"):
-        engine.warmup()  # readiness should mean "can serve at full speed", not "weights on disk"
-    pipeline = Pipeline(engine, PipelineConfig(chunk_s=s.chunk_s, max_duration_s=s.max_duration_s,
-                                               max_split_channels=s.max_split_channels))
-    worker = Worker(JobStore(s.data_dir), pipeline, s.engine_key(), lease_s=s.lease_s, max_attempts=s.max_attempts,
-                    stall_timeout_s=s.stall_timeout_s, exit_on_stall=True)
+    engine.warmup()  # readiness should mean "can serve at full speed", not "weights on disk"
+    pipeline = Pipeline(engine, PipelineConfig(**s.pipeline_kwargs()))
+    worker = Worker(
+        JobStore(s.data_dir),
+        pipeline,
+        s.engine_key(),
+        lease_s=s.lease_s,
+        max_attempts=s.max_attempts,
+        stall_timeout_s=s.stall_timeout_s,
+        exit_on_stall=True,
+    )
 
-    def drain(signum, _frame):  # SIGTERM from k8s / spot notice: hand the job back immediately
+    def drain(signum: int, _frame: object) -> None:  # SIGTERM from k8s / spot notice: hand the job back immediately
         logging.getLogger(__name__).info("signal %s: releasing current job and exiting", signum)
         worker.drain()
         raise SystemExit(0)  # the in-flight native call is abandoned; another worker resumes
@@ -90,8 +102,6 @@ def _worker(args: argparse.Namespace) -> int:
     # The work runs on a separate thread and the main thread only waits: Python delivers signals
     # to the main thread *between bytecodes*, so a main thread stuck inside one long CTranslate2
     # call couldn't run drain() before the orchestrator's SIGKILL.
-    import threading
-
     t = threading.Thread(target=worker.run, name="worker", daemon=True)
     t.start()
     while t.is_alive():
@@ -99,10 +109,12 @@ def _worker(args: argparse.Namespace) -> int:
     return 0
 
 
-def _serve(args: argparse.Namespace) -> int:
-    import signal
-    import subprocess
+def _raise_keyboard_interrupt(signum: int, frame: object) -> None:
+    """SIGTERM handler: unwind uvicorn.run() the same way Ctrl-C does, so the finally-block stops the worker."""
+    raise KeyboardInterrupt
 
+
+def _serve(args: argparse.Namespace) -> int:
     import uvicorn
 
     from .api import create_app
@@ -111,7 +123,7 @@ def _serve(args: argparse.Namespace) -> int:
     if args.with_worker:  # dev convenience: one command, still two processes
         proc = subprocess.Popen([sys.executable, "-m", "stt_pipeline.cli", "worker"])
         # uvicorn handles SIGINT/SIGTERM itself and returns; make sure the child follows either way
-        signal.signal(signal.SIGTERM, lambda *_: (_ for _ in ()).throw(KeyboardInterrupt()))
+        signal.signal(signal.SIGTERM, _raise_keyboard_interrupt)
     try:
         uvicorn.run(create_app(), host=args.host, port=args.port)
     except KeyboardInterrupt:
@@ -137,7 +149,7 @@ def main(argv: list[str] | None = None) -> int:
     t.add_argument("-f", "--format", choices=FORMATS, default="txt")
     t.add_argument("-o", "--output")
     t.add_argument("--model", help="e.g. small, large-v3-turbo, distil-large-v3.5 (default: $STT_MODEL or small)")
-    t.add_argument("--engine", choices=["faster-whisper", "mock"])
+    t.add_argument("--engine", choices=ENGINES, help="default: $STT_ENGINE or faster-whisper")
     t.add_argument("--language", help="ISO code; auto-detect if omitted")
     t.add_argument("--words", action="store_true", help="word-level timestamps")
     t.add_argument("--split-channels", action="store_true", help="transcribe stereo channels separately")

@@ -32,6 +32,7 @@ import av
 import numpy as np
 
 SR = 22050  # `say` native-ish rate; every encoder resamples from here
+# macOS `say` voices, one per English accent, for speaker/accent variety in the long meeting.
 VOICES = {
     "Samantha": "en_US",
     "Daniel": "en_GB",
@@ -146,10 +147,19 @@ def write_wav(path: Path, audio: np.ndarray, rate: int = 44100, layout: str = "s
 # ------------------------------------------------------------------- scenarios
 
 SHORT_SCRIPT = [
-    ("Samantha", "Good morning everyone. Let's start with the quarterly review. Revenue grew twelve percent compared to last quarter, mostly driven by the new subscription tier."),
-    ("Daniel", "Thanks. On the engineering side, we shipped the mobile release on Tuesday, and crash rates dropped below half a percent."),
+    (
+        "Samantha",
+        "Good morning everyone. Let's start with the quarterly review. Revenue grew twelve percent compared to last quarter, mostly driven by the new subscription tier.",
+    ),
+    (
+        "Daniel",
+        "Thanks. On the engineering side, we shipped the mobile release on Tuesday, and crash rates dropped below half a percent.",
+    ),
     ("Samantha", "Great. What are the main risks for next month?"),
-    ("Daniel", "The data migration is the biggest one. We need two more weeks of testing before we can switch over the production database."),
+    (
+        "Daniel",
+        "The data migration is the biggest one. We need two more weeks of testing before we can switch over the production database.",
+    ),
     ("Karen", "I can help with that. My team has capacity starting Monday, so we could take over the load testing."),
 ]
 
@@ -165,7 +175,14 @@ CALL_SCRIPT = [  # (channel, voice, text) -> dual-channel call-centre recording
 ]
 
 NAMES = ["Priya", "Marcus", "Elena", "Tom", "Aisha", "Kenji", "Laura", "Omar"]
-PROJECTS = ["the billing service", "the search index", "the mobile app", "the data warehouse", "the onboarding flow", "the payments API"]
+PROJECTS = [
+    "the billing service",
+    "the search index",
+    "the mobile app",
+    "the data warehouse",
+    "the onboarding flow",
+    "the payments API",
+]
 DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
 TEMPLATES = [
     "I think {project} is in good shape, but we still need to finish the documentation.",
@@ -195,7 +212,10 @@ def render_turn(rng: random.Random) -> str:
     k = rng.choice([1, 1, 2, 2, 3])
     return " ".join(
         rng.choice(TEMPLATES).format(
-            name=rng.choice(NAMES), project=rng.choice(PROJECTS), day=rng.choice(DAYS), n=rng.choice([3, 5, 8, 12, 15, 20, 25, 40])
+            name=rng.choice(NAMES),
+            project=rng.choice(PROJECTS),
+            day=rng.choice(DAYS),
+            n=rng.choice([3, 5, 8, 12, 15, 20, 25, 40]),
         )
         for _ in range(k)
     )
@@ -219,7 +239,7 @@ def build_dialog(turns: list[tuple[str, str]], rng: random.Random, gap=(0.3, 2.0
 def build_long(minutes: float, seed: int) -> tuple[np.ndarray, list[dict]]:
     """Multi-speaker meeting with a long silent break and a 'hold music' stretch mid-way."""
     rng = random.Random(seed)
-    voices = ["Samantha", "Daniel", "Karen", "Moira", "Tessa", "Rishi"]
+    voices = list(VOICES)
     target = minutes * 60
     pieces, truth, t = [], [], 0.0
     inserted_break = speech_after_break = False
@@ -291,20 +311,33 @@ def main() -> None:
     stereo, t, ctruth = np.zeros((2, total), dtype=np.float32), int(0.5 * SR), []
     for (ch, voice, text), clip in zip(CALL_SCRIPT, clips):
         stereo[ch, t : t + len(clip)] = clip
-        ctruth.append({"speaker": f"channel_{ch}", "start": round(t / SR, 3), "end": round((t + len(clip)) / SR, 3), "text": text})
+        ctruth.append(
+            {"speaker": f"channel_{ch}", "start": round(t / SR, 3), "end": round((t + len(clip)) / SR, 3), "text": text}
+        )
         t += len(clip) + int(0.7 * SR)
     stereo = add_noise(stereo, 0.001, args.seed)
     write_wav(out / "support_call_dual_channel.wav", stereo, rate=8000, layout="stereo")
     write_reference(out, "support_call_dual_channel", ctruth)
-    manifest.append({"file": "support_call_dual_channel.wav", "kind": "valid", "reference": "support_call_dual_channel", "expect_status": 200})
+    manifest.append(
+        {
+            "file": "support_call_dual_channel.wav",
+            "kind": "valid",
+            "reference": "support_call_dual_channel",
+            "expect_status": 200,
+        }
+    )
 
     # 3) Silence + noise only: the pipeline must return *no* text, not a hallucination.
     encode(out / "silence_noise.wav", add_noise(silence(30), 0.003, 1), container="wav", codec="pcm_s16le", rate=16000)
-    manifest.append({"file": "silence_noise.wav", "kind": "valid", "reference": None, "expect_status": 200, "expect_empty": True})
+    manifest.append(
+        {"file": "silence_noise.wav", "kind": "valid", "reference": None, "expect_status": 200, "expect_empty": True}
+    )
 
     # 4) Long-form meeting (default ~10 min; use --long-minutes for hours).
     long, ltruth = build_long(args.long_minutes, args.seed)
-    encode(out / "long_meeting.mp3", long, container="mp3", codec="libmp3lame", rate=44100, layout="mono", bit_rate=64_000)
+    encode(
+        out / "long_meeting.mp3", long, container="mp3", codec="libmp3lame", rate=44100, layout="mono", bit_rate=64_000
+    )
     write_reference(out, "long_meeting", ltruth)
     manifest.append({"file": "long_meeting.mp3", "kind": "valid", "reference": "long_meeting", "expect_status": 200})
 
@@ -316,7 +349,9 @@ def main() -> None:
     )
     mp3 = (out / "meeting_short.mp3").read_bytes()
     (out / "truncated.mp3").write_bytes(mp3[: len(mp3) // 3])  # decodes partially -> must warn, not crash
-    (out / "corrupt.wav").write_bytes((out / "meeting_short.wav").read_bytes()[:44] + bytes(random.Random(1).randbytes(20000)))
+    (out / "corrupt.wav").write_bytes(
+        (out / "meeting_short.wav").read_bytes()[:44] + bytes(random.Random(1).randbytes(20000))
+    )
     encode(out / "video_only.mp4", short, container="mp4", codec="aac", rate=44100, with_video=True, with_audio=False)
     manifest += [
         {"file": "empty.wav", "kind": "invalid", "expect_status": 400, "expect_error": "empty_file"},

@@ -50,8 +50,9 @@ class AudioMeta(BaseModel):
     sample_rate: int
     channels: int
     container_duration_s: float | None = Field(None, description="As reported by the container; can be wrong")
-    start_offset_s: float = Field(0.0, description="Audio stream start time in the container; add it to map "
-                                                    "segment times onto a video's timeline")
+    start_offset_s: float = Field(
+        0.0, description="Audio stream start time in the container; add it to map segment times onto a video's timeline"
+    )
     decoded_duration_s: float = Field(description="Ground truth: samples actually decoded / 16000")
 
 
@@ -95,8 +96,11 @@ class Transcript(BaseModel):
     dropped: list[DroppedSegment] = Field(default_factory=list)
     warnings: list[str] = Field(default_factory=list)
     timing: Timing = Field(default_factory=Timing)
-    diagnostics: dict = Field(default_factory=dict, description="Engine counters summed over chunks "
-                              "(e.g. ranges re-decoded by the safety net and the time it took)")
+    diagnostics: dict = Field(
+        default_factory=dict,
+        description="Engine counters summed over chunks "
+        "(e.g. ranges re-decoded by the safety net and the time it took)",
+    )
 
 
 class TranscribeOptions(BaseModel):

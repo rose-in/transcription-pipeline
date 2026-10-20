@@ -15,6 +15,8 @@ from .base import EngineResult
 
 
 class MockEngine:
+    max_chunk_s: float | None = None
+
     def __init__(self, threshold: float = 0.02, min_gap_s: float = 0.3, fail_on_call: int | None = None):
         self.threshold = threshold
         self.min_gap_s = min_gap_s
@@ -29,7 +31,12 @@ class MockEngine:
     def engine_id(self) -> str:
         return "mock-v1"
 
-    def transcribe(self, audio, *, language, word_timestamps=False, prompt=None) -> EngineResult:
+    def warmup(self) -> None:
+        """No model to load."""
+
+    def transcribe(
+        self, audio: np.ndarray, *, language: str | None, word_timestamps: bool = False, prompt: str | None = None
+    ) -> EngineResult:
         self.calls += 1
         if self.fail_on_call is not None and self.calls == self.fail_on_call:
             raise RuntimeError("simulated engine crash")
@@ -55,7 +62,14 @@ class MockEngine:
             s, e = a / 100, b / 100
             words = [Word(start=s, end=e, word=" speech", probability=0.99)] if word_timestamps else None
             out.append(
-                Segment(start=s, end=e, text=f"speech {s:.2f}-{e:.2f}", avg_logprob=-0.1, no_speech_prob=0.01,
-                        compression_ratio=1.2, words=words)
+                Segment(
+                    start=s,
+                    end=e,
+                    text=f"speech {s:.2f}-{e:.2f}",
+                    avg_logprob=-0.1,
+                    no_speech_prob=0.01,
+                    compression_ratio=1.2,
+                    words=words,
+                )
             )
         return EngineResult(out, language or "en", 1.0)

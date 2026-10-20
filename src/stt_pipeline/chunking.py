@@ -22,6 +22,10 @@ import numpy as np
 
 from .audio import TARGET_SR
 
+# Shortest chunk worth transcribing: a few ms of tail after the last cut. It is also the minimum
+# hosted providers accept (they reject sub-100 ms audio).
+MIN_CHUNK_S = 0.1
+
 
 @dataclass
 class Chunk:
@@ -37,6 +41,8 @@ class Chunk:
 def _speech_regions(window: np.ndarray, sr: int) -> list[tuple[int, int]]:
     from faster_whisper.vad import VadOptions, get_speech_timestamps
 
+    # Tight padding so gap lengths reflect real pauses: this profile only locates a cut point.
+    # The decode-time profile is FasterWhisperEngine.speech_regions.
     opts = VadOptions(threshold=0.5, min_silence_duration_ms=100, speech_pad_ms=30, min_speech_duration_ms=100)
     return [(t["start"], t["end"]) for t in get_speech_timestamps(window, opts, sampling_rate=sr)]
 

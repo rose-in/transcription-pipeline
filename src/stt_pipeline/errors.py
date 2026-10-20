@@ -34,6 +34,9 @@ class AudioTooLong(PipelineError):
     status, code = 413, "audio_too_long"
 
 
+LONG_AUDIO_HINT = "Use POST /v1/jobs for long audio."  # added when a stricter per-request (sync) limit fired
+
+
 class UnsupportedMedia(PipelineError):
     """Content sniffing did not recognise an allowed container (extension and MIME type are ignored)."""
 
@@ -52,6 +55,17 @@ class UndecodableAudio(PipelineError):
 
 class InvalidOptions(PipelineError):
     status, code = 422, "invalid_options"
+
+    @classmethod
+    def from_validation_error(cls, e: ValueError) -> InvalidOptions:
+        """One readable line per failing field, e.g. "language: unknown language code 'xx'"."""
+        errors = e.errors() if callable(getattr(e, "errors", None)) else []  # pydantic.ValidationError
+        parts = []
+        for err in errors:
+            field = ".".join(str(x) for x in err.get("loc", ()))
+            msg = str(err.get("msg", "")).removeprefix("Value error, ")
+            parts.append(f"{field}: {msg}" if field else msg)
+        return cls("; ".join(parts) or str(e) or "invalid options")
 
 
 class QueueFull(PipelineError):

@@ -417,162 +417,160 @@
   {
    "id": 7,
    "start": 22.59,
-   "end": 25.07,
+   "end": 25.05,
    "text": "The data migration is the biggest one.",
    "speaker": null,
-   "avg_logprob": -0.15260952711105347,
-   "no_speech_prob": 0.008798201568424702,
-   "compression_ratio": 1.2551020408163265,
-   "flags": [
-    "fallback_decode"
-   ],
+   "avg_logprob": -0.09959895767663654,
+   "no_speech_prob": 0.020464887842535973,
+   "compression_ratio": 1.095890410958904,
+   "flags": [],
    "words": [
     {
      "start": 22.59,
-     "end": 23.17,
+     "end": 23.19,
      "word": " The",
-     "probability": 0.8973250985145569
+     "probability": 0.9940786361694336
     },
     {
-     "start": 23.17,
-     "end": 23.43,
+     "start": 23.19,
+     "end": 23.45,
      "word": " data",
-     "probability": 0.9691838622093201
+     "probability": 0.9774349927902222
     },
     {
-     "start": 23.43,
-     "end": 23.95,
+     "start": 23.45,
+     "end": 23.97,
      "word": " migration",
-     "probability": 0.9986490607261658
+     "probability": 0.9993543028831482
     },
     {
-     "start": 23.95,
+     "start": 23.97,
      "end": 24.25,
      "word": " is",
-     "probability": 0.9990956783294678
+     "probability": 0.9996733665466309
     },
     {
      "start": 24.25,
-     "end": 24.39,
+     "end": 24.41,
      "word": " the",
-     "probability": 0.9991301894187927
+     "probability": 0.9997130036354065
     },
     {
-     "start": 24.39,
-     "end": 24.67,
+     "start": 24.41,
+     "end": 24.65,
      "word": " biggest",
-     "probability": 0.998108983039856
+     "probability": 0.9988002777099609
     },
     {
-     "start": 24.67,
-     "end": 25.07,
+     "start": 24.65,
+     "end": 25.05,
      "word": " one.",
-     "probability": 0.9969016313552856
+     "probability": 0.9977595806121826
     }
    ]
   },
   {
    "id": 8,
-   "start": 25.45,
+   "start": 25.39,
    "end": 29.61,
    "text": "We need two more weeks of testing before we can switch over the production database.",
    "speaker": null,
-   "avg_logprob": -0.15260952711105347,
-   "no_speech_prob": 0.008798201568424702,
-   "compression_ratio": 1.2551020408163265,
+   "avg_logprob": -0.3033865039998835,
+   "no_speech_prob": 0.020464887842535973,
+   "compression_ratio": 1.095890410958904,
    "flags": [
-    "fallback_decode"
+    "continued"
    ],
    "words": [
     {
-     "start": 25.45,
+     "start": 25.39,
      "end": 25.55,
      "word": " We",
-     "probability": 0.9847921133041382
+     "probability": 0.9963745474815369
     },
     {
      "start": 25.55,
      "end": 25.79,
      "word": " need",
-     "probability": 0.9994148015975952
+     "probability": 0.9997251629829407
     },
     {
      "start": 25.79,
      "end": 25.99,
      "word": " two",
-     "probability": 0.796876847743988
+     "probability": 0.8871315717697144
     },
     {
      "start": 25.99,
      "end": 26.21,
      "word": " more",
-     "probability": 0.9991569519042969
+     "probability": 0.9996198415756226
     },
     {
      "start": 26.21,
-     "end": 26.49,
+     "end": 26.47,
      "word": " weeks",
-     "probability": 0.9989655017852783
+     "probability": 0.9993566870689392
     },
     {
-     "start": 26.49,
-     "end": 26.67,
+     "start": 26.47,
+     "end": 26.69,
      "word": " of",
-     "probability": 0.9985737800598145
+     "probability": 0.9994378685951233
     },
     {
-     "start": 26.67,
+     "start": 26.69,
      "end": 27.05,
      "word": " testing",
-     "probability": 0.9994235038757324
+     "probability": 0.9996933937072754
     },
     {
      "start": 27.05,
      "end": 27.41,
      "word": " before",
-     "probability": 0.9901458621025085
+     "probability": 0.9973468780517578
     },
     {
-     "start": 27.41,
-     "end": 27.65,
+     "start": 27.43,
+     "end": 27.63,
      "word": " we",
-     "probability": 0.9989587068557739
+     "probability": 0.3331466615200043
     },
     {
-     "start": 27.65,
-     "end": 27.89,
+     "start": 27.63,
+     "end": 27.87,
      "word": " can",
-     "probability": 0.9995504021644592
+     "probability": 0.9988466501235962
     },
     {
-     "start": 27.89,
+     "start": 27.87,
      "end": 28.15,
      "word": " switch",
-     "probability": 0.9990614056587219
+     "probability": 0.9963165521621704
     },
     {
      "start": 28.15,
      "end": 28.45,
      "word": " over",
-     "probability": 0.9982671737670898
+     "probability": 0.9973662495613098
     },
     {
      "start": 28.45,
      "end": 28.63,
      "word": " the",
-     "probability": 0.9976242184638977
+     "probability": 0.9987396597862244
     },
     {
      "start": 28.63,
-     "end": 29.07,
+     "end": 29.05,
      "word": " production",
-     "probability": 0.9933746457099915
+     "probability": 0.9820950627326965
     },
     {
-     "start": 29.07,
+     "start": 29.05,
      "end": 29.61,
      "word": " database.",
-     "probability": 0.9810106158256531
+     "probability": 0.9857679009437561
     }
    ]
   },
@@ -740,7 +738,11 @@
    "beam_size": 5,
    "without_timestamps": false,
    "vad_max_gap_s": 1.5,
-   "vad_max_clip_s": 30.0
+   "vad_max_clip_s": 30.0,
+   "coverage_tolerance_s": 0.3,
+   "fallback": "two_stage",
+   "continuation": true,
+   "cpu_threads": 6
   },
   "versions": {
    "faster_whisper": "1.2.1",
@@ -760,16 +762,26 @@
    "channel": null,
    "offset_s": 0.0,
    "duration_s": 38.024,
-   "segments": 7,
+   "segments": 8,
    "cached": false
   }
  ],
  "dropped": [],
  "warnings": [],
  "timing": {
-  "decode_s": 0.076,
-  "inference_s": 12.808,
-  "total_s": 12.889,
-  "rtf": 0.339
+  "decode_s": 0.066,
+  "inference_s": 4.811,
+  "total_s": 4.881,
+  "rtf": 0.1284
+ },
+ "diagnostics": {
+  "speech_s": 33.584,
+  "batched_s": 4.693,
+  "continued_clips": 1,
+  "uncontinued_clips": 0,
+  "suspect_ranges": 0,
+  "redecoded_s": 0.0,
+  "stage2_ranges": 0,
+  "fallback_s": 0.0
  }
 }

@@ -32,11 +32,29 @@ from .base import EngineResult
 
 TEXT_ONLY_MODELS = ("gpt-4o-transcribe", "gpt-4o-mini-transcribe", "gpt-transcribe")
 RETRYABLE = (408, 409, 429, 500, 502, 503, 504)
-LOCAL_MODEL_ALIASES = {"tiny", "tiny.en", "base", "base.en", "small", "small.en", "medium", "medium.en", "large",
-                       "large-v1", "large-v2", "large-v3", "large-v3-turbo", "turbo", "distil-large-v2",
-                       "distil-large-v3", "distil-large-v3.5", "distil-medium.en", "distil-small.en"}
+LOCAL_MODEL_ALIASES = {
+    "tiny",
+    "tiny.en",
+    "base",
+    "base.en",
+    "small",
+    "small.en",
+    "medium",
+    "medium.en",
+    "large",
+    "large-v1",
+    "large-v2",
+    "large-v3",
+    "large-v3-turbo",
+    "turbo",
+    "distil-large-v2",
+    "distil-large-v3",
+    "distil-large-v3.5",
+    "distil-medium.en",
+    "distil-small.en",
+}
+MIN_AUDIO_S = 0.1  # providers reject audio shorter than ~100 ms
 CONFIG_ERRORS = (401, 403, 404)  # our key/model/endpoint is wrong: not the client's fault, not transient
-MIN_CHUNK_S = 0.1  # providers reject sub-100 ms audio (same floor as the pipeline's tail skip)
 log = logging.getLogger(__name__)
 
 
@@ -57,16 +75,28 @@ def encode_flac(audio: np.ndarray) -> bytes:
 
 
 class OpenAICompatibleEngine:
-    max_chunk_s = 600.0  # pipeline will never hand us more than this
+    max_chunk_s: float | None = 600.0  # largest chunk we accept: 10 min of FLAC is ~10 MB, under the 25 MB cap
 
-    def __init__(self, base_url: str, api_key: str | None, model: str = "whisper-1", *,
-                 max_upload_bytes: int = 25 * 2**20, timeout_s: float = 300.0, max_retries: int = 4,
-                 client: httpx.Client | None = None):
+    def __init__(
+        self,
+        base_url: str,
+        api_key: str | None,
+        model: str = "whisper-1",
+        *,
+        max_upload_bytes: int = 25 * 2**20,
+        timeout_s: float = 300.0,
+        max_retries: int = 4,
+        client: httpx.Client | None = None,
+    ):
         if any(model.startswith(m) for m in TEXT_ONLY_MODELS):
-            raise ValueError(f"{model} returns no segment timestamps; use whisper-1 (OpenAI) or a Whisper model on Groq")
+            raise ValueError(
+                f"{model} returns no segment timestamps; use whisper-1 (OpenAI) or a Whisper model on Groq"
+            )
         if model in LOCAL_MODEL_ALIASES:  # e.g. STT_MODEL=large-v3-turbo baked into the image
-            raise ValueError(f"STT_MODEL={model!r} is a local faster-whisper model; set a provider model "
-                             "such as 'whisper-1' (OpenAI) or 'whisper-large-v3-turbo' (Groq)")
+            raise ValueError(
+                f"STT_MODEL={model!r} is a local faster-whisper model; set a provider model "
+                "such as 'whisper-1' (OpenAI) or 'whisper-large-v3-turbo' (Groq)"
+            )
         if not api_key and client is None:
             raise ValueError("STT_API_KEY is required for the openai-compatible engine")
         self.base_url, self.model = base_url.rstrip("/"), model
@@ -81,14 +111,23 @@ class OpenAICompatibleEngine:
     def engine_id(self) -> str:
         return hashlib.sha256(f"oai|{self.base_url}|{self.model}".encode()).hexdigest()[:12]
 
-    def transcribe(self, audio, *, language, word_timestamps=False, prompt=None) -> EngineResult:
-        if len(audio) < MIN_CHUNK_S * TARGET_SR:
+    def warmup(self) -> None:
+        """Nothing to warm up locally; the provider hosts the model."""
+
+    def transcribe(
+        self, audio: np.ndarray, *, language: str | None, word_timestamps: bool = False, prompt: str | None = None
+    ) -> EngineResult:
+        if len(audio) < MIN_AUDIO_S * TARGET_SR:
             return EngineResult([], language, None)
         body = encode_flac(audio)
         if len(body) > self.max_upload_bytes:
             raise InvalidOptions(f"chunk encodes to {len(body) >> 20} MB, above the provider's upload limit")
-        data = {"model": self.model, "response_format": "verbose_json", "temperature": "0",
-                "timestamp_granularities[]": ["segment", "word"] if word_timestamps else ["segment"]}
+        data = {
+            "model": self.model,
+            "response_format": "verbose_json",
+            "temperature": "0",
+            "timestamp_granularities[]": ["segment", "word"] if word_timestamps else ["segment"],
+        }
         if language:
             data["language"] = language
         if prompt:
@@ -101,18 +140,21 @@ class OpenAICompatibleEngine:
         Provider error bodies are logged, never echoed to our clients (they can contain key hints)."""
         for attempt in range(self.max_retries + 1):
             try:
-                r = self._client.post(f"{self.base_url}/audio/transcriptions", data=data,
-                                      files={"file": ("chunk.flac", body, "audio/flac")})
+                r = self._client.post(
+                    f"{self.base_url}/audio/transcriptions",
+                    data=data,
+                    files={"file": ("chunk.flac", body, "audio/flac")},
+                )
             except httpx.TransportError as e:
                 if attempt == self.max_retries:
                     raise EngineFailure(f"provider unreachable: {type(e).__name__}") from e
-                time.sleep(min(2 ** attempt, 30))
+                time.sleep(min(2**attempt, 30))
                 continue
             if r.status_code == 200:
                 return r.json()
             log.warning("provider returned %s: %s", r.status_code, r.text[:500])
             if r.status_code in RETRYABLE and attempt < self.max_retries:
-                time.sleep(_retry_after(r.headers.get("retry-after"), default=min(2 ** attempt, 30)))
+                time.sleep(_retry_after(r.headers.get("retry-after"), default=min(2**attempt, 30)))
                 continue
             if r.status_code in RETRYABLE:
                 raise EngineFailure(f"provider unavailable ({r.status_code}) after {attempt + 1} attempts")
@@ -131,13 +173,22 @@ class OpenAICompatibleEngine:
             word = Word(start=w["start"], end=w["end"], word=" " + w["word"].strip())
             # Exactly one segment per word: the one it overlaps most (ties -> nearest midpoint).
             mid = (word.start + word.end) / 2
-            best = max(range(len(raw)), key=lambda i: (min(word.end, raw[i]["end"]) - max(word.start, raw[i]["start"]),
-                                                      -abs(mid - (raw[i]["start"] + raw[i]["end"]) / 2)))
+            best = max(
+                range(len(raw)),
+                key=lambda i: (
+                    min(word.end, raw[i]["end"]) - max(word.start, raw[i]["start"]),
+                    -abs(mid - (raw[i]["start"] + raw[i]["end"]) / 2),
+                ),
+            )
             buckets[best].append(word)
         segments = [
             Segment(
-                start=s["start"], end=s["end"], text=s["text"].strip(), avg_logprob=s.get("avg_logprob"),
-                no_speech_prob=s.get("no_speech_prob"), compression_ratio=s.get("compression_ratio"),
+                start=s["start"],
+                end=s["end"],
+                text=s["text"].strip(),
+                avg_logprob=s.get("avg_logprob"),
+                no_speech_prob=s.get("no_speech_prob"),
+                compression_ratio=s.get("compression_ratio"),
                 words=ws if word_timestamps and ws else None,
             )
             for s, ws in zip(raw, buckets)

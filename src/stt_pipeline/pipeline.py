@@ -17,10 +17,11 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Protocol
 
-from .audio import DecodeStats, iter_pcm, probe
-from .chunking import silence_aware_chunks
+from . import PIPELINE_VERSION
+from .audio import AudioInfo, DecodeStats, iter_pcm, probe
+from .chunking import MIN_CHUNK_S, Chunk, silence_aware_chunks
 from .engines.base import Engine, EngineResult
-from .errors import AudioTooLong, EngineFailure, InvalidOptions, PipelineError
+from .errors import EngineFailure, InvalidOptions, PipelineError
 from .postprocess import build_chain, run_chain
 from .schemas import AudioMeta, ChunkMeta, Segment, Timing, TranscribeOptions, Transcript
 
@@ -55,6 +56,35 @@ class DirCheckpointStore:
         os.replace(tmp, self.root / f"{key}.json")
 
 
+def _checkpoint_record(fingerprint: str, chunk: Chunk, language: str | None, result: EngineResult) -> dict:
+    """Serialised form of one finished chunk; the inverse of `_restore_checkpoint`."""
+    return {
+        "fingerprint": fingerprint,
+        "n_samples": len(chunk.audio),
+        "offset_s": chunk.offset_s,
+        "input_language": language,
+        "language": result.language,
+        "language_probability": result.language_probability,
+        "segments": [s.model_dump() for s in result.segments],
+    }
+
+
+def _restore_checkpoint(data: dict | None, fingerprint: str, chunk: Chunk, language: str | None) -> EngineResult | None:
+    """The stored result if `data` was checkpointed for exactly this chunk, else None.
+
+    Besides the fingerprint, the audio position and the pinned language must match; otherwise
+    (e.g. language detection changed) the chunk is recomputed."""
+    if not (
+        data
+        and data.get("fingerprint") == fingerprint
+        and data.get("n_samples") == len(chunk.audio)
+        and abs(data["offset_s"] - chunk.offset_s) < 1e-6
+        and data["input_language"] == language
+    ):
+        return None
+    return EngineResult([Segment(**s) for s in data["segments"]], data["language"], data["language_probability"])
+
+
 @dataclass
 class PipelineConfig:
     chunk_s: float = 600.0  # macro-chunk target: memory bound + checkpoint granularity
@@ -79,46 +109,26 @@ class Pipeline:
         checkpoints: CheckpointStore | None = None,
         max_duration_s: float | None = None,
     ) -> Transcript:
-        """max_duration_s overrides the config limit for this run (e.g. the stricter sync-API limit);
-        it is enforced on decoded samples, so a missing or lying container header can't bypass it."""
+        """max_duration_s tightens the configured limit for this run (callers such as the sync API pass a
+        stricter one); it is enforced on decoded samples, so a missing or lying container header can't bypass it."""
         cfg = self.config
         limit = min(cfg.max_duration_s, max_duration_s or cfg.max_duration_s)
-        try:
-            return self._run(path, options or TranscribeOptions(), limit, filename=filename, sha256=sha256,
-                             progress=progress, checkpoints=checkpoints)
-        except AudioTooLong as e:
-            if limit < cfg.max_duration_s:  # the stricter per-request (sync) limit fired
-                raise AudioTooLong(f"{e.message} Use POST /v1/jobs for long audio.") from e
-            raise
-
-    def _run(self, path, options, limit, *, filename, sha256, progress, checkpoints) -> Transcript:
-        cfg = self.config
         try:  # stored jobs are loaded leniently; validate here before doing any work
-            options = TranscribeOptions.model_validate(options.model_dump())
+            options = TranscribeOptions.model_validate((options or TranscribeOptions()).model_dump())
         except ValueError as e:
-            raise InvalidOptions(str(e).splitlines()[-1]) from e
+            raise InvalidOptions.from_validation_error(e) from e
         t_start = time.perf_counter()
         info = probe(path, max_duration_s=limit)
 
-        if options.channel_mode == "split" and info.channels > 1:
-            if info.channels > cfg.max_split_channels:
-                raise InvalidOptions(f"channel_mode=split supports up to {cfg.max_split_channels} channels; "
-                                     f"this file has {info.channels}.")
-            channels: list[int | None] = list(range(info.channels))
-        else:
-            channels = [None]
+        channels = self._select_channels(info, options)
         sha256 = sha256 or (_file_sha256(path) if checkpoints else None)
-        # Checkpoints are only valid for the same bytes, engine, options and chunking. Without this
-        # a reused checkpoint dir silently returned another file's (or another model's) text.
-        fingerprint = hashlib.sha256(json.dumps(
-            [sha256, self.engine.engine_id, options.cache_key(self.engine.engine_id), cfg.chunk_s, cfg.chunk_search_s]
-        ).encode()).hexdigest()[:16]
+        fingerprint = self._checkpoint_fingerprint(sha256, options)
         warnings: list[str] = []
         if options.channel_mode == "split" and info.channels == 1:
             warnings.append("channel_mode=split requested but the audio is mono; transcribed as a single channel.")
 
         # Engines may declare a smaller max input (e.g. hosted APIs with upload caps).
-        chunk_s = min(cfg.chunk_s, getattr(self.engine, "max_chunk_s", None) or cfg.chunk_s)
+        chunk_s = min(cfg.chunk_s, self.engine.max_chunk_s or cfg.chunk_s)
         search_s = min(cfg.chunk_search_s, chunk_s / 4)
         language, language_p = options.language, (1.0 if options.language else None)
         segments: list[Segment] = []
@@ -135,45 +145,13 @@ class Pipeline:
             blocks = iter_pcm(path, info, channel=ch, max_duration_s=limit, stats=stats)
             for chunk in silence_aware_chunks(blocks, target_s=chunk_s, search_s=search_s):
                 key = f"{label or 'mix'}-{chunk.index:05d}"
-                cached = checkpoints.load(key) if checkpoints else None
-                # A checkpoint is reused only if it was produced for the same audio position and the
-                # same pinned language; otherwise (e.g. detection changed) the chunk is recomputed.
-                if (cached and cached.get("fingerprint") == fingerprint and cached.get("n_samples") == len(chunk.audio)
-                        and abs(cached["offset_s"] - chunk.offset_s) < 1e-6 and cached["input_language"] == language):
-                    result = EngineResult(
-                        [Segment(**s) for s in cached["segments"]], cached["language"], cached["language_probability"]
-                    )
-                    was_cached = True
-                elif chunk.duration_s < 0.1:  # a few ms of tail: nothing to transcribe, don't pay for a call
-                    result, was_cached = EngineResult([], language, None), False
-                else:
-                    t0 = time.perf_counter()
-                    try:
-                        result = self.engine.transcribe(
-                            chunk.audio, language=language, word_timestamps=options.word_timestamps, prompt=options.prompt
-                        )
-                    except PipelineError:
-                        raise
-                    except Exception as e:  # OOM, driver errors...: transient by assumption
-                        raise EngineFailure(f"engine failed on chunk {chunk.index}: {e}") from e
-                    inference_s += time.perf_counter() - t0
-                    for k, v in (result.extra or {}).items():
-                        if isinstance(v, (int, float)):
-                            diagnostics[k] = round(diagnostics.get(k, 0) + v, 3)
-                    was_cached = False
-                    if checkpoints:
-                        checkpoints.save(
-                            key,
-                            {
-                                "fingerprint": fingerprint,
-                                "n_samples": len(chunk.audio),
-                                "offset_s": chunk.offset_s,
-                                "input_language": language,
-                                "language": result.language,
-                                "language_probability": result.language_probability,
-                                "segments": [s.model_dump() for s in result.segments],
-                            },
-                        )
+                result, was_cached, chunk_inference_s = self._transcribe_chunk(
+                    chunk, key, language=language, options=options, fingerprint=fingerprint, checkpoints=checkpoints
+                )
+                inference_s += chunk_inference_s
+                for k, v in (result.extra or {}).items():  # engine counters; cached/skipped chunks carry none
+                    if isinstance(v, (int, float)):
+                        diagnostics[k] = round(diagnostics.get(k, 0) + v, 3)
                 # Detect language once, on the first chunk that actually contains speech, then pin
                 # it: per-chunk detection lets a noisy chunk flip the language mid-file.
                 if language is None and result.segments and result.language:
@@ -182,15 +160,25 @@ class Pipeline:
                     segments.append(_shift(s, chunk.offset_s, label))
                 chunk_meta.append(
                     ChunkMeta(
-                        index=chunk.index, channel=label, offset_s=round(chunk.offset_s, 3),
-                        duration_s=round(chunk.duration_s, 3), segments=len(result.segments), cached=was_cached,
+                        index=chunk.index,
+                        channel=label,
+                        offset_s=round(chunk.offset_s, 3),
+                        duration_s=round(chunk.duration_s, 3),
+                        segments=len(result.segments),
+                        cached=was_cached,
                     )
                 )
                 done_s += chunk.duration_s
                 if progress:  # in file seconds, not channel-seconds of work
                     progress(done_s / len(channels), total_est / len(channels) if total_est else None)
-                log.info("chunk %s %.0fs+%.0fs -> %d segments%s", key, chunk.offset_s, chunk.duration_s,
-                         len(result.segments), " (cached)" if was_cached else "")
+                log.info(
+                    "chunk %s %.0fs+%.0fs -> %d segments%s",
+                    key,
+                    chunk.offset_s,
+                    chunk.duration_s,
+                    len(result.segments),
+                    " (cached)" if was_cached else "",
+                )
             decode_s += stats.decode_s
             decoded_s = max(decoded_s, stats.duration_s)
             warnings += [w for w in stats.warnings if w not in warnings]
@@ -203,8 +191,13 @@ class Pipeline:
             duration_s=round(decoded_s, 3),
             segments=segments,
             audio=AudioMeta(
-                filename=filename or path.name, sha256=sha256, size_bytes=info.size_bytes,
-                container=info.container, codec=info.codec, sample_rate=info.sample_rate, channels=info.channels,
+                filename=filename or path.name,
+                sha256=sha256,
+                size_bytes=info.size_bytes,
+                container=info.container,
+                codec=info.codec,
+                sample_rate=info.sample_rate,
+                channels=info.channels,
                 container_duration_s=info.container_duration_s and round(info.container_duration_s, 3),
                 start_offset_s=info.start_offset_s,
                 decoded_duration_s=round(decoded_s, 3),
@@ -215,7 +208,9 @@ class Pipeline:
             warnings=warnings,
             diagnostics=diagnostics,
             timing=Timing(
-                decode_s=round(decode_s, 3), inference_s=round(inference_s, 3), total_s=round(total_s, 3),
+                decode_s=round(decode_s, 3),
+                inference_s=round(inference_s, 3),
+                total_s=round(total_s, 3),
                 rtf=round(total_s / decoded_s, 4) if decoded_s else 0.0,
             ),
         )
@@ -223,6 +218,58 @@ class Pipeline:
         if not transcript.segments:
             transcript.warnings.append("No speech detected.")
         return transcript
+
+    def _select_channels(self, info: AudioInfo, options: TranscribeOptions) -> list[int | None]:
+        """Channels to transcribe separately, or [None] for one down-mixed pass."""
+        if options.channel_mode == "split" and info.channels > 1:
+            if info.channels > self.config.max_split_channels:
+                raise InvalidOptions(
+                    f"channel_mode=split supports up to {self.config.max_split_channels} channels; "
+                    f"this file has {info.channels}."
+                )
+            return list(range(info.channels))
+        return [None]
+
+    def _checkpoint_fingerprint(self, sha256: str | None, options: TranscribeOptions) -> str:
+        """Checkpoints are reused only for the same audio bytes, engine + options (cache_key hashes both),
+        chunking and pipeline version, so a shared checkpoint dir never returns another run's text."""
+        cfg = self.config
+        return hashlib.sha256(
+            json.dumps(
+                [sha256, options.cache_key(self.engine.engine_id), cfg.chunk_s, cfg.chunk_search_s, PIPELINE_VERSION]
+            ).encode()
+        ).hexdigest()[:16]
+
+    def _transcribe_chunk(
+        self,
+        chunk: Chunk,
+        key: str,
+        *,
+        language: str | None,
+        options: TranscribeOptions,
+        fingerprint: str,
+        checkpoints: CheckpointStore | None,
+    ) -> tuple[EngineResult, bool, float]:
+        """Return (result, was_cached, inference_s) for one macro-chunk: reuse a matching checkpoint,
+        skip a negligible tail, or call the engine and checkpoint its result."""
+        cached = _restore_checkpoint(checkpoints.load(key) if checkpoints else None, fingerprint, chunk, language)
+        if cached is not None:
+            return cached, True, 0.0
+        if chunk.duration_s < MIN_CHUNK_S:
+            return EngineResult([], language, None), False, 0.0
+        t0 = time.perf_counter()
+        try:
+            result = self.engine.transcribe(
+                chunk.audio, language=language, word_timestamps=options.word_timestamps, prompt=options.prompt
+            )
+        except PipelineError:
+            raise
+        except Exception as e:  # OOM, driver errors...: transient by assumption
+            raise EngineFailure(f"engine failed on chunk {chunk.index}: {e}") from e
+        inference_s = time.perf_counter() - t0
+        if checkpoints:
+            checkpoints.save(key, _checkpoint_record(fingerprint, chunk, language, result))
+        return result, False, inference_s
 
 
 def _file_sha256(path: Path) -> str:

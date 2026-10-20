@@ -1,7 +1,8 @@
 """Post-processing chain: raw model output -> transcript that is safe to hand downstream.
 
-Each processor is a small pure function Transcript -> Transcript, so the chain
-is configurable per request and each step is unit-testable in isolation.
+Each processor is a callable Transcript -> Transcript (it may modify the transcript in
+place and returns it), so the chain is configurable per request and each step is
+unit-testable in isolation.
 Removed content is never silently discarded: it goes to `transcript.dropped`
 with a reason, so a reviewer can audit what the filters did. (PII redaction
 covers the audit trail too: a dropped segment is still a place PII can leak.)
@@ -15,6 +16,7 @@ import zlib
 from collections.abc import Callable, Sequence
 
 from .schemas import DroppedSegment, Segment, Transcript, Word
+from .whisper_thresholds import COMPRESSION_RATIO_THRESHOLD, LOG_PROB_THRESHOLD, NO_SPEECH_THRESHOLD
 
 Processor = Callable[[Transcript], Transcript]
 
@@ -62,19 +64,28 @@ class QualityGate:
                                                                      single repeat is kept)
     - known hallucination phrase + weak evidence of speech -> drop
     - segment flagged `continued` and avg_logprob < -1.0   -> drop  (decoded from a short
-      leftover piece with no context before it. On three real earnings calls with `small`,
-      5 of 89 continued segments fell below Whisper's own failure threshold, and all 5 garbled
-      a short real phrase (4 of 23 words right): "and fully utilize" came out as "I'm free to
-      die.", "12 months" as "I'll see you in 12 minutes." The 84 above it had 79% of words
-      right. Dropping loses a few real words but keeps confident-looking wrong text out of
-      search and summaries. Not caught: one 0.7 s leftover became "Thank you very much for
-      watching, and I'll see you in the next video." at log-prob -0.85.)
-    - a window of 5 consecutive segments compressing > 2.4 -> flag `possible_loop`
+      leftover with no preceding context; below Whisper's own failure threshold these are
+      mostly garbled real phrases, so dropping trades a few real words for keeping
+      confident-looking wrong text out of search and summaries; see docs/eval_real_data.md and README)
+    - a window of 5 consecutive segments (within 30 s) compressing > 2.4 -> flag `possible_loop`
     - avg_logprob < -1.0                                   -> keep, flag `low_confidence`
     """
 
-    def __init__(self, compression_ratio_threshold=2.4, log_prob_threshold=-1.0, no_speech_threshold=0.6):
-        self.crt, self.lpt, self.nst = compression_ratio_threshold, log_prob_threshold, no_speech_threshold
+    REPEAT_MAX_GAP_S = 2.0  # a repeat continues a loop only if it starts within this of the previous copy's end
+    PHRASE_NO_SPEECH_THRESHOLD = 0.3  # known hallucination phrase + (no_speech_prob above this
+    PHRASE_LOG_PROB_THRESHOLD = -0.7  #   or avg_logprob below this) = weak evidence of speech -> drop
+    LOOP_WINDOW = 5  # consecutive same-speaker segments checked together for a cross-segment loop
+    LOOP_WINDOW_MAX_SPAN_S = 30.0  # windows with a longer first-end-to-last-start gap are skipped
+
+    def __init__(
+        self,
+        compression_ratio_threshold: float = COMPRESSION_RATIO_THRESHOLD,
+        log_prob_threshold: float = LOG_PROB_THRESHOLD,
+        no_speech_threshold: float = NO_SPEECH_THRESHOLD,
+    ) -> None:
+        self.compression_ratio_threshold = compression_ratio_threshold
+        self.log_prob_threshold = log_prob_threshold
+        self.no_speech_threshold = no_speech_threshold
 
     def __call__(self, t: Transcript) -> Transcript:
         kept: list[Segment] = []
@@ -85,42 +96,44 @@ class QualityGate:
             cr = s.compression_ratio or 0.0
             key = _norm(s.text)
             prev_key, prev_end, run = last.get(s.speaker, ("", -1e9, 0))
-            run = run + 1 if (key and key == prev_key and s.start - prev_end < 2.0) else 1
+            run = run + 1 if (key and key == prev_key and s.start - prev_end < self.REPEAT_MAX_GAP_S) else 1
             last[s.speaker] = (key, s.end, run)  # updated for kept AND dropped segments
             reason = None
-            if ns > self.nst and lp < self.lpt:
+            if ns > self.no_speech_threshold and lp < self.log_prob_threshold:
                 reason = "no_speech"
-            elif cr > self.crt:
+            elif cr > self.compression_ratio_threshold:
                 reason = "repetition_loop"
             elif run >= 3 and (len(key.split()) >= 3 or run >= 4):
-                # Two identical sentences in a row are plausibly real (two people agreeing, or
-                # an echo); decoding loops repeat many times. Measured: dropping the 2nd copy
-                # deleted 9 real sentences in the 64-min test meeting (WER 1.48% -> 1.87%).
+                # Two identical sentences in a row are plausibly real (agreement, an echo);
+                # decoding loops repeat many times, so only later copies are dropped.
                 reason = "duplicate"
-            elif key in HALLUCINATION_PHRASES and (ns > 0.3 or lp < -0.7):
+            elif key in HALLUCINATION_PHRASES and (
+                ns > self.PHRASE_NO_SPEECH_THRESHOLD or lp < self.PHRASE_LOG_PROB_THRESHOLD
+            ):
                 reason = "hallucination_phrase"
-            elif "continued" in s.flags and lp < self.lpt:
+            elif "continued" in s.flags and lp < self.log_prob_threshold:
                 reason = "weak_continuation"
             if reason:
                 t.dropped.append(DroppedSegment(segment=s, reason=reason))
                 continue
-            if lp < self.lpt and "low_confidence" not in s.flags:
+            if lp < self.log_prob_threshold and "low_confidence" not in s.flags:
                 s.flags.append("low_confidence")
             kept.append(s)
         self._flag_windows(kept)
         t.segments = kept
         return t
 
-    def _flag_windows(self, segs: list[Segment], size: int = 5) -> None:
+    def _flag_windows(self, segs: list[Segment]) -> None:
+        size = self.LOOP_WINDOW
         by_speaker: dict[str | None, list[Segment]] = {}
         for s in segs:
             by_speaker.setdefault(s.speaker, []).append(s)
         for run in by_speaker.values():
             for i in range(len(run) - size + 1):
                 window = run[i : i + size]
-                if window[-1].start - window[0].end > 30:
+                if window[-1].start - window[0].end > self.LOOP_WINDOW_MAX_SPAN_S:
                     continue
-                if _compression_ratio(" ".join(x.text for x in window)) > self.crt:
+                if _compression_ratio(" ".join(x.text for x in window)) > self.compression_ratio_threshold:
                     for x in window:
                         if "possible_loop" not in x.flags:
                             x.flags.append("possible_loop")
@@ -186,20 +199,28 @@ def resegment_sentences(t: Transcript, *, max_gap_s: float = 1.0, max_len_s: flo
         srcs = list({id(src): src for _, src in cur}.values())
         words = [w for w, _ in cur]
         lps = [x.avg_logprob for x in srcs if x.avg_logprob is not None]
-        out.append(Segment(
-            start=words[0].start, end=words[-1].end, text="".join(w.word for w in words).strip(),
-            speaker=srcs[0].speaker, words=words,
-            avg_logprob=min(lps) if lps else None,
-            no_speech_prob=max((x.no_speech_prob or 0.0) for x in srcs),
-            compression_ratio=max((x.compression_ratio or 0.0) for x in srcs),
-            flags=sorted({f for x in srcs for f in x.flags}),
-        ))
+        out.append(
+            Segment(
+                start=words[0].start,
+                end=words[-1].end,
+                text="".join(w.word for w in words).strip(),
+                speaker=srcs[0].speaker,
+                words=words,
+                avg_logprob=min(lps) if lps else None,
+                no_speech_prob=max((x.no_speech_prob or 0.0) for x in srcs),
+                compression_ratio=max((x.compression_ratio or 0.0) for x in srcs),
+                flags=sorted({f for x in srcs for f in x.flags}),
+            )
+        )
         cur.clear()
 
     for seg in sorted(t.segments, key=lambda s: (s.speaker or "", s.start)):
         for w in seg.words:
-            if cur and (seg.speaker != cur[-1][1].speaker or w.start - cur[-1][0].end > max_gap_s
-                        or w.end - cur[0][0].start > max_len_s):
+            if cur and (
+                seg.speaker != cur[-1][1].speaker
+                or w.start - cur[-1][0].end > max_gap_s
+                or w.end - cur[0][0].start > max_len_s
+            ):
                 flush()
             cur.append((w, seg))
             if w.word.strip().endswith(_SENTENCE_END):
@@ -210,6 +231,7 @@ def resegment_sentences(t: Transcript, *, max_gap_s: float = 1.0, max_len_s: flo
 
 
 # --------------------------------------------------------------------------------------------- PII
+
 
 def _luhn_ok(digits: str) -> bool:
     total, parity = 0, len(digits) % 2
@@ -225,7 +247,9 @@ _GROUP_SEP = r"(?:[ .-]|, ?)?"  # card digit groups: permissive, because Luhn va
 _TLD = r"(?:com|org|net|edu|gov|io|co|uk|de|fr|info|biz|us|ca|au|in)"
 # ASR renders phone numbers as "415, 555, 0132" or "4155550132" - but so are prices and order
 # numbers ("250, 500, 1000 dollars"). Those loose forms count only near a phone-ish word.
-_PHONE_CONTEXT = re.compile(r"\b(?:phone|number|call|calling|reach|dial|text|cell|mobile|contact|ext|extension)\b", re.I)
+_PHONE_CONTEXT = re.compile(
+    r"\b(?:phone|number|call|calling|reach|dial|text|cell|mobile|contact|ext|extension)\b", re.I
+)
 PII_PATTERNS: list[tuple[str, re.Pattern]] = [
     ("EMAIL", re.compile(r"\b[\w.+-]+@[\w-]+(?:\.[\w-]+)+\b")),
     # ASR writes what was *said*: "john.smith at example dot com", "John.Smith.at.example.com".
@@ -237,6 +261,8 @@ PII_PATTERNS: list[tuple[str, re.Pattern]] = [
     ("PHONE?", re.compile(r"(?<![\w+])\d{3}(?:, ?)?\d{3}(?:, ?)?\d{4}\b")),  # loose 3-3-4: needs context
     ("PHONE", re.compile(r"(?<![\w-])\d{3}-\d{4}\b")),  # local 555-0132
 ]
+# Recorded in transcript.options["pii_redaction"]; bump when PII_PATTERNS or the span logic changes.
+PII_REDACTOR_VERSION = "regex-v3"
 
 
 def _card_span(text: str, start: int, end: int) -> tuple[int, int] | None:
@@ -275,7 +301,7 @@ def _pii_spans(text: str) -> list[tuple[int, int, str]]:
     return sorted(spans)
 
 
-def _merge_spans(spans):
+def _merge_spans(spans: list[tuple[int, int, str]]) -> list[tuple[int, int, str]]:
     out: list[list] = []
     for a, b, label in sorted(spans):
         if out and a < out[-1][1]:
@@ -285,7 +311,7 @@ def _merge_spans(spans):
     return [tuple(x) for x in out]
 
 
-def _apply_spans(text: str, spans) -> str:
+def _apply_spans(text: str, spans: list[tuple[int, int, str]]) -> str:
     for s, e, label in reversed(spans):
         text = text[:s] + f"[{label}]" + text[e:]
     return text
@@ -314,7 +340,7 @@ def redact_pii(t: Transcript) -> Transcript:
                     s.flags.append("redacted")
             if s.words and (sp or _align(s.words, original) is None):
                 s.words = _redact_words(s.words, original, sp)
-    t.options["pii_redaction"] = "regex-v3"
+    t.options["pii_redaction"] = PII_REDACTOR_VERSION
     return t
 
 
@@ -360,7 +386,7 @@ def _align(words: list[Word], text: str) -> list[tuple[int, int]] | None:
     return out
 
 
-def _redact_words(words: list[Word], text: str, spans) -> list[Word]:
+def _redact_words(words: list[Word], text: str, spans: list[tuple[int, int, str]]) -> list[Word]:
     bounds = _align(words, text)
     if bounds is None:
         # Words don't line up with the text (e.g. a hosted engine assigned a word to the

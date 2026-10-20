@@ -3,6 +3,8 @@
     API process   --INSERT job row + input blob-->   data/jobs.db + data/jobs/<id>/input
     worker procs  --claim (lease) / heartbeat / checkpoint per chunk / complete-->  result.json
 
+This module is the queue (JobStore); worker.py is the consumer that runs claimed jobs.
+
 Job rows live in SQLite (WAL mode, safe across processes); blobs live on disk.
 Production mapping is 1:1: SQLite -> Postgres (claim = SELECT ... FOR UPDATE SKIP
 LOCKED), job dirs -> object storage. Same lease/heartbeat/attempt semantics.
@@ -30,26 +32,22 @@ Guarantees:
 from __future__ import annotations
 
 import json
-import logging
 import os
 import re
 import shutil
-import socket
 import sqlite3
-import threading
 import time
 import uuid
 from contextlib import closing, contextmanager
 from pathlib import Path
 
-from .errors import PipelineError
-from .pipeline import DirCheckpointStore, Pipeline
+from .pipeline import DirCheckpointStore
 from .schemas import Job, JobError, TranscribeOptions, Transcript
-
-log = logging.getLogger(__name__)
 
 PRIORITY_SYNC, PRIORITY_ASYNC = 0, 1
 _JOB_ID = re.compile(r"[A-Za-z0-9_-]{1,64}")
+# Stopped worker rows are kept this long as "config last served" evidence for fail_stranded().
+_STOPPED_WORKER_RETENTION_S = 7 * 86400
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS jobs (
@@ -89,14 +87,6 @@ CREATE TABLE IF NOT EXISTS workers (
 """
 
 
-class LeaseLost(Exception):
-    """Another worker owns the job now (our lease expired); abandon without writing state."""
-
-
-class Interrupted(Exception):
-    """Worker is shutting down; release the job at a chunk boundary."""
-
-
 class JobStore:
     def __init__(self, root: Path):
         self.root = root
@@ -106,13 +96,6 @@ class JobStore:
         with closing(self._connect()) as c:
             c.execute("PRAGMA journal_mode=WAL")
             c.executescript(SCHEMA)
-            # Forward-only migrations for columns added after v1.0 (Postgres: a migration tool).
-            have = {r["name"] for r in c.execute("PRAGMA table_info(jobs)")}
-            for col, typ in (("max_duration_s", "REAL"), ("sha256", "TEXT")):
-                if col not in have:
-                    c.execute(f"ALTER TABLE jobs ADD COLUMN {col} {typ}")
-            if "stopped" not in {r["name"] for r in c.execute("PRAGMA table_info(workers)")}:
-                c.execute("ALTER TABLE workers ADD COLUMN stopped INTEGER NOT NULL DEFAULT 0")
 
     # ------------------------------------------------------------------ plumbing
     def _connect(self) -> sqlite3.Connection:
@@ -141,15 +124,23 @@ class JobStore:
     @staticmethod
     def _to_job(r: sqlite3.Row) -> Job:
         return Job(
-            id=r["id"], status=r["status"], filename=r["filename"],
+            id=r["id"],
+            status=r["status"],
+            filename=r["filename"],
             # Lenient load: rows written by an older version must stay readable even if today's
             # edge validation is stricter (the pipeline re-validates before doing any work).
             options=TranscribeOptions.model_construct(**json.loads(r["options"])),
-            created_at=r["created_at"], updated_at=r["updated_at"], started_at=r["started_at"],
-            finished_at=r["finished_at"], attempts=r["attempts"], progress=r["progress"],
-            processed_s=r["processed_s"], duration_s=r["duration_s"],
+            created_at=r["created_at"],
+            updated_at=r["updated_at"],
+            started_at=r["started_at"],
+            finished_at=r["finished_at"],
+            attempts=r["attempts"],
+            progress=r["progress"],
+            processed_s=r["processed_s"],
+            duration_s=r["duration_s"],
             error=JobError(code=r["error_code"], message=r["error_message"] or "", status=r["error_status"])
-            if r["error_code"] else None,
+            if r["error_code"]
+            else None,
         )
 
     # --------------------------------------------------------------------- blobs
@@ -173,9 +164,17 @@ class JobStore:
 
     # ---------------------------------------------------------------- API side
     def submit(
-        self, job_id: str, engine_key: str, upload: Path, filename: str | None,
-        options: TranscribeOptions, *, priority: int = PRIORITY_ASYNC, duration_s: float | None = None,
-        max_duration_s: float | None = None, sha256: str | None = None,
+        self,
+        job_id: str,
+        engine_key: str,
+        upload: Path,
+        filename: str | None,
+        options: TranscribeOptions,
+        *,
+        priority: int = PRIORITY_ASYNC,
+        duration_s: float | None = None,
+        max_duration_s: float | None = None,
+        sha256: str | None = None,
     ) -> tuple[Job, bool]:
         """Create the job, or return the existing one (idempotency).
 
@@ -187,8 +186,11 @@ class JobStore:
         now = time.time()
         with self._tx() as c:
             row = c.execute("SELECT * FROM jobs WHERE id=?", (job_id,)).fetchone()
-            permanent = row is not None and row["status"] == "failed" and (
-                row["error_code"] == "poison_job" or (row["error_status"] or 500) < 500)
+            permanent = (
+                row is not None
+                and row["status"] == "failed"
+                and (row["error_code"] == "poison_job" or (row["error_status"] or 500) < 500)
+            )
             if row is not None and (row["status"] != "failed" or permanent):
                 upload.unlink(missing_ok=True)
                 if row["status"] == "queued" and priority < row["priority"]:
@@ -201,8 +203,18 @@ class JobStore:
             c.execute(
                 "INSERT INTO jobs (id, engine_key, status, priority, filename, options, created_at, updated_at,"
                 " duration_s, max_duration_s, sha256) VALUES (?, ?, 'queued', ?, ?, ?, ?, ?, ?, ?, ?)",
-                (job_id, engine_key, priority, filename, options.model_dump_json(), now, now, duration_s,
-                 max_duration_s, sha256),
+                (
+                    job_id,
+                    engine_key,
+                    priority,
+                    filename,
+                    options.model_dump_json(),
+                    now,
+                    now,
+                    duration_s,
+                    max_duration_s,
+                    sha256,
+                ),
             )
         return self.get(job_id), True
 
@@ -216,9 +228,8 @@ class JobStore:
         r = self._one("SELECT * FROM jobs WHERE id=?", job_id)
         return self._to_job(r) if r else None
 
-    def queue_depth(self, engine_key: str | None = None) -> int:
-        if engine_key is None:
-            return self._one("SELECT COUNT(*) AS n FROM jobs WHERE status='queued'")["n"]
+    def queue_depth(self, engine_key: str) -> int:
+        """Number of jobs still queued for this engine's worker pool."""
         return self._one("SELECT COUNT(*) AS n FROM jobs WHERE status='queued' AND engine_key=?", engine_key)["n"]
 
     def delete(self, job_id: str, *, expired_before: float | None = None) -> bool:
@@ -242,9 +253,14 @@ class JobStore:
     def purge_expired(self, ttl_s: float) -> int:
         cutoff = time.time() - ttl_s
         with closing(self._connect()) as c:
-            ids = [r["id"] for r in c.execute(
-                "SELECT id FROM jobs WHERE (status IN ('succeeded','failed') AND updated_at < ?)"
-                " OR (status='running' AND lease_until < ?)", (cutoff, cutoff))]  # long-orphaned runs too
+            ids = [
+                r["id"]
+                for r in c.execute(
+                    "SELECT id FROM jobs WHERE (status IN ('succeeded','failed') AND updated_at < ?)"
+                    " OR (status='running' AND lease_until < ?)",
+                    (cutoff, cutoff),
+                )
+            ]  # long-orphaned runs too
         return sum(self.delete(i, expired_before=cutoff) for i in ids)
 
     def fail_stranded(self, older_than_s: float) -> int:
@@ -266,10 +282,15 @@ class JobStore:
 
     def stats(self) -> dict:
         with closing(self._connect()) as c:
-            by_status = {r["status"]: r["n"] for r in c.execute("SELECT status, COUNT(*) AS n FROM jobs GROUP BY status")}
-            audio = c.execute("SELECT COALESCE(SUM(duration_s), 0) AS s FROM jobs WHERE status='succeeded'").fetchone()["s"]
+            by_status = {
+                r["status"]: r["n"] for r in c.execute("SELECT status, COUNT(*) AS n FROM jobs GROUP BY status")
+            }
+            audio = c.execute("SELECT COALESCE(SUM(duration_s), 0) AS s FROM jobs WHERE status='succeeded'").fetchone()[
+                "s"
+            ]
             wait = c.execute(
-                "SELECT AVG(started_at - created_at) AS w FROM jobs WHERE started_at IS NOT NULL").fetchone()["w"]
+                "SELECT AVG(started_at - created_at) AS w FROM jobs WHERE started_at IS NOT NULL"
+            ).fetchone()["w"]
         return {"by_status": by_status, "audio_seconds_succeeded": audio, "avg_queue_wait_s": wait or 0.0}
 
     # ------------------------------------------------------------- worker side
@@ -296,8 +317,15 @@ class JobStore:
             )
         return self.get(row["id"])
 
-    def renew(self, job_id: str, worker_id: str, lease_s: float, *, progress: float | None = None,
-              processed_s: float | None = None) -> bool:
+    def renew(
+        self,
+        job_id: str,
+        worker_id: str,
+        lease_s: float,
+        *,
+        progress: float | None = None,
+        processed_s: float | None = None,
+    ) -> bool:
         now = time.time()
         with closing(self._connect()) as c:
             cur = c.execute(
@@ -351,7 +379,7 @@ class JobStore:
         with closing(self._connect()) as c:
             c.execute(
                 "INSERT OR REPLACE INTO workers (id, engine_key, model, pid, started_at, heartbeat, stopped)"
-            " VALUES (?,?,?,?,?,?,0)",
+                " VALUES (?,?,?,?,?,?,0)",
                 (worker_id, engine_key, model, os.getpid(), now, now),
             )
 
@@ -363,141 +391,17 @@ class JobStore:
         """Mark stopped rather than delete: the row remembers when this config was last served."""
         with closing(self._connect()) as c:
             c.execute("UPDATE workers SET stopped=1, heartbeat=? WHERE id=?", (time.time(), worker_id))
-            c.execute("DELETE FROM workers WHERE stopped=1 AND heartbeat < ?", (time.time() - 7 * 86400,))
+            c.execute(
+                "DELETE FROM workers WHERE stopped=1 AND heartbeat < ?", (time.time() - _STOPPED_WORKER_RETENTION_S,)
+            )
 
     def live_workers(self, engine_key: str, max_age_s: float) -> list[dict]:
         with closing(self._connect()) as c:
-            rows = c.execute("SELECT * FROM workers WHERE engine_key=? AND stopped=0 AND heartbeat > ?",
-                             (engine_key, time.time() - max_age_s)).fetchall()
+            rows = c.execute(
+                "SELECT * FROM workers WHERE engine_key=? AND stopped=0 AND heartbeat > ?",
+                (engine_key, time.time() - max_age_s),
+            ).fetchall()
         return [dict(r) for r in rows]
-
-
-class Worker:
-    """Pulls jobs for one engine config and runs them through the pipeline. One per GPU/process:
-    the model (and BatchedInferencePipeline, which holds mutable state) is never shared across threads."""
-
-    def __init__(
-        self, store: JobStore, pipeline: Pipeline, engine_key: str, *, lease_s: float = 60.0,
-        poll_s: float = 0.5, max_attempts: int = 3, worker_id: str | None = None,
-        stall_timeout_s: float = 1800.0, exit_on_stall: bool = False,
-    ):
-        self.store, self.pipeline, self.engine_key = store, pipeline, engine_key
-        self.lease_s, self.poll_s, self.max_attempts = lease_s, poll_s, max_attempts
-        self.stall_timeout_s, self.exit_on_stall = stall_timeout_s, exit_on_stall
-        self.id = worker_id or f"{socket.gethostname()}-{os.getpid()}-{uuid.uuid4().hex[:6]}"
-        self.stopping = threading.Event()
-        self.current: Job | None = None
-        self.healthy = True
-
-    def drain(self) -> None:
-        """SIGTERM: give the in-flight job back *now* (no attempt counted) instead of hoping the
-        current chunk finishes within the orchestrator's grace period. Another worker resumes it
-        from the last checkpoint; whatever this process still computes is discarded (lease lost)."""
-        self.stopping.set()
-        job = self.current
-        if job is not None:
-            self.store.release(job.id, self.id)
-
-    def run(self) -> None:
-        self.store.register_worker(self.id, self.engine_key, self.pipeline.engine.meta.model)
-        log.info("worker %s ready (engine_key=%s)", self.id, self.engine_key)
-        try:
-            while not self.stopping.is_set() and self.healthy:
-                self.store.worker_heartbeat(self.id)
-                if not self.run_once():
-                    self.stopping.wait(self.poll_s)
-        finally:
-            self.store.remove_worker(self.id)
-
-    def run_once(self) -> bool:
-        job = self.store.claim(self.id, self.engine_key, self.lease_s, self.max_attempts)
-        if job is None:
-            return False
-        self._process(job)
-        return True
-
-    def _process(self, job: Job) -> None:
-        state = {"lost": False, "last_progress": time.monotonic()}
-        done = threading.Event()
-        self.current = job
-
-        def heartbeat() -> None:
-            # Keeps the lease alive while one long chunk decodes - but only while the job is making
-            # progress. A hung decoder/driver call would otherwise hold the job forever (renewed
-            # lease, no quarantine, DELETE refused). After stall_timeout_s without a finished chunk
-            # we stop renewing: the lease lapses, the attempt counts, and the worker exits so the
-            # orchestrator restarts it.
-            while not done.wait(self.lease_s / 4):
-                try:
-                    if time.monotonic() - state["last_progress"] > self.stall_timeout_s:
-                        log.critical("job %s: no progress for %.0fs; abandoning lease", job.id, self.stall_timeout_s)
-                        state["lost"], self.healthy = True, False
-                        if self.exit_on_stall:
-                            os._exit(70)  # crash-only: a wedged native call can't be cancelled from Python
-                        return
-                    if not self.store.renew(job.id, self.id, self.lease_s):
-                        state["lost"] = True
-                    self.store.worker_heartbeat(self.id)
-                except Exception:  # a transient DB error must not silently end lease renewal
-                    log.exception("heartbeat failed; retrying")
-
-        last = [0.0]
-
-        def progress(done_s: float, total_s: float | None) -> None:  # called after each checkpointed chunk
-            state["last_progress"] = time.monotonic()
-            if state["lost"]:
-                raise LeaseLost(job.id)
-            if self.stopping.is_set():
-                raise Interrupted(job.id)
-            if time.time() - last[0] > 1.0:
-                last[0] = time.time()
-                frac = min(done_s / total_s, 0.99) if total_s else None
-                if not self.store.renew(job.id, self.id, self.lease_s, progress=frac, processed_s=done_s):
-                    raise LeaseLost(job.id)
-
-        hb = threading.Thread(target=heartbeat, name=f"hb-{job.id[:8]}", daemon=True)
-        hb.start()
-        log.info("job %s: start (attempt %d)", job.id, job.attempts)
-        params = self.store.run_params(job.id)
-        try:
-            transcript = self.pipeline.run(
-                # filename stays out of the transcript: with content-hash dedup the result is shared
-                # by everyone who uploads the same bytes, so one client's file name must not leak.
-                self.store.input_path(job.id), job.options, filename=None,
-                sha256=params.get("sha256"), max_duration_s=params.get("max_duration_s"),
-                progress=progress, checkpoints=self.store.checkpoints(job.id),
-            )
-        except LeaseLost:
-            log.warning("job %s: lease lost; abandoning (another worker owns it)", job.id)
-        except Interrupted:
-            log.info("job %s: released for shutdown", job.id)
-            self.store.release(job.id, self.id)  # no-op if drain() already released it
-        except PipelineError as e:
-            err = JobError(code=e.code, message=e.message)
-            if e.retryable and job.attempts < self.max_attempts:
-                delay = min(2 ** job.attempts, 60)  # exponential backoff; checkpoints make retries cheap
-                log.warning("job %s: %s (attempt %d), retrying in %ds", job.id, e.code, job.attempts, delay)
-                self.store.fail(job.id, self.id, err, e.status, retry_in=delay)
-            else:
-                self.store.fail(job.id, self.id, err, e.status)
-        except Exception as e:  # pragma: no cover - defensive: one bad job must not kill the worker loop
-            log.exception("job %s crashed", job.id)
-            self.store.fail(job.id, self.id, JobError(code="internal_error", message=str(e)), 500)
-        else:
-            try:
-                if self.store.complete(job.id, self.id, transcript):
-                    log.info("job %s: done (%.0fs audio, RTF %.3f)", job.id, transcript.duration_s, transcript.timing.rtf)
-                else:
-                    log.warning("job %s: finished after losing the lease; result kept, status untouched", job.id)
-            except Exception as e:  # e.g. disk full while persisting: retry later, keep the worker alive
-                log.exception("job %s: could not persist result", job.id)
-                err = JobError(code="storage_error", message=type(e).__name__)
-                retry = min(2 ** job.attempts, 60) if job.attempts < self.max_attempts else None  # bounded
-                self.store.fail(job.id, self.id, err, 500, retry_in=retry)
-        finally:
-            done.set()
-            self.current = None
-            hb.join(timeout=5)
 
 
 def job_id_for(sha256: str, options: TranscribeOptions, engine_key: str) -> str:

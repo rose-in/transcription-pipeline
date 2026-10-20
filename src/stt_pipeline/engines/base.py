@@ -27,12 +27,18 @@ class EngineResult:
 
 
 class Engine(Protocol):
+    max_chunk_s: float | None
+    """Largest chunk in seconds the engine accepts (e.g. a hosted API's upload cap), or None for no
+    limit of its own. The pipeline caps its chunk size to this."""
+
     @property
     def meta(self) -> ModelMeta: ...
 
     @property
     def engine_id(self) -> str:
-        """Stable identifier of model + decoding params; part of every cache/idempotency key."""
+        """Stable identifier of model + decoding params. Part of the per-chunk checkpoint fingerprint,
+        so a checkpoint is never reused across models or settings. (Job idempotency and worker
+        routing use Settings.engine_key(), which needs no loaded model.)"""
         ...
 
     def transcribe(
@@ -43,3 +49,7 @@ class Engine(Protocol):
         word_timestamps: bool = False,
         prompt: str | None = None,
     ) -> EngineResult: ...
+
+    def warmup(self) -> None:
+        """Pay one-off start-up cost (e.g. kernel initialisation) before serving. May be a no-op."""
+        ...

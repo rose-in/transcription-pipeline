@@ -19,4 +19,4 @@ $STT fixtures/long_meeting.mp3 --format txt    -o examples/long_meeting.txt
 $STT fixtures/long_meeting.mp3 --format chunks -o examples/long_meeting.chunks.json
 
 # Hostile input: precise error, no crash
-$STT fixtures/playlist_ssrf.mp3 --format json 2> examples/playlist_ssrf.stderr.txt || true
+$STT fixtures/playlist_ssrf.mp3 --format json 2>&1 >/dev/null | grep -v ' INFO ' > examples/playlist_ssrf.stderr.txt || true

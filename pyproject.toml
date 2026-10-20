@@ -2,15 +2,19 @@
 name = "stt-pipeline"
 version = "0.1.0"
 description = "Production-minded transcription pipeline: any audio in, timestamped transcript out"
-requires-python = ">=3.11"
+readme = "README.md"
+requires-python = ">=3.12"
 dependencies = [
-    "faster-whisper>=1.2.1,<2",
+    # <1.3: engines/faster_whisper_engine._SeekAware overrides the private
+    # WhisperModel._split_segments_by_timestamps hook; re-verify before widening.
+    "faster-whisper>=1.2.1,<1.3",
     "av>=14",
     "numpy>=1.26",
     "fastapi>=0.115",
     "uvicorn[standard]>=0.30",
     "python-multipart>=0.0.9",
     "httpx>=0.27",
+    "pydantic>=2",
 ]
 
 [project.optional-dependencies]
@@ -22,9 +26,9 @@ stt = "stt_pipeline.cli:main"
 
 [dependency-groups]
 dev = [
-    "httpx>=0.28.1",
     "jiwer>=4.0.0",
     "pytest>=9.1.1",
+    "ruff>=0.15",
     "whisper-normalizer>=0.1.12",
 ]
 
@@ -37,5 +41,14 @@ packages = ["src/stt_pipeline"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-markers = ["slow: runs a real Whisper model (deselect with -m 'not slow')"]
+addopts = "-m 'not slow'"
+markers = ["slow: runs a real Whisper model; deselected by default, run with `pytest -m slow`"]
 filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 120
+src = ["src", "scripts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+ignore = ["E501", "E731"]  # long lines are left to the formatter; short named lambdas in tests are fine
